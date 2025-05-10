@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use App\AI\Chat;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -12,23 +12,18 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::get('/chat', function () {
-    $helpresponse = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions',
-    [
-        "model" => "gpt-4.1-mini",
-        "messages" => [
-            [
-                "role" => "system",
-                "content" => "You are a helpful emotional mental health assistant."
-            ],
-            [
-                "role" => "user",
-                "content" => "Write about making someone feel better mentally."
-            ]
-        ]
-    ])->json('choices.0.message.content');
 
-    return view('chat',['helpresponse' => $helpresponse]);
+// AI CHAT
+Route::get('/chat', function () {
+
+    $chat = new Chat();
+
+    $helpresponse = $chat->systemMessage('You are a helpful emotional mental health assistant.')
+        ->send("Write about making someone feel better mentally.");
+
+    $helpresponse2 = $chat->reply("Make it in paragraph.");
+
+    return view('chat',['helpresponse' => $helpresponse2]);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
