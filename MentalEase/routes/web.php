@@ -13,22 +13,22 @@ Route::get('/about', function () {
 });
 
 Route::get('/chat', function () {
-    $response = Http::post('https://api.openai.com/v1/chat/completions',
+    $helpresponse = Http::withToken(config('services.openai.secret'))->post('https://api.openai.com/v1/chat/completions',
     [
-        "model" => "gpt-4.1",
+        "model" => "gpt-4.1-mini",
         "messages" => [
             [
                 "role" => "system",
-                "content" => "You are a helpful assistant."
+                "content" => "You are a helpful emotional mental health assistant."
             ],
             [
                 "role" => "user",
-                "content" => "Write a one-sentence bedtime story about a unicorn."
+                "content" => "Write about making someone feel better mentally."
             ]
         ]
-    ])->json();
+    ])->json('choices.0.message.content');
 
-    dd($response);
+    return view('chat',['helpresponse' => $helpresponse]);
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
