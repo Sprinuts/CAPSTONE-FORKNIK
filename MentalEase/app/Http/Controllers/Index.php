@@ -21,6 +21,9 @@ class Index extends Controller
             if ($user) {
                 // Assuming you have a session or authentication system in place
                 //session(['user' => $user]); uncomment later
+                if ($user->role === 'patient') {
+                    return redirect()->route('welcomepatient');
+                }
                 return redirect()->route('welcome'); // Redirect to the dashboard or home page
             } else {
                 return back()->withErrors(['Invalid credentials']);
@@ -43,8 +46,37 @@ class Index extends Controller
 
             $usersmodel->create($data);
 
-            return redirect()->route('welcome'); // Redirect to the welcome page or login page
+            return redirect()->route('welcomepatient'); // Redirect to the welcome page or login page
         }
         return view('login');
+    }
+
+    public function welcomepatient()
+    {
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('welcomepatient');
+    }
+
+    public function logout()
+    {
+
+        //session()->destroy(); uncomment later
+        return redirect()->route('login');
+    }
+
+    public function about()
+    {
+        return view('include/header')
+            .view('include/navbar')
+            .view('about');
+    }
+
+    public function appointment()
+    {
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment');
     }
 }

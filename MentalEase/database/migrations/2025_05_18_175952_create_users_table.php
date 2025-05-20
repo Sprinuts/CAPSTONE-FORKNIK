@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('password');
-            $table->string('status'); // activated or deactivated
+            $table->boolean('status')->default(false); // true = activated, false = deactivated
             $table->string('role'); // patient, psychologist, or admin
             $table->string('email')->unique();
             $table->string('username')->unique();

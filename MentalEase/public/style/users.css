@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+h3.text-center {
+    text-align: center;
+    color: #333;
+    margin-top: 20px;
+}
+
+.adjust {
+    width: 90%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.adjustBtn {
+    margin-bottom: 15px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    color: white;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+}
+
+.table {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+    background-color: #51b80d;
+    color: white;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+}
+
