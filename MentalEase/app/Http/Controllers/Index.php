@@ -1,54 +1,65 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use App\Mail\SendActivationCode;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 class Index extends Controller
 {
     public function login()
     {
         if (request()->isMethod('post')) {
-            $usersmodel = new \App\Models\Users();
 
             $credentials = request()->only(['username', 'password']);
 
-            $user = $usersmodel->where('username', $credentials['username'])
-                                ->where('password', $credentials['password'])
-                                ->first();
-            
+            $user = \App\Models\Users::where('username', $credentials['username'])->first();
+
             if ($user) {
                 // Assuming you have a session or authentication system in place
                 //session(['user' => $user]); uncomment later
-                if ($user->role === 'patient') {
+
+                if (Hash::check($credentials['password'], $user->password)) {
+                    // Password is correct
+                    // Set session or authentication state here
+                    // session(['user' => $user]); // Store user in session
+
+                    if ($user->role === 'patient') {
                     return redirect()->route('welcomepatient');
+                    }
+                    return redirect()->route('welcome');// Redirect to the dashboard or home page
+                } else {
+                    return back()->withErrors(['password' => 'Invalid credentials']);
                 }
-                return redirect()->route('welcome'); // Redirect to the dashboard or home page
             } else {
-                return back()->withErrors(['Invalid credentials']);
+                return back()->withErrors(['username' => 'Invalid credentials']);
             }
 
 
         }
-        return view('login');
+        return view('usercredentials/login');
     }
 
     public function register()
     {
         if (request()->isMethod('post')) {
+            $activationcode = rand(100000, 999999);
+
             $usersmodel = new \App\Models\Users();
 
-            $data = request()->only(['name', 'password', 'email', 'username']);
-            $data['role'] = 'patient'; 
+            $data = request()->only(['name', bcrypt('password'), 'email', 'username']);
+            $data['role'] = 'patient';
+            $data['activationcode'] = $activationcode;
 
             // Validate the data here if needed
 
             $usersmodel->create($data);
 
-            return redirect()->route('welcomepatient'); // Redirect to the welcome page or login page
+            Mail::to($data['email'])->send(new Sendactivationcode($activationcode));
+
+            return redirect()->route('activate'); // redirect to activation page
         }
-        return view('login');
+        return view('usercredentials/login');
     }
 
     public function welcomepatient()
@@ -63,7 +74,7 @@ class Index extends Controller
     {
 
         //session()->destroy(); uncomment later
-        return redirect()->route('login');
+        return redirect()->route('usercredentials/login');
     }
 
     public function about()

@@ -19,6 +19,15 @@
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route(name: 'appointment') }}">Appointment</a>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Assessments
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route(name: 'assessment.stress') }}">Stress</a></li>
+                        <li><a class="dropdown-item" href="{{ route(name: 'assessment.emotional') }}">Emotional</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item">
                 <a class="nav-link " href="{{ route('about') }}">About</a>
                 </li>

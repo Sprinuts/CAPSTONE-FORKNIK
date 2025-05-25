@@ -13,33 +13,37 @@ class Chat extends Controller
      * @return string
      */
     public function __invoke(Request $request): string
-    {
-
-        try {
-            /** @var array $response */
-            $response = Http::withHeaders([
-                "Content-Type" => "application/json",
-                "Authorization" => "Bearer " . env('OPENAI_API_KEY')
-            ])->post('https://api.openai.com/v1/chat/completions', [
-                "model" => $request->post('model'),
-                "messages" => [
-                    [
-                        "role" => "system",
-                        "content" => "You are a emotional support chatbot. You are here to help the user with their mental health issues. You are not a psychologist, but you can provide emotional support and guidance. You can also suggest resources for further help."
-                    ],
-                    [
-                        "role" => "user",
-                        "content" => $request->post('content')
-                    ]
+{
+    try {
+        $response = Http::withHeaders([
+            "Content-Type" => "application/json",
+            "Authorization" => "Bearer " . env('OPENAI_API_KEY')
+        ])->post('https://api.openai.com/v1/chat/completions', [
+            "model" => $request->post('model', 'gpt-3.5-turbo'), // default fallback
+            "messages" => [
+                [
+                    "role" => "system",
+                    "content" => "You are an emotional support chatbot. You are here to help the user with their mental health issues. You are not a psychologist, but you can provide emotional support and guidance. You can also suggest resources for further help. You also can understand filipino language, but if the user talks in english respond in english also. And answer only in a paragraph form."
                 ],
-                "temperature" => 0,
-                "max_tokens" => 2048
-            ])->body();
-            return $response['choices'][0]['message']['content'];
-        } catch (Throwable $e) {
-            return "Chat GPT Limit Reached.";
-        }
+                [
+                    "role" => "user",
+                    "content" => $request->post('content')
+                ]
+            ],
+            "temperature" => 0.7,
+            "max_tokens" => 2048
+        ]);
+
+        $data = $response->json(); // Properly decode response to array
+
+        return $data['choices'][0]['message']['content'] ?? 'No response generated.';
+    } catch (Throwable $e) {
+        // Optional: log the error for debugging
+        \Log::error('OpenAI error: ' . $e->getMessage());
+
+        return "ChatGPT error: " . $e->getMessage(); // Better feedback for now
     }
+}
 
     public function chatbot()
     {
