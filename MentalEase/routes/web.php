@@ -21,7 +21,7 @@ Route::post('/login', [Index::class, 'login'])->name('login');
 // register route
 Route::post('/register', [Index::class, 'register'])->name('register');
 
-Route::get('/activateaccount', [Index::class, 'register'])->name('register');
+Route::get('/activate', [Users::class, 'activate'])->name('activate');
 Route::post('/activate', [Users::class, 'activate'])->name('activate');
 
 Route::get('/email/activationcode', [Users::class, 'email/activationcode'])->name('email.activationcode');

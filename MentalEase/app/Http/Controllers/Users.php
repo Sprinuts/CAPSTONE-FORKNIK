@@ -27,6 +27,6 @@ class Users extends Controller
                 return back()->withErrors(['username' => 'User not found']);
             }
         }
-        return view('activateaccount');
+        return view('usercredentials/activateaccount');
     }
 }

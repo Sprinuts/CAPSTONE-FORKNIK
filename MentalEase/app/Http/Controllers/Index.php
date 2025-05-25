@@ -11,31 +11,25 @@ class Index extends Controller
     {
         if (request()->isMethod('post')) {
 
+            
+
             $credentials = request()->only(['username', 'password']);
 
-            $user = \App\Models\Users::where('username', $credentials['username'])->first();
+            $usersmodel = new \App\Models\Users();
+            $user = $usersmodel->where('username', $credentials['username'])
+                ->where('password', $credentials['password'])
+                ->first();
 
             if ($user) {
-                // Assuming you have a session or authentication system in place
-                //session(['user' => $user]); uncomment later
-
-                if (Hash::check($credentials['password'], $user->password)) {
-                    // Password is correct
-                    // Set session or authentication state here
-                    // session(['user' => $user]); // Store user in session
-
-                    if ($user->role === 'patient') {
-                    return redirect()->route('welcomepatient');
-                    }
-                    return redirect()->route('welcome');// Redirect to the dashboard or home page
+                if ($user->status == '1') { // Check if the account is activated
+                    session(['user' => $user]);
+                    return redirect()->route('welcomepatient'); // Redirect to welcome page
                 } else {
-                    return back()->withErrors(['password' => 'Invalid credentials']);
+                    return redirect()-route('activate/'. $user->username);
                 }
             } else {
-                return back()->withErrors(['username' => 'Invalid credentials']);
+                return back()->withErrors(['login' => 'Invalid username or password']);
             }
-
-
         }
         return view('usercredentials/login');
     }
@@ -47,7 +41,7 @@ class Index extends Controller
 
             $usersmodel = new \App\Models\Users();
 
-            $data = request()->only(['name', bcrypt('password'), 'email', 'username']);
+            $data = request()->only(['name', 'password', 'email', 'username']);
             $data['role'] = 'patient';
             $data['activationcode'] = $activationcode;
 

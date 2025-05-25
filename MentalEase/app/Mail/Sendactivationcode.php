@@ -23,9 +23,6 @@ class Sendactivationcode extends Mailable
         $this->activationcode = $activationcode;
     }
 
-    /**
-     * Get the message envelope.
-     */
     public function build()
     {
         return $this->subject('Activation Code')
@@ -33,32 +30,5 @@ class Sendactivationcode extends Mailable
             ->with([
                 'code' => $this->activationcode,
             ]);
-    }
-
-    public function envelope(): Envelope
-    {
-        return new Envelope(
-            subject: 'Sendactivationcode',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
-    }
-
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }
