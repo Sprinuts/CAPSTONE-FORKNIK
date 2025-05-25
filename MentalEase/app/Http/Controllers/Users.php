@@ -19,7 +19,7 @@ class Users extends Controller
                 if ($user->activationcode == $data['activationcode']) {
                     $user->status = '1';
                     $user->save();
-                    return redirect()->route('login')->with('success', 'Account activated successfully. You can now log in.');
+                    return redirect()->route('usercredentials/login')->with('success', 'Account activated successfully. You can now log in.');
                 } else {
                     return back()->withErrors(['activationcode' => 'Invalid activation code']);
                 }
