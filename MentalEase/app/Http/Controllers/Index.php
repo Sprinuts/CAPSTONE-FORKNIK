@@ -11,13 +11,11 @@ class Index extends Controller
     {
         if (request()->isMethod('post')) {
 
-            
-
-            $credentials = request()->only(['username', 'password']);
+            $data = request()->only(['username', 'password']);
 
             $usersmodel = new \App\Models\Users();
-            $user = $usersmodel->where('username', $credentials['username'])
-                ->where('password', $credentials['password'])
+            $user = $usersmodel->where('username', $data['username'])
+                ->where('password', $data['password'])
                 ->first();
 
             if ($user) {
@@ -25,7 +23,7 @@ class Index extends Controller
                     session(['user' => $user]);
                     return redirect()->route('welcomepatient'); // Redirect to welcome page
                 } else {
-                    return redirect()-route('activate/'. $user->username);
+                    return redirect()->route('activate', [$data['username']]);
                 }
             } else {
                 return back()->withErrors(['login' => 'Invalid username or password']);
@@ -41,6 +39,8 @@ class Index extends Controller
 
             $usersmodel = new \App\Models\Users();
 
+            //put here validation of data
+
             $data = request()->only(['name', 'password', 'email', 'username']);
             $data['role'] = 'patient';
             $data['activationcode'] = $activationcode;
@@ -51,7 +51,7 @@ class Index extends Controller
 
             Mail::to($data['email'])->send(new Sendactivationcode($activationcode));
 
-            return redirect()->route('activate'); // redirect to activation page
+            return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }
         return view('usercredentials/login');
     }

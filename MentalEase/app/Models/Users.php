@@ -19,5 +19,20 @@ class Users extends Model
         'resetcode',
     ];
 
-    public $timestamps = true;
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class, 'psychometrician_id');
+    }
+
+    // Appointments made by this user (if patient)
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class, 'user_id');
+    }
+
+    // Appointments where the user is the psychometrician
+    public function psychometricianAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'psychometrician_id');
+    }
 }

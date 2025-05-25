@@ -6,27 +6,28 @@ use Illuminate\Http\Request;
 
 class Users extends Controller
 {
-    public function activate()
-    {
-        if (request()->isMethod('post')) {
-            $data = request()->only(['username', 'activationcode']);
+    public function activate(Request $request, $username)
+{
+    if ($request->isMethod('post')) {
+        $data = $request->only(['activationcode']);
 
-            $username = request()->input('username');
+        $user = \App\Models\Users::where('username', $username)->first();
 
-            $user = \App\Models\Users::where('username', $username)->first();
+        if ($user) {
+            if ($user->activationcode == $data['activationcode']) {
+                $user->status = '1';
+                $user->save();
 
-            if ($user) {
-                if ($user->activationcode == $data['activationcode']) {
-                    $user->status = '1';
-                    $user->save();
-                    return redirect()->route('usercredentials/login')->with('success', 'Account activated successfully. You can now log in.');
-                } else {
-                    return back()->withErrors(['activationcode' => 'Invalid activation code']);
-                }
+                return redirect()->route('login')->with('success', 'Account activated successfully. You can now log in.');
             } else {
-                return back()->withErrors(['username' => 'User not found']);
+                return back()->withErrors(['activationcode' => 'Invalid activation code']);
             }
+        } else {
+            return back()->withErrors(['username' => 'User not found']);
         }
-        return view('usercredentials/activateaccount');
     }
+
+    // Pass the username to the view
+    return view('usercredentials/activateaccount', compact('username'));
+}
 }

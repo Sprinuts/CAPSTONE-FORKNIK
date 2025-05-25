@@ -11,13 +11,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ route('welcomepatient') }}">Home</a>
+                <a class="nav-link" aria-current="page" href="{{ route('welcomeadmin') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route('chatbot') }}">ChatBot</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route(name: 'appointment.selectPsychometrician') }}">Appointment</a>  
+                    <a class="nav-link " href="{{ route(name: 'usersview') }}">Users</a>  
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
