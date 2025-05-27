@@ -14,19 +14,7 @@
                 <a class="nav-link" aria-current="page" href="{{ route('welcomeadmin') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="{{ route(name: 'usersview') }}">Users</a>  
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Assessments
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route(name: 'assessment.stress') }}">Stress</a></li>
-                        <li><a class="dropdown-item" href="{{ route(name: 'assessment.emotional') }}">Emotional</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link " href="{{ route('about') }}">About</a>
+                    <a class="nav-link " href="{{ route(name: 'users.view') }}">Manage Users</a>  
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

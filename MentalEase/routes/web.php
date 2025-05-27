@@ -63,3 +63,17 @@ Route::get('/appointment/choose/{id}', [AppointmentController::class, 'chooseSch
 Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->name('appointment.payment');
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
+
+
+// welome for admin
+Route::get('/welcomeadmin', [Index::class, 'welcomeadmin'])->name('welcomeadmin');
+
+// admin user management
+Route::get('/usersview', [Users::class, 'usersview'])->name('users.view');
+Route::get('/users/add', [Users::class, 'usersadd'])->name('users.add');
+Route::post('/users/add', [Users::class, 'usersadd'])->name('users.add');
+Route::get('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
+Route::get('/users/delete/{id}', [Users::class, 'usersdelete'])->name('users.delete');
+
+// consultation
+Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('activationcode')->nullable();
             $table->string('resetcode')->nullable();
+            $table->string('contactnumber');
         });
     }
 

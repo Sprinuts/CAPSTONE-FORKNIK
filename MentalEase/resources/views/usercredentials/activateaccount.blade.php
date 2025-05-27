@@ -8,3 +8,5 @@
         <button type="submit">Activate Account</button>
     </form>
 </div>
+
+<h1>DESIGN PLS</h1>

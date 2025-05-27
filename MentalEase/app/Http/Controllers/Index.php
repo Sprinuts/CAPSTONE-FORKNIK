@@ -21,7 +21,11 @@ class Index extends Controller
             if ($user) {
                 if ($user->status == '1') { // Check if the account is activated
                     session(['user' => $user]);
-                    return redirect()->route('welcomepatient'); // Redirect to welcome page
+                    if ($user->role == 'patient'){
+                        return redirect()->route('welcomepatient'); // Redirect to welcome page
+                    } else if ($user->role == 'admin'){
+                        return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
+                    }
                 } else {
                     return redirect()->route('activate', [$data['username']]);
                 }
@@ -64,11 +68,19 @@ class Index extends Controller
             .view('welcomepatient');
     }
 
+    public function welcomeadmin()
+    {
+        return view('include/headeradmin')
+            .view('include/navbaradmin')
+            .view('welcome/welcomeadmin');
+    }
+
     public function logout()
     {
 
-        //session()->destroy(); uncomment later
-        return redirect()->route('usercredentials/login');
+        session()->forget('user');
+        session()->flush();
+        return redirect()->route('login');
     }
 
     public function about()
@@ -83,5 +95,12 @@ class Index extends Controller
         return view('include/header')
             .view('include/navbar')
             .view('appointment');
+    }
+
+    public function consultation()
+    {
+        return view('include/header')
+            .view('include/navbar')
+            .view('welcome/welcomepatient'); // temporary
     }
 }
