@@ -28,14 +28,18 @@
   </div>
   <!-- End Header -->
 
-  <!-- Chat -->
-  <div class="messages">
-    <div class="left message">
-      <img src="{{ asset('style/botpic.jpg') }}" alt="Avatar" style="width: 40px; height: 40px; object-fit: cover;">
-      <p>Hello! How are you?</p>
-    </div>
+<!-- Chat -->
+<div class="messages">
+  <div class="left message">
+    <img src="{{ asset('style/botpic.jpg') }}" alt="Avatar" style="width: 40px; height: 40px; object-fit: cover;">
+    <p>Hello! How are you?</p>
   </div>
-  <!-- End Chat -->
+</div>
+<!-- Loading indicator -->
+<div class="loading" style="display:none; text-align:center; margin:10px;">
+  <span>Aira is typing...</span>
+</div>
+<!-- End Chat -->
 
   <!-- Footer -->
   <div class="bottom">
@@ -62,6 +66,9 @@
     //Disable form
     $("form #message").prop('disabled', true);
     $("form button").prop('disabled', true);
+
+    // Show loading indicator
+    $(".loading").show();
 
     $.ajax({
       url: "/chatbot",
@@ -94,8 +101,14 @@
       //Enable form
       $("form #message").prop('disabled', false);
       $("form button").prop('disabled', false);
+
+      // Hide loading indicator
+      $(".loading").hide();
+    }).fail(function() {
+      // Hide loading indicator even on error
+      $(".loading").hide();
+      $("form #message").prop('disabled', false);
+      $("form button").prop('disabled', false);
     });
   });
-
 </script>
-</html>

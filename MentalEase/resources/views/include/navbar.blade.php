@@ -37,6 +37,17 @@
             </ul>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
+                    <a class="nav-link position-relative" href="{{ route('notification') }}">
+                        <i class="fa-solid fa-bell"></i>
+                        @if(isset($notificationCount) && $notificationCount > 0)
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                {{ $notificationCount }}
+                                <span class="visually-hidden">unread notifications</span>
+                            </span>
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
                 <a class="Btn" href="{{ route('logout') }}">
                     <div class="sign">  
                         <i class="fa-solid fa-right-from-bracket"></i>

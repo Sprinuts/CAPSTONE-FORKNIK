@@ -13,8 +13,14 @@
                 <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{ route('welcomeadmin') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route(name: 'users.view') }}">Manage Users</a>  
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Manage Users
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route(name: 'users.view') }}">View Users</a></li>
+                        <li><a class="dropdown-item" href="{{ route(name: 'users.archive') }}">View Archive</a></li>
+                    </ul>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

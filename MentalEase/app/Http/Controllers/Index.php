@@ -45,7 +45,7 @@ class Index extends Controller
 
             //put here validation of data
 
-            $data = request()->only(['name', 'password', 'email', 'username']);
+            $data = request()->only(['name', 'password', 'email', 'username', 'contactnumber']);
             $data['role'] = 'patient';
             $data['activationcode'] = $activationcode;
 

@@ -21,9 +21,8 @@
                     <td><?= $user['status'] == 1 ? 'Activated' : 'Deactivated'; ?></td>
                     <td><?= strtolower($user['role']) == 'itso' ? strtoupper($user['role']) : ucfirst($user['role']); ?></td>
                     <td>
-                        <a href=" {{ route('users.idview',$user['id']) }}  " class="btn btn-sm btn-secondary">View</a>
-                        <a href=" {{ route('users.edit',$user['id']) }}  " class="btn btn-sm btn-secondary">Edit</a>
-                        <a href=" {{ route('users.disable',$user['id']) }} " class="btn btn-sm btn-danger">Disable</a>
+                        <a href=" {{ route('users.idview.disabled',$user['id']) }} " class="btn btn-sm btn-primary">View</a>
+                        <a href=" {{ route('users.enable',$user['id']) }} " class="btn btn-sm btn-danger">Enable</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>
