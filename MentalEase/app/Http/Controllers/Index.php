@@ -103,4 +103,10 @@ class Index extends Controller
             .view('include/navbar')
             .view('welcome/welcomepatient'); // temporary
     }
+
+    public function myrecords()
+    {
+        return view('myrecords'); //temporary
+    }
+
 }

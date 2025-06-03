@@ -64,9 +64,16 @@ Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
 
+//myrecord
+Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
+
+// User profile
+Route::get('/profile', [Users::class, 'profile'])->name('profile');
+Route::post('/profile/update', [Users::class, 'updateProfile'])->name('profile.update');
 
 // welome for admin
 Route::get('/welcomeadmin', [Index::class, 'welcomeadmin'])->name('welcomeadmin');
+
 
 // admin user management
 Route::get('/usersview', [Users::class, 'usersview'])->name('users.view');

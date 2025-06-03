@@ -3,6 +3,7 @@
 
 <link rel="stylesheet" href="{{ asset('style/homeepage.css') }}">
 
+
 <section class="bg-blue-100 py-20">
     <div class="container mx-auto px-6 text-center">
       <h2 class="text-4xl font-bold text-blue-800 mb-4">Welcome to MentalEase</h2>
@@ -53,3 +54,4 @@
     <p class="mb-6 text-lg">Let MentalEase support your mental wellness journey.</p>
 
   </section>
+</div>

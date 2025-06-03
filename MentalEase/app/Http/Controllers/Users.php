@@ -101,4 +101,53 @@ class Users extends Controller
 
         return redirect()->route('users.archive')->withErrors(['user' => 'User not found']);
     }
+
+    public function profile()
+    {
+        $user = session('user');
+        
+        return view('include/header')
+            .view('include/navbar')
+            .view('users/profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = \App\Models\Users::find(session('user')->id);
+        
+        if ($user) {
+            // Only update fields that are provided
+            if ($request->filled('name')) {
+                $user->name = $request->name;
+            }
+            
+            if ($request->filled('email')) {
+                $user->email = $request->email;
+            }
+            
+            if ($request->filled('contactnumber')) {
+                $user->contactnumber = $request->contactnumber;
+            }
+            
+            // Handle password change if provided
+            if ($request->filled('password') && $request->filled('password_confirmation')) {
+                if ($request->password === $request->password_confirmation) {
+                    $user->password = $request->password;
+                } else {
+                    return redirect()->back()->withErrors(['password' => 'Passwords do not match']);
+                }
+            }
+            
+            $user->save();
+            
+            // Update session data
+            session(['user' => $user]);
+            
+            return redirect()->route('profile')->with('success', 'Profile updated successfully');
+        }
+        
+        return redirect()->back()->withErrors(['user' => 'User not found']);
+    }
 }
+
+
