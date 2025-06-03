@@ -1,6 +1,6 @@
 /* Navbar Styles */
 .navbar {
-    background-color: #66948a; /* Green background */
+    background-color: #74c476; /* Green background */
     padding: 0.5rem 1rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
     display: flex;
@@ -32,7 +32,7 @@
 
 /* Navbar Toggler Icon */
 .navbar-toggler-icon {
-    background-color: #63a6a6; /* White icon */
+    background-color: #41AB5D; /* White icon */
 }
 
 /* Navbar Right Section (for Logout Button) */
@@ -50,7 +50,7 @@
     justify-content: center;
     width: 120px; /* Smaller width */
     height: 40px; /* Reduced height */
-    background-color: #63a6a6; /* Green background */
+    background-color: #41AB5D; /* Green background */
     color: white;
     border: none;
     border-radius: 20px; /* Subtle rounded edges */
@@ -77,7 +77,7 @@
 
 /* Hover Effects for Button */
 .Btn:hover {
-    background-color: #63a6a6; /* Slightly darker green on hover */
+    background-color: #41AB5D; /* Slightly darker green on hover */
     transform: scale(1.02); /* Subtle hover effect */
 }
 
