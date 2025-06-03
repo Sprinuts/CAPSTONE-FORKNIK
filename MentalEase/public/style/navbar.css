@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
@@ -6,6 +7,13 @@
     width: 220px;
     height: 100vh;
     background-color: #2D6A4F;
+=======
+/* Navbar Styles */
+.navbar {
+    background-color: #74c476; /* Green background */
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+>>>>>>> origin/main
     display: flex;
     align-items: center;
 }
@@ -97,7 +105,11 @@
 
 /* Navbar Toggler Icon */
 .navbar-toggler-icon {
+<<<<<<< HEAD
     background-color: #4CAF50; /* White icon */
+=======
+    background-color: #41AB5D; /* White icon */
+>>>>>>> origin/main
 }
 
 /* Navbar Right Section (for Logout Button) */
@@ -115,7 +127,11 @@
     justify-content: center;
     width: 120px; /* Smaller width */
     height: 40px; /* Reduced height */
+<<<<<<< HEAD
     background-color: rgb(41, 215, 67); /* Green background */
+=======
+    background-color: #41AB5D; /* Green background */
+>>>>>>> origin/main
     color: white;
     border: none;
     border-radius: 20px; /* Subtle rounded edges */
@@ -142,7 +158,11 @@
 
 /* Hover Effects for Button */
 .Btn:hover {
+<<<<<<< HEAD
     background-color: #3cba5f; /* Slightly darker green on hover */
+=======
+    background-color: #41AB5D; /* Slightly darker green on hover */
+>>>>>>> origin/main
     transform: scale(1.02); /* Subtle hover effect */
 }
 
