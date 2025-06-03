@@ -3,6 +3,7 @@
 <head>
   <title>Chat</title>
   <link rel="icon" href="https://assets.edlin.app/favicon/favicon.ico"/>
+
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <!-- JavaScript -->
@@ -11,6 +12,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('style/chat.css') }}">
+  <link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
   <!-- End CSS -->
 
 </head>
@@ -28,18 +30,14 @@
   </div>
   <!-- End Header -->
 
-<!-- Chat -->
-<div class="messages">
-  <div class="left message">
-    <img src="{{ asset('style/botpic.jpg') }}" alt="Avatar" style="width: 40px; height: 40px; object-fit: cover;">
-    <p>Hello! How are you?</p>
+  <!-- Chat -->
+  <div class="messages">
+    <div class="left message">
+      <img src="{{ asset('style/botpic.jpg') }}" alt="Avatar" style="width: 40px; height: 40px; object-fit: cover;">
+      <p>Hello! How are you?</p>
+    </div>
   </div>
-</div>
-<!-- Loading indicator -->
-<div class="loading" style="display:none; text-align:center; margin:10px;">
-  <span>Aira is typing...</span>
-</div>
-<!-- End Chat -->
+  <!-- End Chat -->
 
   <!-- Footer -->
   <div class="bottom">
@@ -66,9 +64,6 @@
     //Disable form
     $("form #message").prop('disabled', true);
     $("form button").prop('disabled', true);
-
-    // Show loading indicator
-    $(".loading").show();
 
     $.ajax({
       url: "/chatbot",
@@ -101,14 +96,8 @@
       //Enable form
       $("form #message").prop('disabled', false);
       $("form button").prop('disabled', false);
-
-      // Hide loading indicator
-      $(".loading").hide();
-    }).fail(function() {
-      // Hide loading indicator even on error
-      $(".loading").hide();
-      $("form #message").prop('disabled', false);
-      $("form button").prop('disabled', false);
     });
   });
+
 </script>
+</html>

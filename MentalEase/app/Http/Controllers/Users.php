@@ -34,7 +34,7 @@ class Users extends Controller
     public function usersview()
     {
         
-        $usersmodel = \App\Models\Users::where('disable', false);
+        $usersmodel = new \App\Models\Users();
 
         //$data['users'] = $usersmodel->get()->getResult();
         $users = $usersmodel->paginate(10);
@@ -56,7 +56,7 @@ class Users extends Controller
             $usersmodel = new \App\Models\Users();
             $usersmodel->create($data);
 
-            return redirect()->route('users.view')->with('success', 'User added successfully.');
+            return redirect()->route('usersview')->with('success', 'User added successfully.');
         }
         return view('include/headeradmin')
             .view('include/navbaradmin')
@@ -68,63 +68,22 @@ class Users extends Controller
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
-        if (request()->isMethod('post')) {
-            $data = request()->only(['name', 'username', 'email', 'role', 'contactnumber']);
-            // Update the user data
-            $user->update($data);
 
-            return redirect()->route('users.view')->with('success', 'User updated successfully.');
-        }
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('users/usersedit', compact('user'));
     }
 
-    public function usersidview($id)
-    {
-        $usersmodel = new \App\Models\Users();
-        $user = $usersmodel->find($id);
-
-        return view('include/headeradmin')
-            .view('include/navbaradmin')
-            .view('users/usersidview', compact('user'));
-    }
-
-    public function usersdisable($id)
+    public function usersupdate($id)
     {
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
 
-        if ($user) {
-            $user->disable = '1'; // Disable the user
-            $user->save();
-
-            return redirect()->route('users.view')->with('success', 'User disabled successfully.');
-        }
-
-        return redirect()->route('users.view')->withErrors(['user' => 'User not found']);
-    }
-
-    public function usersarchive()
-    {
-        $usersmodel = \App\Models\Users::where('disable', true);
-
-        $users = $usersmodel->paginate(10);
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
-            .view('users/usersarchive', compact('users'));
-    }
-
-    public function usersidviewdisabled($id)
-    {
-        $usersmodel = \App\Models\Users::where('disable', true);
-        $user = $usersmodel->find($id);
-
-        return view('include/headeradmin')
-            .view('include/navbaradmin')
-            .view('users/usersidviewdisabled', compact('user'));
+            .view('users/usersdelete', compact('user'));
     }
 }

@@ -1,10 +1,75 @@
-/* Navbar Styles */
-.navbar {
-    background-color: #66948a; /* Green background */
-    padding: 0.5rem 1rem;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    height: 100vh;
+    background-color: #2D6A4F;
     display: flex;
     align-items: center;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+}
+
+.logo-img-wrapper {
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%; /* Increase this value to move the image further down */
+    display: block;
+}
+
+.logo-text {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.1;
+}
+
+
+.main-content {
+    margin-left: 220px; /* Same as .sidebar width */
+    padding: 2rem; /* Optional: spacing inside main content */
+}
+
+
+.sidebar .navbar-brand img {
+    height: 60px;
+    margin-bottom: 2rem;
+}
+
+.navbar-nav.flex-column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 0;
+}
+
+.navbar-nav .nav-item {
+    margin-right: 12px; /* Adjust spacing as needed */
+}
+
+/* Optional: remove margin from last item to avoid overflow */
+.navbar-nav .nav-item:last-child {
+    margin-right: 0;
 }
 
 /* Navbar Logo */
@@ -32,7 +97,7 @@
 
 /* Navbar Toggler Icon */
 .navbar-toggler-icon {
-    background-color: #63a6a6; /* White icon */
+    background-color: #4CAF50; /* White icon */
 }
 
 /* Navbar Right Section (for Logout Button) */
@@ -50,7 +115,7 @@
     justify-content: center;
     width: 120px; /* Smaller width */
     height: 40px; /* Reduced height */
-    background-color: #63a6a6; /* Green background */
+    background-color: rgb(41, 215, 67); /* Green background */
     color: white;
     border: none;
     border-radius: 20px; /* Subtle rounded edges */
@@ -77,11 +142,131 @@
 
 /* Hover Effects for Button */
 .Btn:hover {
-    background-color: #63a6a6; /* Slightly darker green on hover */
+    background-color: #3cba5f; /* Slightly darker green on hover */
     transform: scale(1.02); /* Subtle hover effect */
 }
 
 /* Active Button Effect */
 .Btn:active {
     transform: scale(0.98); /* Shrink slightly on click */
+}
+
+.sidebar-logout {
+    width: 100%;
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    background: #2D6A4F;
+}
+
+.sidebar-logout .nav-link {
+    color: #fff;
+    font-size: 1rem;
+    padding: 0;
+    background: none;
+    border: none;
+    border-radius: 0;
+    transition: color 0.2s;
+}
+
+.sidebar-logout .nav-link:hover {
+    color: #b7c9b7;
+}
+
+.sidebar-profile-link {
+    text-decoration: none;
+    display: block;
+    margin-top: 4rem;
+}
+
+.sidebar-profile-link:hover .sidebar-profile {
+    background: #24543d;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+/* Hamburger menu styles */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    background: #2D6A4F;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    z-index: 1050;
+}
+
+@media (max-width: 900px) {
+    .sidebar {
+        left: -240px;
+        transition: left 0.3s;
+        width: 220px;
+        overflow-y: auto;
+        max-height: 100vh;
+    }
+    .sidebar.open {
+        left: 0;
+        box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+    }
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    .sidebar-toggle {
+        display: block;
+    }
+    .sidebar-overlay.active {
+        display: block;
+    }
+    .logo-text {
+        font-size: 1rem;
+    }
+    .navbar-nav .nav-item .nav-link,
+    .navbar-nav .nav-item .Btn {
+        padding: 0.9rem 1.2rem;
+        font-size: 1rem;
+    }
+    .sidebar-profile {
+        padding: 1rem 1rem 0.5rem 1rem;
+    }
+    .sidebar-logout {
+        padding: 1rem 1rem 1.2rem 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        width: 90vw;
+        min-width: 140px;
+        max-width: 100vw;
+        font-size: 0.95rem;
+    }
+    .logo-text {
+        font-size: 0.95rem;
+    }
+    .navbar-nav .nav-item .nav-link,
+    .navbar-nav .nav-item .Btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+    .sidebar-profile {
+        padding: 0.8rem 0.8rem 0.4rem 0.8rem;
+    }
+    .sidebar-logout {
+        padding: 0.8rem 0.8rem 1rem 0.8rem;
+    }
 }

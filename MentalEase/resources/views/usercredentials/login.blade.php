@@ -16,6 +16,12 @@
         <form action="{{ ('register') }}" class="sign-up-form" method="POST" id="sign-up-form">
             @csrf
             <h1>Register</h1>
+<<<<<<< HEAD
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="text" name="name" id="name" placeholder="Name">
+            <input type="email" name="email" id="email" placeholder="Email">
+            <input type="password" name="password" id="password" placeholder="Password">
+=======
             <input type="text" name="username" id="username" placeholder="Username" required>
             <input type="text" name="name" id="name" placeholder="Full Name" required>
             <input type="email" name="email" id="email" placeholder="Email" required>
@@ -24,6 +30,7 @@
                 <input type="password" name="password" id="password" placeholder="Password" required>
                 <i id="eyePassword" class="fa-solid fa-eye-slash toggle-icon" onclick="togglePassword('password', 'eyePassword')"></i>
             </div>
+>>>>>>> origin/main
             <button type="submit" id="sign-up-btn">Register</button>
         </form>
     </div>

@@ -70,18 +70,9 @@ Route::get('/welcomeadmin', [Index::class, 'welcomeadmin'])->name('welcomeadmin'
 
 // admin user management
 Route::get('/usersview', [Users::class, 'usersview'])->name('users.view');
-Route::get('/users/idview/{id}', [Users::class, 'usersidview'])->name('users.idview');
 Route::get('/users/add', [Users::class, 'usersadd'])->name('users.add');
 Route::post('/users/add', [Users::class, 'usersadd'])->name('users.add');
 Route::get('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
-Route::post('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
-Route::get('/users/disable/{id}', [Users::class, 'usersdisable'])->name('users.disable');
-Route::get('/users/enable/{id}', [Users::class, 'usersenable'])->name('users.enable');
-Route::get('/usersarchive', [Users::class, 'usersarchive'])->name('users.archive');
-Route::get('/users/idview/disabled/{id}', [Users::class, 'usersidviewdisabled'])->name('users.idview.disabled');
+Route::get('/users/delete/{id}', [Users::class, 'usersdelete'])->name('users.delete');
 
-// consultation
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');
-
-// notification
-Route::get('/notification', [Index::class, 'notification'])->name('notification');
