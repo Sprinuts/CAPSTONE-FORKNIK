@@ -13,7 +13,7 @@ class Index extends Controller
 
             $data = request()->only(['username', 'password']);
 
-            $usersmodel = \App\Models\Users::where('disable', false);
+            $usersmodel = new \App\Models\Users();
             $user = $usersmodel->where('username', $data['username'])
                 ->where('password', $data['password'])
                 ->first();
