@@ -2,15 +2,24 @@
     <link rel="stylesheet" href="{{ asset('style/usersedit.css') }} ">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <div class="col col-md-7">
-
-        <form action="{{ route('users.edit')}}" method="post" class="adjust">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form action="{{ route('users.edit', $user->id)}}" method="post" class="adjust">
+            @csrf
             <div class="form-group mb-2">
                 <label for="username" class="form-label">Username</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                     </div>
-                    <input type="text" name="username" id="username" class="form-control" value="<?= $user['username']; ?>">
+                    <input type="text" name="username" id="username" class="form-control" value="{{ old('username', $user->username) }}">
                 </div>
             </div>
             <div class="form-group mb-2">
@@ -19,7 +28,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
                     </div>
-                    <input type="text" name="name" id="name" class="form-control" value="<?= $user['name']; ?>">
+                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
                 </div>
             </div>
             <div class="form-group mb-2">
@@ -28,7 +37,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-envelope-open-text"></i></span>
                     </div>
-                    <input type="email" name="email" id="email" class="form-control" value="<?= $user['email']; ?>">
+                    <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $user->email) }}">
                 </div>
             </div>
             <div class="form-group mb-2">
@@ -38,10 +47,19 @@
                         <span class="input-group-text"><i class="fas fa-users-cog"></i></span>
                     </div>
                     <select name="role" id="role" class="form-control">
-                        <option value="patient" <?= $user['role'] == 'patient' ? 'selected' : ''; ?>>Patient</option>
-                        <option value="admin" <?= $user['role'] == 'admin' ? 'selected' : ''; ?>>Admin</option>
-                        <option value="psychometrician" <?= $user['role'] == 'psychometrician' ? 'selected' : ''; ?>>Psychometrician</option>
+                        <option value="patient" {{ old('role', $user->role) == 'patient' ? 'selected' : '' }}>Patient</option>
+                        <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="psychometrician" {{ old('role', $user->role) == 'psychometrician' ? 'selected' : '' }}>Psychometrician</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="contactnumber" class="form-label">Contact Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
+                    </div>
+                    <input type="text" name="contactnumber" id="contactnumber" class="form-control" value="{{ old('contactnumber', $user->contactnumber) }}">
                 </div>
             </div>
             <div class="form-group">

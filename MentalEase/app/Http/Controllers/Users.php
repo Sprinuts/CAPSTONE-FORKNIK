@@ -73,7 +73,7 @@ class Users extends Controller
             // Update the user with the provided data
             $user->update($data);
 
-            return redirect()->route('usersview')->with('success', 'User updated successfully.');
+            return redirect()->route('users.view')->with('success', 'User updated successfully.');
         }
 
         return view('include/headeradmin')
