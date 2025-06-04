@@ -79,6 +79,13 @@ class Index extends Controller
             .view('welcome/welcomeadmin');
     }
 
+    public function welcomepsychometrician()
+    {
+        return view('include/headerpsychometrician')
+            .view('include/navbarpsychometrician')
+            .view('welcome/welcomepsychometrician');
+    }
+
     public function logout()
     {
 

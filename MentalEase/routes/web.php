@@ -83,3 +83,7 @@ Route::get('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
 Route::get('/users/delete/{id}', [Users::class, 'usersdelete'])->name('users.delete');
 
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');
+
+
+// welcome for psychometrician
+Route::get('/welcomepsychometrician', [Index::class, 'welcomepsychometrician'])->name('welcomepsychometrician');
