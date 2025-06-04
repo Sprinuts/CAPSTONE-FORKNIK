@@ -16,6 +16,10 @@ section {
     text-align: center;
     margin-bottom: 50px;
 }
+.section-contact {
+    text-align: center;
+    margin-bottom: 50px;
+}
 
 .section-header h2 {
     font-size: 2.5rem;
@@ -23,13 +27,25 @@ section {
     margin-bottom: 15px;
     font-weight: 700;
 }
-
+.section-contact h2 {
+    font-size: 2.5rem;
+    color: #2D6A4F;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
 .section-header p {
     font-size: 1.1rem;
     color: #555;
     max-width: 700px;
     margin: 0 auto;
 }
+.section-contact p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
 
 /* Parallax Section Styles */
 .parallax-section {
@@ -149,6 +165,7 @@ section {
     background-color: #F4F4F2;
 }
 
+
 /* About Card */
 .about-card {
     background-color: #FCFEFE;
@@ -240,11 +257,11 @@ section {
 }
 
 .contact-section .section-header h2 {
-    color: #2D6A4F; /* Green text for the heading */
+    color: #F4F4F2; /* Green text for the heading */
 }
 
 .contact-section .section-header p {
-    color: #2D6A4F; /* Green text for the subheading */
+    color: #F4F4F2; /* Green text for the subheading */
 }
 
 .contact-info-card, .contact-form-card {
@@ -300,7 +317,11 @@ section {
 
 .parallax-section .section-header h2,
 .parallax-section .section-header p {
-    color: #2D6A4F; /* Override to ensure green text in contact section */
+    color: #F4F4F2; 
+}
+.parallax-section .section-contact h2,
+.parallax-section .section-contact p {
+    color: #2D6A4F;
 }
 
 /* Call to Action */
@@ -439,6 +460,10 @@ section {
     
     .section-header h2 {
         font-size: 2rem;
+    }
+
+    .section-contact h2 {
+    font-size: 2rem;
     }
     
     .service-card {

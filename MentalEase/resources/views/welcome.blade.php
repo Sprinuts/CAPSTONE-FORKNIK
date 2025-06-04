@@ -103,7 +103,7 @@
 <!-- Contact Section -->
 <section id="contact" class="contact-section parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg4.jpg') }}'); background-color: #F4F4F2;">
     <div class="container">
-        <div class="section-header">
+        <div class="section-contact">
             <h2>Contact Us</h2>
             <p>We're here to help - reach out to us today</p>
         </div>
