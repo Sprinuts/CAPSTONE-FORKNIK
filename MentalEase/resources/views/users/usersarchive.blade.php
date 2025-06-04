@@ -2,7 +2,6 @@
     <link rel="stylesheet" href="{{ asset('style/users_cs.css') }} ">
     <h3 class="text-center">Archived Users</h3>
     <div class="adjust">
-        <a href="{{ route('users.add') }}" class="btn btn-lg btn-success adjustBtn">Add New User</a>
         @if($users->count() > 0)
             <table class="adjustBtn table table-striped table-hover table-light table-bordered table-responsive">
                 <thead>

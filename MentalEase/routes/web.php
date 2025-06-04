@@ -83,7 +83,8 @@ Route::get('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
 Route::post('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
 Route::get('/users/disable/{id}', [Users::class, 'usersdisable'])->name('users.disable');
 Route::get('/users/idview/{id}', [Users::class, 'usersidview'])->name('users.idview');
-Route::get('/users/idviewdisable/{id}', [Users::class, 'usersidviewdisable'])->name('users.idview.disable');
+Route::get('/users/idview/disabled/{id}', [Users::class, 'usersidviewdisabled'])->name('users.idview.disabled');
+Route::get('/users/enable/{id}', [Users::class, 'usersenable'])->name('users.enable');
 Route::get('/usersarchive', [Users::class, 'usersarchive'])->name('users.archive');
 
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');

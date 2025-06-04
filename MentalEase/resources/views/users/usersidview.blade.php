@@ -49,6 +49,15 @@
                     <input type="text" name="role" id="role" class="form-control" value="{{ $user->role }}" readonly>
                 </div>
             </div>
+            <div class="form-group mb-2">
+                <label for="contact_number" class="form-label">Contact Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" name="contact_number" id="contact_number" class="form-control" value="{{ $user->contactnumber }}" readonly>
+                </div>
+            </div>
             <div class="form-group">
                 <a href="{{ route('users.view') }}" class="btn btn-danger">Go Back</a>
             </div>
