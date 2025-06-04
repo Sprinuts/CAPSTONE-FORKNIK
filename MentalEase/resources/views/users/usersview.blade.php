@@ -23,7 +23,7 @@
                     <td>
                         <a href=" {{ route('users.idview',$user['id']) }}  " class="btn btn-sm btn-secondary">View</a>
                         <a href=" {{ route('users.edit',$user['id']) }}  " class="btn btn-sm btn-secondary">Edit</a>
-                        <a href=" {{ route('users.delete',$user['id']) }} " class="btn btn-sm btn-danger">Archive</a>
+                        <a href=" {{ route('users.disable',$user['id']) }} " class="btn btn-sm btn-danger">Disable</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

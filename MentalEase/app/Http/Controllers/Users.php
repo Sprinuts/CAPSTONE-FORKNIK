@@ -37,7 +37,7 @@ class Users extends Controller
         $usersmodel = new \App\Models\Users();
 
         //$data['users'] = $usersmodel->get()->getResult();
-        $users = $usersmodel->paginate(10);
+        $users = $usersmodel->where('disable', '0')->paginate(10);
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
@@ -68,7 +68,13 @@ class Users extends Controller
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
+        if (request()->isMethod('post')) {
+            $data = request()->only(['name', 'username', 'email', 'role', 'contactnumber']);
+            // Update the user with the provided data
+            $user->update($data);
 
+            return redirect()->route('usersview')->with('success', 'User updated successfully.');
+        }
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
@@ -112,6 +118,44 @@ class Users extends Controller
             $user->save();
 
             return redirect()->route('users.archive')->with('success', 'User enabled successfully.');
+        }
+
+        return redirect()->route('users.archive')->withErrors(['user' => 'User not found']);
+    }
+
+    public function usersarchive()
+    {
+        $usersmodel = new \App\Models\Users();
+        $users = $usersmodel->where('disable', '1')->paginate(10);
+
+        return view('include/headeradmin')
+            .view('include/navbaradmin')
+            .view('users/usersarchive', compact('users'));
+    }
+
+    public function usersidview($id)
+    {
+        $usersmodel = new \App\Models\Users();
+        $user = $usersmodel->find($id);
+
+        if ($user) {
+            return view('include/headeradmin')
+                .view('include/navbaradmin')
+                .view('users/usersidview', compact('user'));
+        }
+
+        return redirect()->route('users.view')->withErrors(['user' => 'User not found']);
+    }
+
+    public function usersidviewdisabled($id)
+    {
+        $usersmodel = new \App\Models\Users();
+        $user = $usersmodel->find($id);
+
+        if ($user) {
+            return view('include/headeradmin')
+                .view('include/navbaradmin')
+                .view('users/usersidviewdisabled', compact('user'));
         }
 
         return redirect()->route('users.archive')->withErrors(['user' => 'User not found']);

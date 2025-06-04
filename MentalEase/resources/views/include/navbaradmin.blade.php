@@ -18,8 +18,8 @@
                         Managing
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('welcomeadmin') }}">Manage Users</a></li>
-                        <li><a class="dropdown-item" href="{{ route('welcomeadmin') }}">Archived Users</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users.view') }}">Manage Users</a></li>
+                        <li><a class="dropdown-item" href="{{ route('users.archive') }}">Archived Users</a></li>
                     </ul>
                 </li>
             </ul>
