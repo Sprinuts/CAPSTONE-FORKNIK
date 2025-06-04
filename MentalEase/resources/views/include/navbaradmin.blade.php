@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
+<link rel="stylesheet" href="{{ asset('style/navbaradmin.css') }}">
 
 <nav class="navbar navbar-expand-lg bg-body-primary">
     <div class="container-fluid">
@@ -13,8 +13,14 @@
                 <li class="nav-item">
                 <a class="nav-link" aria-current="page" href="{{ route('welcomeadmin') }}">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route(name: 'users.view') }}">Manage Users</a>  
+                <li class="nav-item dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Managing
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{{ route('welcomeadmin') }}">Manage Users</a></li>
+                        <li><a class="dropdown-item" href="{{ route('welcomeadmin') }}">Archived Users</a></li>
+                    </ul>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">

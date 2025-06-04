@@ -1,0 +1,87 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #4CAF50; /* Green background */
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    align-items: center;
+}
+
+/* Navbar Logo */
+.navbar-brand img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-item .nav-link {
+    color: #ffffff; /* White text */
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
+
+/* Navbar Toggler Icon */
+.navbar-toggler-icon {
+    background-color: #4CAF50; /* White icon */
+}
+
+/* Navbar Right Section (for Logout Button) */
+.navbar-nav.ml-auto {
+    margin-left: auto; /* Align logout to the right */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between elements if needed */
+}
+
+/* Button Styles */
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px; /* Smaller width */
+    height: 40px; /* Reduced height */
+    background-color: rgb(41, 215, 67); /* Green background */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Subtle rounded edges */
+    text-align: center;
+    cursor: pointer;
+    padding: 0 12px; /* Add slight horizontal padding */
+    gap: 8px; /* Space between the icon and text */
+    font-size: 0.9rem; /* Adjust font size */
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Icon Section */
+.Btn .sign {
+    font-size: 1rem; /* Slightly smaller icon */
+    margin-right: 5px;
+}
+
+/* Text Section */
+.Btn .text {
+    font-size: 0.85rem; /* Adjust font size for better balance */
+    font-weight: 500; /* Moderate font weight */
+}
+
+/* Hover Effects for Button */
+.Btn:hover {
+    background-color: #3cba5f; /* Slightly darker green on hover */
+    transform: scale(1.02); /* Subtle hover effect */
+}
+
+/* Active Button Effect */
+.Btn:active {
+    transform: scale(0.98); /* Shrink slightly on click */
+}

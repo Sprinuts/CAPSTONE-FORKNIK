@@ -85,6 +85,21 @@ class Users extends Controller
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('users/usersdelete', compact('user'));
+    }   
+
+    public function usersdisable($id)
+    {
+        $usersmodel = new \App\Models\Users();
+        $user = $usersmodel->find($id);
+
+        if ($user) {
+            $user->disable = '1'; // Disable the user
+            $user->save();
+
+            return redirect()->route('users.archive')->with('success', 'User disabled successfully.');
+        }
+
+        return redirect()->route('users.archive')->withErrors(['user' => 'User not found']);
     }
 
     public function usersenable($id)

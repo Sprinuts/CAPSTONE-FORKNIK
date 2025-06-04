@@ -72,7 +72,7 @@ Route::get('/profile', [Users::class, 'profile'])->name('profile');
 Route::post('/profile/update', [Users::class, 'updateProfile'])->name('profile.update');
 
 // welome for admin
-Route::get('/welcomeadmin', [Index::class, 'welcomeadmin'])->name('welcomeadmin');
+Route::get('/welcome/admin', [Index::class, 'welcomeadmin'])->name('welcomeadmin');
 
 
 // admin user management
@@ -81,9 +81,10 @@ Route::get('/users/add', [Users::class, 'usersadd'])->name('users.add');
 Route::post('/users/add', [Users::class, 'usersadd'])->name('users.add');
 Route::get('/users/edit/{id}', [Users::class, 'usersedit'])->name('users.edit');
 Route::get('/users/delete/{id}', [Users::class, 'usersdelete'])->name('users.delete');
+Route::get('/users/idview/{id}', [Users::class, 'usersidview'])->name('users.idview');
 
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');
 
 
 // welcome for psychometrician
-Route::get('/welcomepsychometrician', [Index::class, 'welcomepsychometrician'])->name('welcomepsychometrician');
+Route::get('/welcome/psychometrician', [Index::class, 'welcomepsychometrician'])->name('welcomepsychometrician');

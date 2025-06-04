@@ -18,6 +18,7 @@ class Users extends Model
         'activationcode',
         'resetcode',
         'contactnumber', // needed for registration
+        'disable', // to disable the account
     ];
 
     public function schedules()
