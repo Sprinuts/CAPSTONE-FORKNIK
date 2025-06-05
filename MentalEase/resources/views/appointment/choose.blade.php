@@ -12,3 +12,5 @@
     <input type="hidden" name="start_time" value="{{ $schedule->start_time }}">
     <button type="submit">Proceed to Payment</button>
 </form>
+
+<h1>GAWING BUTTON YUNG OPTIONS</h1>

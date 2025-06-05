@@ -27,4 +27,14 @@ class ScheduleController extends Controller
 
         return redirect()->back()->with('success', 'Schedule added.');
     }
+
+    public function view()
+    {
+        $psychometrician = session('user');
+        $schedules = Schedule::where('psychometrician_id', $psychometrician->id)->get();
+
+        return view('include/headerpsychometrician')
+            .view('include/navbarpsychometrician')
+            .view('schedule/scheduleview', compact('schedules', 'psychometrician'));
+    }
 }
