@@ -95,3 +95,6 @@ Route::get('/welcome/psychometrician', [Index::class, 'welcomepsychometrician'])
 
 // patient record
 Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
+
+// journal
+Route::get('/journal', [Index::class, 'journal'])->name('journal');

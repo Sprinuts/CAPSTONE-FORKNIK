@@ -67,6 +67,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('journal') ? 'active' : '' }}" href="{{ route('journal') }}">
+                <i class="fa-solid fa-info-circle me-2"></i> Journal
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
                 <i class="fa-solid fa-info-circle me-2"></i> About
             </a>
