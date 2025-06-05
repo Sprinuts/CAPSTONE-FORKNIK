@@ -37,7 +37,7 @@ class Users extends Controller
         $usersmodel = new \App\Models\Users();
 
         //$data['users'] = $usersmodel->get()->getResult();
-        $users = $usersmodel->where('disable', '0')->paginate(10);
+        $users = $usersmodel->where('disable', 0)->paginate(10);
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
