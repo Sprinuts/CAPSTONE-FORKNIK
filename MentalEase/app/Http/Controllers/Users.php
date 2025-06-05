@@ -30,7 +30,7 @@ class Users extends Controller
         // Pass the username to the view
         return view('usercredentials/activateaccount', compact('username'));
     }
-
+//test test test
     public function usersview()
     {
         
