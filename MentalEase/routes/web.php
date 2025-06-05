@@ -56,6 +56,7 @@ Route::get('/assessment/emotional/takeassessment', [Assessment::class, 'emotiona
 // schedule
 Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
 Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
+Route::get('/schedule/view', [ScheduleController::class, 'view'])->name('schedule.view');
 
 // appointment 
 Route::get('/appointment/select', [AppointmentController::class, 'selectPsychometrician'])->name('appointment.selectPsychometrician');
@@ -63,9 +64,6 @@ Route::get('/appointment/choose/{id}', [AppointmentController::class, 'chooseSch
 Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->name('appointment.payment');
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
-
-//myrecord
-Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
 
 // User profile
 Route::get('/profile', [Users::class, 'profile'])->name('profile');
@@ -87,8 +85,13 @@ Route::get('/users/idview/disabled/{id}', [Users::class, 'usersidviewdisabled'])
 Route::get('/users/enable/{id}', [Users::class, 'usersenable'])->name('users.enable');
 Route::get('/usersarchive', [Users::class, 'usersarchive'])->name('users.archive');
 
+
+// consultation
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');
 
 
 // welcome for psychometrician
 Route::get('/welcome/psychometrician', [Index::class, 'welcomepsychometrician'])->name('welcomepsychometrician');
+
+// patient record
+Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');

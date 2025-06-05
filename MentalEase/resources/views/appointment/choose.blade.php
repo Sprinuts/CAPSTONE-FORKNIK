@@ -1,7 +1,7 @@
 <h2>Select Available Schedule</h2>
 <form method="POST" action="{{ route('appointment.payment') }}">
     @csrf
-    <input type="hidden" name="user_id" value="1"> <!-- Replace with actual user ID -->
+    <input type="hidden" name="user_id" value="{{ session('user')->id }}">
     <input type="hidden" name="psychometrician_id" value="{{ $psychometrician_id }}">
 
     <select name="date">

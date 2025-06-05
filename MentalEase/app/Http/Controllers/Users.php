@@ -102,10 +102,10 @@ class Users extends Controller
             $user->disable = '1'; // Disable the user
             $user->save();
 
-            return redirect()->route('users.archive')->with('success', 'User disabled successfully.');
+            return redirect()->route('users.view')->with('success', 'User disabled successfully.');
         }
 
-        return redirect()->route('users.archive')->withErrors(['user' => 'User not found']);
+        return redirect()->route('users.view')->withErrors(['user' => 'User not found']);
     }
 
     public function usersenable($id)

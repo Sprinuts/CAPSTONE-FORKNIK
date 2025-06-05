@@ -9,7 +9,11 @@ class ScheduleController extends Controller
 {
     public function create()
     {
-        return view('schedule.create');
+        $psychometrician = session('user');
+
+        return view('include/headerpsychometrician')
+            .view('include/navbarpsychometrician')
+            .view('schedule.create', compact('psychometrician'));
     }
 
     public function store(Request $request)

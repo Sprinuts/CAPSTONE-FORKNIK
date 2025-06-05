@@ -9,6 +9,7 @@ class Users extends Model
     protected $table = 'users';
 
     protected $fillable = [
+        'id', // primary key
         'name', // needed for registration
         'password', // needed for registration
         'status', // activated or deactivated
@@ -27,7 +28,7 @@ class Users extends Model
     }
 
     // Appointments made by this user (if patient)
-    public function appointments()
+    public function appointment()
     {
         return $this->hasMany(Appointment::class, 'user_id');
     }

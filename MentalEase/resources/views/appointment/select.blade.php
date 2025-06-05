@@ -4,7 +4,7 @@
         <li>
             {{ $psy->name }}
             <a href="{{ route('appointment.choose', $psy->id) }}">Choose </a>
-            <h1>palagyan navbar</h1>
+            <h1>palyagan deinsgn</h1>
         </li>
     @endforeach
 </ul>

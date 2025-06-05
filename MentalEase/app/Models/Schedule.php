@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    protected $fillable = ['psychometrician_id', 'date', 'start_time', 'end_time', 'day_of_week'];
+    protected $table = 'schedules';
+    protected $fillable = ['psychometrician_id', 'date', 'start_time', 'end_time', 'day_of_week', 'scheduled'];
 
     public function psychometrician()
     {

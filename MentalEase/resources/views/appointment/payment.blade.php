@@ -7,4 +7,6 @@
     <input type="hidden" name="date" value="{{ $data['date'] }}">
     <input type="hidden" name="start_time" value="{{ $data['start_time'] }}">
     <button type="submit">Confirm Payment</button>
+
+    <pre>{{ print_r($data, true) }}</pre>
 </form>

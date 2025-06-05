@@ -62,6 +62,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('consultation') ? 'active' : '' }}" href="{{ route('consultation') }}">
+                <i class="fa-solid fa-notes-medical me-2"></i> Online Consultation
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
                 <i class="fa-solid fa-info-circle me-2"></i> About
             </a>

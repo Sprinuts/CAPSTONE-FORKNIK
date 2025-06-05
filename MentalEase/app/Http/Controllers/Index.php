@@ -28,6 +28,8 @@ class Index extends Controller
                             return redirect()->route('welcomepatient'); // Redirect to welcome page
                         } else if ($user->role == 'admin'){
                             return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
+                        } else if ($user->role == 'psychometrician'){
+                            return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
                         }
                     } else {
                         return redirect()->route('activate', [$data['username']]);
@@ -112,12 +114,16 @@ class Index extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('welcome/welcomepatient'); // temporary
+            .view('consult/consultation'); // temporary
     }
 
     public function myrecords()
     {
-        return view('myrecords'); //temporary
+        // This method should return the user's records.
+        // For now, it returns a temporary view.
+        // You can replace this with actual logic to fetch user records.
+        return view('include/header')
+            .view('include/navbar')
+            .view('patientrecord/record'); // temporary
     }
-
 }
