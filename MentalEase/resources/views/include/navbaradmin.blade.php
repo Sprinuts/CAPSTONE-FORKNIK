@@ -1,38 +1,103 @@
-<link rel="stylesheet" href="{{ asset('style/navbaradmin.css') }}">
+<link rel="stylesheet" href="{{ asset('style/navbaradminpsyc.css') }}">
 
-<nav class="navbar navbar-expand-lg bg-body-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">
-            <img src="" alt="home" height="50">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="{{ route('welcomeadmin') }}">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link  dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Managing
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{{ route('users.view') }}">Manage Users</a></li>
-                        <li><a class="dropdown-item" href="{{ route('users.archive') }}">Archived Users</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                <a class="Btn" href="{{ route('logout') }}">
-                    <div class="sign">  
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                    </div>
-                    <div class="text">Logout</div>
-                </a>
-                </li>
-            </ul>
+<!-- Sidebar -->
+<nav class="sidebar">
+    <!-- Logo -->
+    <div class="logo-wrapper">
+        <div class="logo-img-wrapper">
+            <img src="{{ asset('style/assets/mentaleaselogo.png') }}" alt="MentalEase Logo" class="logo-img">
+        </div>
+        <div class="logo-text">
+            <span>MentalEase</span>
+            <small class="d-block">Admin Panel</small>
         </div>
     </div>
+
+    <!-- Navigation Links -->
+    <ul class="navbar-nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('welcomeadmin') ? 'active' : '' }}" href="{{ route('welcomeadmin') }}">
+                <i class="fa-solid fa-gauge-high me-2"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link dropdown-toggle {{ request()->routeIs('users.*') ? 'active' : '' }}" href="#" data-bs-toggle="collapse" data-bs-target="#managingSubmenu" aria-expanded="{{ request()->routeIs('users.*') ? 'true' : 'false' }}">
+                <i class="fa-solid fa-users-gear me-2"></i>
+                User Management
+            </a>
+            <div class="collapse {{ request()->routeIs('users.*') ? 'show' : '' }}" id="managingSubmenu">
+                <ul class="navbar-nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.view') ? 'active' : '' }}" href="{{ route('users.view') }}">
+                            <i class="fa-solid fa-user-check me-2"></i>
+                            Active Users
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('users.archive') ? 'active' : '' }}" href="{{ route('users.archive') }}">
+                            <i class="fa-solid fa-user-slash me-2"></i>
+                            Archived Users
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    <!-- User Profile Section -->
+    <div class="user-profile">
+        <div class="user-avatar">
+            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Admin Avatar">
+        </div>
+        <div class="user-info">
+            <h5>{{ session('user')->name ?? 'Admin User' }}</h5>
+            <p>Administrator</p>
+            <a href="#" class="profile-link">View Profile</a>
+        </div>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="sidebar-logout">
+        <a href="{{ route('logout') }}" class="Btn">
+            <div class="sign">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <div class="text">Logout</div>
+        </a>
+    </div>
 </nav>
+
+<!-- Mobile Toggle Button -->
+<button class="sidebar-toggle" id="sidebarToggle">
+    <i class="fa-solid fa-bars"></i>
+</button>
+
+<!-- Overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- JavaScript for sidebar functionality -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    
+    if (sidebarToggle && sidebar && sidebarOverlay) {
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+        });
+        
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+    }
+    
+    // Handle dropdown toggles within sidebar
+   
+        });
+
+</script>
+

@@ -1,3 +1,7 @@
-<div>
-    <!-- You must be the change you wish to see in the world. - Mahatma Gandhi -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Dashboard</h1>
+        </div>
+    </div>
 </div>

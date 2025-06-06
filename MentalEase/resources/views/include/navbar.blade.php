@@ -1,111 +1,119 @@
 <link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
 
-<!-- Mobile toggle button -->
-<button class="sidebar-toggle d-lg-none" id="sidebarToggle" aria-label="Open sidebar">
-    <i class="fa fa-bars"></i>
-</button>
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <!-- Logo section -->
-    <div class="logo-wrapper">
-        <div class="logo-img-wrapper">
-            <img src="{{ asset('style/assets/mentaleaselogo.png') }}" alt="MentalEase Logo" class="logo-img">
-        </div>
-        <div class="logo-text">
-            <span>MentalEase</span>
-            <small>Patient Portal</small>
-        </div>
-    </div>
-    
-    <!-- Navigation links -->
-    <ul class="navbar-nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('welcomepatient') ? 'active' : '' }}" href="{{ route('welcomepatient') }}">
-                <i class="fa-solid fa-home me-2"></i> Home
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('chatbot') ? 'active' : '' }}" href="{{ route('chatbot') }}">
-                <i class="fa-solid fa-robot me-2"></i> ChatBot
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('appointment.selectPsychometrician') ? 'active' : '' }}" 
-               href="{{ route('appointment.selectPsychometrician') }}">
-                <i class="fa-solid fa-calendar-check me-2"></i> Appointment
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link dropdown-toggle {{ request()->routeIs('assessment.*') ? 'active' : '' }}" 
-               href="#" id="assessmentDropdown" role="button"
-               data-bs-toggle="collapse" data-bs-target="#assessmentSubmenu" aria-expanded="false">
-                <i class="fa-solid fa-clipboard-check me-2"></i> Assessments
-            </a>
-            <div class="collapse {{ request()->routeIs('assessment.*') ? 'show' : '' }}" id="assessmentSubmenu">
-                <ul class="nav flex-column ms-3">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('assessment.stress') ? 'active' : '' }}" 
-                           href="{{ route('assessment.stress') }}">Stress</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('assessment.emotional') ? 'active' : '' }}" 
-                           href="{{ route('assessment.emotional') }}">Emotional</a>
-                    </li>
-                </ul>
+<!-- Top Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <!-- Logo -->
+        <a class="navbar-brand" href="{{ route('welcomepatient') }}">
+            <div class="logo-wrapper">
+                <div class="logo-img-wrapper">
+                    <img src="{{ asset('style/assets/mentaleaselogo.png') }}" alt="MentalEase Logo" class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <span>MentalEase</span>
+                </div>
             </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('myrecords') ? 'active' : '' }}" href="{{ route('myrecords') }}">
-                <i class="fa-solid fa-notes-medical me-2"></i> My Records
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('consultation') ? 'active' : '' }}" href="{{ route('consultation') }}">
-                <i class="fa-solid fa-notes-medical me-2"></i> Online Consultation
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('journal') ? 'active' : '' }}" href="{{ route('journal') }}">
-                <i class="fa-solid fa-info-circle me-2"></i> Journal
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
-                <i class="fa-solid fa-info-circle me-2"></i> About
-            </a>
-        </li>
-    </ul>
-
-    <!-- User profile section -->
-<div class="user-profile">
-    <div class="user-avatar">
-        <img src="{{ asset('style/assets/default-avatar.png') }}" alt="User Avatar">
-    </div>
-    <div class="user-info">
-        <h5>{{ session('user')->name ?? 'User' }}</h5>
-        <p>{{ session('user')->email ?? '' }}</p>
-        <a href="{{ route('profile') }}" class="profile-link">
-            <i class="fa-solid fa-user-gear me-1"></i> Manage Profile
         </a>
+        
+        <!-- Mobile toggle button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Navigation links -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('welcomepatient') ? 'active' : '' }}" href="{{ route('welcomepatient') }}">
+                        Home
+                    </a>
+                </li>
+                
+                <!-- Combine related items into a Services dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('chatbot') || request()->routeIs('consultation') ? 'active' : '' }}" 
+                       href="#" id="servicesDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('chatbot') ? 'active' : '' }}" 
+                               href="{{ route('chatbot') }}">Emotional Support ChatBot</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('consultation') ? 'active' : '' }}" 
+                               href="{{ route('consultation') }}">Online Consultation</a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('appointment.selectPsychometrician') ? 'active' : '' }}" 
+                       href="{{ route('appointment.selectPsychometrician') }}">
+                        Appointments
+                    </a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('assessment.*') ? 'active' : '' }}" 
+                       href="#" id="assessmentDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Assessments
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="assessmentDropdown">
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('assessment.stress') ? 'active' : '' }}" 
+                               href="{{ route('assessment.stress') }}">Stress</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('assessment.emotional') ? 'active' : '' }}" 
+                               href="{{ route('assessment.emotional') }}">Emotional</a>
+                        </li>
+                    </ul>
+                </li>
+                
+                <!-- Combine Records and Journal into a single dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('myrecords') || request()->routeIs('journal') ? 'active' : '' }}" 
+                       href="#" id="recordsDropdown" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        My Data
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="recordsDropdown">
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('myrecords') ? 'active' : '' }}" 
+                               href="{{ route('myrecords') }}">Medical Records</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ request()->routeIs('journal') ? 'active' : '' }}" 
+                               href="{{ route('journal') }}">Journal</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <!-- User dropdown -->
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ asset('style/assets/default-avatar.png') }}" alt="User Avatar" class="user-avatar-small">
+                        <span class="d-none d-md-inline-block ms-2">{{ session('user')->name ?? 'User' }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-    
-    <!-- Logout button at bottom -->
-    <div class="sidebar-logout">
-        <a class="Btn w-100" href="{{ route('logout') }}">
-            <div class="sign">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </div>
-            <div class="text">Logout</div>
-        </a>
-    </div>
-</div>
+</nav>
 
 <!-- Main content wrapper -->
 <div class="main-content">
-    <!-- Your page content will go here -->
+
 </div>
 
 <!-- Sidebar JavaScript -->
@@ -132,6 +140,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 </script>
+
+
+
+
+
 
 
 
