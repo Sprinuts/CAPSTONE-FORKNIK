@@ -1,0 +1,351 @@
+/* Navbar Styles */
+.navbar {
+    background-color: #4CAF50; /* Green background */
+    padding: 0.5rem 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    display: flex;
+    align-items: center;
+}
+
+
+.main-content {
+    margin-left: 240px;
+    padding: 1.5rem;
+    transition: margin-left 0.3s ease;
+}
+/* Navbar Logo */
+.navbar-brand img {
+    height: 50px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+    transform: scale(1.1); /* Zoom in on hover */
+}
+
+/* Navbar Links */
+.navbar-nav .nav-item .nav-link {
+    color: #ffffff; /* White text */
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
+
+/* Navbar Toggler Icon */
+.navbar-toggler-icon {
+    background-color: #4CAF50; /* White icon */
+}
+
+/* Navbar Right Section (for Logout Button) */
+.navbar-nav.ml-auto {
+    margin-left: auto; /* Align logout to the right */
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Add spacing between elements if needed */
+}
+
+/* Button Styles */
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px; /* Smaller width */
+    height: 40px; /* Reduced height */
+    background-color: rgb(41, 215, 67); /* Green background */
+    color: white;
+    border: none;
+    border-radius: 20px; /* Subtle rounded edges */
+    text-align: center;
+    cursor: pointer;
+    padding: 0 12px; /* Add slight horizontal padding */
+    gap: 8px; /* Space between the icon and text */
+    font-size: 0.9rem; /* Adjust font size */
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Icon Section */
+.Btn .sign {
+    font-size: 1rem; /* Slightly smaller icon */
+    margin-right: 5px;
+}
+
+/* Text Section */
+.Btn .text {
+    font-size: 0.85rem; /* Adjust font size for better balance */
+    font-weight: 500; /* Moderate font weight */
+}
+
+/* Hover Effects for Button */
+.Btn:hover {
+    background-color: #3cba5f; /* Slightly darker green on hover */
+    transform: scale(1.02); /* Subtle hover effect */
+}
+
+/* Active Button Effect */
+.Btn:active {
+    transform: scale(0.98); /* Shrink slightly on click */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px;
+    height: 100vh;
+    background-color: #2D6A4F;
+    color: white;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Logo section */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+}
+
+.logo-img-wrapper {
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.logo-text {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.1;
+}
+
+/* Navigation links */
+.navbar-nav.flex-column {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar-nav .nav-item {
+    width: 100%;
+    margin: 0;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    padding: 0.75rem 1.5rem;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    font-weight: 500;
+}
+
+/* Dropdown/submenu */
+.navbar-nav .dropdown-toggle::after {
+    margin-left: auto;
+}
+
+#managingSubmenu {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#managingSubmenu .nav-link {
+    padding-left: 1rem;
+    font-size: 0.95rem;
+}
+
+/* Logout button */
+.sidebar-logout {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    margin-top: auto;
+}
+
+.Btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 40px;
+    background-color: #41AB5D;
+    border-radius: 5px;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+.Btn .sign {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.Btn:hover {
+    background-color: #2D6A4F;
+}
+
+/* Main content */
+.main-content {
+    margin-left: 240px;
+    padding: 1.5rem;
+    transition: margin-left 0.3s ease;
+}
+
+/* Mobile sidebar toggle */
+.sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1050;
+    background: #41AB5D;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.25rem;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1030;
+}
+
+/* User profile section */
+.user-profile {
+    padding: 1rem 1.5rem;
+    margin-top: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    flex-shrink: 0;
+}
+
+.user-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.user-info h5 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-info p {
+    margin: 0;
+    font-size: 0.75rem;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-link {
+    display: inline-block;
+    font-size: 0.8rem;
+    color: white;
+    text-decoration: none;
+    margin-top: 0.25rem;
+    transition: opacity 0.2s;
+}
+
+.profile-link:hover {
+    opacity: 0.8;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .sidebar {
+        left: -240px;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar-toggle {
+        display: block;
+    }
+    
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+/* For Bootstrap compatibility */
+.collapse:not(.show) {
+    display: none;
+}
+
+.collapse.show {
+    display: block;
+}
