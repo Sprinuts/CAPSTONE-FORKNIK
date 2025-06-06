@@ -5,7 +5,7 @@ body {
 }
 
 .main-content {
-  background-color: #f9f9f9;
+  background-color: hsl(0, 0%, 98%);
 }
 
 .dashboard-header {
