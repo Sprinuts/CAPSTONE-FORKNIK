@@ -18,10 +18,10 @@ class Index extends Controller
                 ->where('password', $data['password'])
                 ->first();
 
-            if ($user->disable) {
-                return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
-            } else {
-                if ($user) {
+            if ($user) {
+                if ($user->disable) {
+                    return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
+                } else {
                     if ($user->status == '1') { // Check if the account is activated
                         session(['user' => $user]);
                         if ($user->role == 'patient'){
@@ -34,9 +34,9 @@ class Index extends Controller
                     } else {
                         return redirect()->route('activate', [$data['username']]);
                     }
-                } else {
-                    return back()->withErrors(['login' => 'Invalid username or password']);
                 }
+            } else {
+                return back()->withErrors(['login' => 'Invalid username or password']);
             }
         }
         return view('usercredentials/login');
