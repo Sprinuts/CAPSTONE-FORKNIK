@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
 
 <!-- Top Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
         <!-- Logo -->
         <a class="navbar-brand" href="{{ route('welcomepatient') }}">
@@ -39,7 +39,7 @@
                     <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
                         <li>
                             <a class="dropdown-item {{ request()->routeIs('chatbot') ? 'active' : '' }}" 
-                               href="{{ route('chatbot') }}">Emotional Support ChatBot</a>
+                               href="{{ route('chatbot') }}">Emotional Support Chatbot</a>
                         </li>
                         <li>
                             <a class="dropdown-item {{ request()->routeIs('consultation') ? 'active' : '' }}" 
@@ -103,7 +103,10 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>
                         <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ route('settings') }}"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
+                        
                     </ul>
                 </li>
             </ul>
@@ -140,6 +143,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 </script>
+
+
 
 
 

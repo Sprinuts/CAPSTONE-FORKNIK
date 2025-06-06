@@ -1,7 +1,7 @@
 /* Top Navbar Styles */
 .navbar {
     background-color: #2D6A4F;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -136,5 +136,14 @@
     }
 }
 
+/* Add padding to body for fixed navbar */
+body {
+    padding-top: 76px; /* Adjust this value based on your navbar height */
+}
+
+/* Main content wrapper adjustment */
+.main-content {
+    padding-top: 1rem;
+}
 
 

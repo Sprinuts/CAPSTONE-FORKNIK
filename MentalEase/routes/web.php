@@ -69,6 +69,10 @@ Route::get('/appointment/success', [AppointmentController::class, 'success'])->n
 Route::get('/profile', [Users::class, 'profile'])->name('profile');
 Route::post('/profile/update', [Users::class, 'updateProfile'])->name('profile.update');
 
+// user settings
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
+Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
+
 // welome for admin
 Route::get('/welcome/admin', [Index::class, 'welcomeadmin'])->name('welcomeadmin');
 
