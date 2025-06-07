@@ -115,7 +115,6 @@
 </nav>
 
 <!-- Main content wrapper -->
-<div class="main-content">
 
 </div>
 

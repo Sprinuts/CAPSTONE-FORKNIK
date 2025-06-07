@@ -1,12 +1,54 @@
-<div>
-    <!-- If you do not have a consistent goal in life, you can not live it in a consistent way. - Marcus Aurelius -->
+<link rel="stylesheet" href="{{ asset('style/assessment.css') }}">
+
+<div class="assessment-fullscreen">
+    <div class="assessment-header">
+        <h1>Emotional Well-being Assessment</h1>
+        <div class="assessment-icon">
+            <i class="fa-solid fa-heart-pulse"></i>
+        </div>
+    </div>
+    
+    <div class="assessment-content">
+        <div class="assessment-intro">
+            <h2>About This Assessment</h2>
+            <p>
+                This assessment will help you evaluate your current emotional well-being. 
+                Please answer the questions honestly to get the most accurate results. 
+                Your responses are confidential and will be used to provide personalized feedback.
+            </p>
+        </div>
+        
+        <div class="assessment-details-row">
+            <div class="detail-item">
+                <i class="fa-regular fa-clock"></i>
+                <span>Time: 5-10 minutes</span>
+            </div>
+            <div class="detail-item">
+                <i class="fa-solid fa-list-check"></i>
+                <span>Questions: 15</span>
+            </div>
+            <div class="detail-item">
+                <i class="fa-solid fa-lock"></i>
+                <span>Confidential Results</span>
+            </div>
+        </div>
+        
+        <div class="assessment-benefits">
+            <h3>Benefits</h3>
+            <ul>
+                <li>Gain insights into your emotional patterns</li>
+                <li>Identify areas for personal growth</li>
+                <li>Receive tailored recommendations</li>
+                <li>Track your emotional well-being over time</li>
+            </ul>
+        </div>
+        
+        <div class="assessment-action">
+            <a href="{{ route('assessment.emotional.take') }}" class="btn btn-primary start-btn">
+                <span>Start Assessment</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
 </div>
-<div class="assessment-info">
-    <h2>Emotional Assessment</h2>
-    <p>
-        This assessment will help you evaluate your current emotional well-being. 
-        Please answer the questions honestly to get the most accurate results. 
-        Your responses are confidential and will be used to provide personalized feedback.
-    </p>
-    <a href="{{ route('assessment.emotional.take') }}" class="btn btn-primary">Take Assessment</a>
-</div>
+

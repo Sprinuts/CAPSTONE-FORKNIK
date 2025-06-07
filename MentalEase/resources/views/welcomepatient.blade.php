@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="{{ asset('style/welcomepatient.css') }}">
+    <div class="main-content">
 
 <div class="top-bar">
     <h1>Dashboard</h1>
@@ -11,4 +12,5 @@
             + New Appointment
         </button>
     </div>
+</div>
 </div>
