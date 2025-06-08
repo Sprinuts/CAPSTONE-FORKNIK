@@ -3,6 +3,7 @@
     background-color: #66948a;
     padding: 1rem 1rem;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 60px; /* Make sure this matches the padding-top value below */
 }
 
 /* Logo styling */
@@ -109,9 +110,9 @@
 /* Main content */
 .main-content {
     padding: 10px;
-    margin-top: 70px;
+    margin-top: 10px;
     background-color: #fff;
-    
+    padding-top: 70px; /* Adjust this value based on your navbar height */
 }
 
 /* Responsive adjustments */
@@ -147,6 +148,7 @@
 body {
     padding-top: 76px; /* Adjust this value based on your navbar height */
 }
+
 
 
 

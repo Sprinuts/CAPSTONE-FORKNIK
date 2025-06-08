@@ -1,0 +1,310 @@
+/* Professional Psychometrician Selection Styles */
+:root {
+    --primary-color: #2D6A4F;
+    --primary-light: #40916C;
+    --primary-dark: #1B4332;
+    --secondary-color: #95D5B2;
+    --background-color: #F8F9FA;
+    --card-background: #FFFFFF;
+    --text-color: #333333;
+    --text-light: #6C757D;
+    --border-color: #E9ECEF;
+    --success-color: #28A745;
+    --warning-color: #FFC107;
+    --danger-color: #DC3545;
+}
+
+body {
+    font-family: 'Nunito', 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.psychometrician-selection {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-top: 6rem; /* Add extra padding at the top to account for the fixed navbar */
+}
+
+.selection-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-top: 1rem;
+}
+
+.selection-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.selection-subtitle {
+    color: var(--text-light);
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+/* Professional list layout */
+.psychometricians-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.psychometrician-item {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.psychometrician-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile section */
+.psychometrician-profile {
+    display: flex;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background-color: #f9fbfa;
+}
+
+.profile-image {
+    width: 100px;
+    height: 100px;
+    background-color: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.profile-image i {
+    font-size: 3rem;
+    color: white;
+}
+
+.profile-details {
+    flex-grow: 1;
+}
+
+.psychometrician-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin: 0 0 0.3rem 0;
+}
+
+.psychometrician-credentials {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin: 0 0 0.3rem 0;
+    font-size: 0.95rem;
+}
+
+.psychometrician-specialty {
+    color: var(--text-light);
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.psychometrician-rating {
+    color: #FFC107;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.rating-count {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-left: 8px;
+}
+
+/* Info section */
+.psychometrician-info-section {
+    display: flex;
+    padding: 1.5rem;
+}
+
+.info-column {
+    flex: 1;
+    padding: 0 1rem;
+}
+
+.info-column:first-child {
+    padding-left: 0;
+}
+
+.info-column:last-child {
+    padding-right: 0;
+}
+
+.info-column h4 {
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin: 0 0 1rem 0;
+    font-weight: 600;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* Expertise list */
+.expertise-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.expertise-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.expertise-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+/* Availability */
+.availability-status {
+    margin-top: 0.5rem;
+}
+
+.availability-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+}
+
+.availability-badge.available {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: var(--success-color);
+}
+
+.availability-badge.busy {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: var(--warning-color);
+}
+
+.availability-badge i {
+    margin-right: 5px;
+}
+
+.availability-times {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0 0;
+}
+
+/* Action column */
+.action-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.schedule-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+    width: 100%;
+    text-align: center;
+}
+
+.schedule-button:hover {
+    background-color: var(--primary-dark);
+}
+
+.schedule-button i {
+    margin-right: 8px;
+}
+
+.view-profile-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-top: 0.8rem;
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.view-profile-link:hover {
+    color: var(--primary-dark);
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .psychometrician-info-section {
+        flex-direction: column;
+    }
+    
+    .info-column {
+        padding: 0;
+        margin-bottom: 1.5rem;
+    }
+    
+    .info-column:last-child {
+        margin-bottom: 0;
+    }
+    
+    .action-column {
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 768px) {
+    .psychometrician-selection {
+        padding: 1rem;
+        padding-top: 5rem;
+    }
+    
+    .selection-header {
+        margin-bottom: 2rem;
+    }
+    
+    .selection-header h1 {
+        font-size: 2rem;
+    }
+    
+    .psychometrician-profile {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-image {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}
