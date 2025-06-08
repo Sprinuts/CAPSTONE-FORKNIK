@@ -63,12 +63,12 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="assessmentDropdown">
                         <li>
-                            <a class="dropdown-item {{ request()->routeIs('assessment.stress') ? 'active' : '' }}" 
-                               href="{{ route('assessment.stress') }}">Stress</a>
+                            <a class="dropdown-item {{ request()->routeIs('assessment.pss') ? 'active' : '' }}" 
+                               href="{{ route('assessment.pss') }}">PSS Assessment</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->routeIs('assessment.emotional') ? 'active' : '' }}" 
-                               href="{{ route('assessment.emotional') }}">Emotional</a>
+                            <a class="dropdown-item {{ request()->routeIs('assessment.dass') ? 'active' : '' }}" 
+                               href="{{ route('assessment.dass') }}">DASS21 Assessment</a>
                         </li>
                     </ul>
                 </li>

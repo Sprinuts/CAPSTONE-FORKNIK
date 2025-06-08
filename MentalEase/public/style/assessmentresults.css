@@ -1,0 +1,446 @@
+/* Assessment Results Styles */
+html {
+    font-family: 'Nunito', 'Poppins', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+.results-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+    min-height: 100vh;
+}
+
+.results-header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0f2e9;
+}
+
+.results-header h1 {
+    color: #2f684e;
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+}
+
+.results-icon {
+    font-size: 3rem;
+    color: #2f684e;
+    margin: 1rem 0;
+}
+
+.results-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.score-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #f9fbfa;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.score-display {
+    flex: 0 0 auto;
+}
+
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.score-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #2f684e;
+}
+
+.score-max {
+    font-size: 1.2rem;
+    color: #777;
+}
+
+.stress-level {
+    flex: 1;
+}
+
+.stress-level h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.low-stress h2 {
+    color: #28a745;
+}
+
+.moderate-stress h2 {
+    color: #ffc107;
+}
+
+.high-stress h2 {
+    color: #dc3545;
+}
+
+.stress-meter {
+    margin-top: 1rem;
+}
+
+.stress-bar {
+    height: 12px;
+    background-color: #e9ecef;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.stress-indicator {
+    height: 100%;
+    background: linear-gradient(to right, #28a745, #ffc107, #dc3545);
+    border-radius: 6px;
+}
+
+.stress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.results-interpretation, .recommendations-section, .next-steps {
+    background-color: #f9fbfa;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.results-interpretation h3, .recommendations-section h3, .next-steps h3 {
+    color: #2f684e;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e0f2e9;
+}
+
+.results-interpretation p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.recommendations-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.recommendations-list li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid #e0f2e9;
+    position: relative;
+    padding-left: 2rem;
+    color: #555;
+}
+
+.recommendations-list li:last-child {
+    border-bottom: none;
+}
+
+.recommendations-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #2f684e;
+    font-weight: bold;
+}
+
+.next-steps-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.next-step-card {
+    background-color: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+}
+
+.next-step-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.next-step-card i {
+    font-size: 2rem;
+    color: #2f684e;
+    margin-bottom: 1rem;
+}
+
+.next-step-card h4 {
+    color: #2f684e;
+    margin-bottom: 0.5rem;
+}
+
+.next-step-card p {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Back button styles */
+.back-button {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+}
+
+.back-to-home {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #2f684e;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    background-color: #e0f2e9;
+    transition: all 0.3s ease;
+}
+
+.back-to-home:hover {
+    background-color: #c5e5d8;
+    transform: translateX(-3px);
+}
+
+.back-to-home i {
+    font-size: 0.9rem;
+}
+
+/* Score meter styling */
+.score-meter {
+    margin: 1rem 0;
+}
+
+.meter-bar {
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.meter-indicator {
+    height: 100%;
+    background: linear-gradient(to right, #4caf50, #8bc34a, #ffc107, #ff9800, #f44336);
+    border-radius: 5px;
+    transition: width 1s ease-in-out;
+}
+
+.meter-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    color: #666;
+}
+
+/* Severity level colors for meter indicators */
+.normal .meter-indicator {
+    background: #4caf50;
+}
+
+.mild .meter-indicator {
+    background: #8bc34a;
+}
+
+.moderate .meter-indicator {
+    background: #ffc107;
+}
+
+.severe .meter-indicator {
+    background: #ff9800;
+}
+
+.extremely.severe .meter-indicator {
+    background: #f44336;
+}
+
+/* Threshold markers */
+.threshold-marker {
+    position: absolute;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 2;
+}
+
+/* Tooltip for threshold markers */
+.threshold-marker:hover::after {
+    content: attr(data-level);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    z-index: 3;
+}
+
+/* Improve score card layout */
+.score-card {
+    flex: 1;
+    min-width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.score-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Animation for meter indicator */
+@keyframes fillBar {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+.meter-indicator {
+    animation: fillBar 1.5s ease-out;
+}
+
+/* Severity legend */
+.severity-legend {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.legend-title {
+    font-weight: 600;
+    margin-right: 1rem;
+}
+
+.legend-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+}
+
+.legend-color {
+    width: 20px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.legend-color.normal {
+    background-color: #4caf50;
+}
+
+.legend-color.mild {
+    background-color: #8bc34a;
+}
+
+.legend-color.moderate {
+    background-color: #ffc107;
+}
+
+.legend-color.severe {
+    background-color: #ff9800;
+}
+
+.legend-color.extremely {
+    background-color: #f44336;
+}
+
+.legend-label {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .results-container {
+        padding: 1rem;
+    }
+    
+    .score-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .score-circle {
+        margin: 0 auto 1.5rem;
+    }
+    
+    .next-steps-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .back-button {
+        position: static;
+        text-align: left;
+        margin-bottom: 1.5rem;
+    }
+    
+    .back-to-home {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .results-scores {
+        flex-direction: column;
+    }
+    
+    .score-card {
+        width: 100%;
+    }
+    
+    .meter-labels span {
+        font-size: 0.65rem;
+    }
+}
+
+
+

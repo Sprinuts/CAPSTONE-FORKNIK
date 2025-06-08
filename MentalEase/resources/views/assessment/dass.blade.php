@@ -2,30 +2,30 @@
 
 <div class="assessment-fullscreen">
     <div class="assessment-header">
-        <h1>Stress Assessment</h1>
+        <h1>Depression Anxiety Stress Scale-21 Assessment</h1>
         <div class="assessment-icon">
-            <i class="fa-solid fa-brain"></i>
+            <i class="fa-solid fa-heart-pulse"></i>
         </div>
     </div>
     
     <div class="assessment-content">
         <div class="assessment-intro">
             <h2>About This Assessment</h2>
-            <p>
-                This assessment will help you evaluate your current stress levels. 
-                Please answer the questions honestly to get the most accurate results. 
-                Your responses are confidential and will be used to provide personalized feedback.
+            <p>This questionnaire is designed to assess your emotional state over the past week. 
+                It includes 21 statements relating to symptoms of depression, anxiety, and stress.
             </p>
+            <p> Your responses are confidential and will be used to generate personalized 
+                feedback about your emotional well-being.</p>
         </div>
         
         <div class="assessment-details-row">
             <div class="detail-item">
                 <i class="fa-regular fa-clock"></i>
-                <span>Time: 5-10 minutes</span>
+                <span>Time: 10-15 minutes</span>
             </div>
             <div class="detail-item">
                 <i class="fa-solid fa-list-check"></i>
-                <span>Questions: 15</span>
+                <span>Questions: 21</span>
             </div>
             <div class="detail-item">
                 <i class="fa-solid fa-lock"></i>
@@ -36,20 +36,19 @@
         <div class="assessment-benefits">
             <h3>Benefits</h3>
             <ul>
-                <li>Identify your stress triggers</li>
-                <li>Understand your stress response patterns</li>
-                <li>Receive personalized coping strategies</li>
-                <li>Track your stress levels over time</li>
+                <li>Gain insights into your emotional patterns</li>
+                <li>Identify areas for personal growth</li>
+                <li>Receive tailored recommendations</li>
+                <li>Track your emotional well-being over time</li>
             </ul>
         </div>
         
         <div class="assessment-action">
-            <a href="{{ route('assessment.stress.take') }}" class="btn btn-primary start-btn">
+            <a href="{{ route('assessment.dass.take') }}" class="btn btn-primary start-btn">
                 <span>Start Assessment</span>
                 <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
     </div>
 </div>
-
 

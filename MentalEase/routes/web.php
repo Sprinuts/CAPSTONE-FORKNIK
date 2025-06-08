@@ -45,13 +45,16 @@ Route::get('/about', [Index::class, 'about'])->name('about');
 // appointment
 Route::get('/appointment', [Index::class, 'appointment'])->name('appointment');
 
-// assessments
-Route::get('/assessment/stress', [Assessment::class, 'stress'])->name('assessment.stress');
-Route::get('/assessment/stress/takeassessment', [Assessment::class, 'stressassessment'])->name('assessment.stress.take');
+// assessments pss and dass21
+Route::get('/assessment/pss', [Assessment::class, 'pss'])->name('assessment.pss');
+Route::get('/assessment/pss/takeassessment', [Assessment::class, 'pssassessment'])->name('assessment.pss.take');
+Route::post('/assessment/pss/submit', [Assessment::class, 'pssSubmit'])->name('assessment.pss.submit');
 
-Route::get('/assessment/emotional', [Assessment::class, 'emotional'])->name('assessment.emotional');
-Route::get('/assessment/emotional/takeassessment', [Assessment::class, 'emotionalassessment'])->name('assessment.emotional.take');
-
+Route::get('/assessment/dass', [Assessment::class, 'dass'])->name('assessment.dass');
+Route::get('/assessment/dass/takeassessment', [Assessment::class, 'dassassessment'])->name('assessment.dass.take');
+Route::get('/assessment/dass/take', [Assessment::class, 'dassAssessmentTake'])->name('assessment.dass.take');
+Route::post('/assessment/dass/submit', [Assessment::class, 'dassSubmit'])->name('assessment.dass.submit');
+Route::get('/assessment/dass/results', [Assessment::class, 'dassResults'])->name('assessment.dass.results');
 
 // schedule
 Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
@@ -106,3 +109,9 @@ Route::get('/journal', [Index::class, 'journal'])->name('journal');
 // Routes for resending activation code
 Route::get('/activate/{username}/resend', [Users::class, 'resendActivationCodeForm'])->name('resend.activation.code');
 Route::post('/activate/resend', [Users::class, 'resendActivationCode'])->name('resend.activation.code.submit');
+
+// PSS Assessment results route
+Route::get('/assessment/pss/results', [Assessment::class, 'pssResults'])->name('assessment.pss.results');
+
+
+
