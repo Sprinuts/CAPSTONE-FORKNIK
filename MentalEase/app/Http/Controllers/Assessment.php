@@ -287,6 +287,9 @@ class Assessment extends Controller
         }
         
         // Anxiety
+
+        
+        return $recommendations;
     }
 }
 
