@@ -136,4 +136,14 @@ class Index extends Controller
             .view('include/navbar')
             .view('journal/journal'); // temporary
     }
+
+    public function journalrecord()
+    {
+        // This method should return the user's journal record.
+        // For now, it returns a temporary view.
+        // You can replace this with actual logic to fetch user journal records.
+        return view('include/header')
+            .view('include/navbar')
+            .view('journal/journalrecord'); // temporary
+    }
 }

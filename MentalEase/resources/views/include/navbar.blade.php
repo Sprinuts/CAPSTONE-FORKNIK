@@ -54,6 +54,13 @@
                         Appointments
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('journal') ? 'active' : '' }}" 
+                       href="{{ route('journal') }}">
+                        Journal
+                    </a>
+                </li>
                 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('assessment.*') ? 'active' : '' }}" 
@@ -75,7 +82,7 @@
                 
                 <!-- Combine Records and Journal into a single dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->routeIs('myrecords') || request()->routeIs('journal') ? 'active' : '' }}" 
+                    <a class="nav-link dropdown-toggle {{ request()->routeIs('myrecords') || request()->routeIs('journal.record') ? 'active' : '' }}" 
                        href="#" id="recordsDropdown" role="button"
                        data-bs-toggle="dropdown" aria-expanded="false">
                         My Data
@@ -86,8 +93,8 @@
                                href="{{ route('myrecords') }}">Medical Records</a>
                         </li>
                         <li>
-                            <a class="dropdown-item {{ request()->routeIs('journal') ? 'active' : '' }}" 
-                               href="{{ route('journal') }}">Journal</a>
+                            <a class="dropdown-item {{ request()->routeIs('journal.record') ? 'active' : '' }}" 
+                               href="{{ route('journal.record') }}">Journal Records</a>
                         </li>
                     </ul>
                 </li>

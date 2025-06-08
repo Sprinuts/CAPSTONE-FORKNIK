@@ -106,6 +106,8 @@ Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
 // journal
 Route::get('/journal', [Index::class, 'journal'])->name('journal');
 
+Route::get('/journal/record', [Index::class, 'journalrecord'])->name('journal.record');
+
 // Routes for resending activation code
 Route::get('/activate/{username}/resend', [Users::class, 'resendActivationCodeForm'])->name('resend.activation.code');
 Route::post('/activate/resend', [Users::class, 'resendActivationCode'])->name('resend.activation.code.submit');
