@@ -8,6 +8,8 @@ use App\Http\Controllers\Assessment;
 use App\Http\Controllers\Users;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Journal;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -105,6 +107,7 @@ Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
 
 // journal
 Route::get('/journal', [Index::class, 'journal'])->name('journal');
+Route::post('/journal/store', [Journal::class, 'journalstore'])->name('journal.store');
 
 Route::get('/journal/record', [Index::class, 'journalrecord'])->name('journal.record');
 
