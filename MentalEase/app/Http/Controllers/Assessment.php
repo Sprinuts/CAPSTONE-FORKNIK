@@ -262,36 +262,72 @@ class Assessment extends Controller
         $recommendations = [];
         
         // Depression recommendations
-        if ($depressionLevel == 'Normal') {
-            $recommendations['depression'] = [
-                'Continue your current mental wellness practices',
-                'Maintain social connections and activities you enjoy',
-                'Regular exercise and healthy diet'
-            ];
-        } elseif ($depressionLevel == 'Mild' || $depressionLevel == 'Moderate') {
-            $recommendations['depression'] = [
-                'Consider speaking with a mental health professional',
-                'Practice mindfulness and relaxation techniques',
-                'Establish a regular sleep schedule',
-                'Engage in physical activity regularly',
-                'Connect with supportive friends and family'
-            ];
-        } else {
-            $recommendations['depression'] = [
-                'Consult with a mental health professional as soon as possible',
-                'Consider therapy options such as CBT (Cognitive Behavioral Therapy)',
-                'Establish a daily routine with small, achievable goals',
-                'Reach out to trusted friends or family for support',
-                'Practice self-compassion and avoid self-criticism'
-            ];
+        if ($depressionLevel != 'Normal') {
+            if ($depressionLevel == 'Mild' || $depressionLevel == 'Moderate') {
+                $recommendations['depression'] = [
+                    'Consider speaking with a mental health professional',
+                    'Practice mindfulness and relaxation techniques',
+                    'Establish a regular sleep schedule',
+                    'Engage in physical activity regularly',
+                    'Connect with supportive friends and family'
+                ];
+            } else {
+                $recommendations['depression'] = [
+                    'Consult with a mental health professional as soon as possible',
+                    'Consider therapy options such as CBT (Cognitive Behavioral Therapy)',
+                    'Establish a daily routine with small, achievable goals',
+                    'Reach out to trusted friends or family for support',
+                    'Practice self-compassion and avoid self-criticism'
+                ];
+            }
         }
         
-        // Anxiety
-
+        // Anxiety recommendations
+        if ($anxietyLevel != 'Normal') {
+            if ($anxietyLevel == 'Mild' || $anxietyLevel == 'Moderate') {
+                $recommendations['anxiety'] = [
+                    'Practice deep breathing exercises daily',
+                    'Try progressive muscle relaxation techniques',
+                    'Limit caffeine and alcohol consumption',
+                    'Maintain a regular exercise routine',
+                    'Consider mindfulness meditation'
+                ];
+            } else {
+                $recommendations['anxiety'] = [
+                    'Consult with a mental health professional',
+                    'Learn and practice grounding techniques for panic moments',
+                    'Consider cognitive behavioral therapy (CBT)',
+                    'Establish a consistent sleep schedule',
+                    'Avoid substances that can increase anxiety'
+                ];
+            }
+        }
+        
+        // Stress recommendations
+        if ($stressLevel != 'Normal') {
+            if ($stressLevel == 'Mild' || $stressLevel == 'Moderate') {
+                $recommendations['stress'] = [
+                    'Practice time management techniques',
+                    'Incorporate relaxation activities into your daily routine',
+                    'Engage in regular physical activity',
+                    'Ensure adequate sleep and rest',
+                    'Connect with supportive people'
+                ];
+            } else {
+                $recommendations['stress'] = [
+                    'Consider speaking with a mental health professional',
+                    'Identify and address major stressors in your life',
+                    'Practice stress reduction techniques daily',
+                    'Ensure work-life balance',
+                    'Prioritize self-care activities'
+                ];
+            }
+        }
         
         return $recommendations;
     }
 }
+
 
 
 

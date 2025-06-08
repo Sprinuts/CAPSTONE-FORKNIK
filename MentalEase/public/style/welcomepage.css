@@ -134,8 +134,8 @@ section {
 }
 
 .btn-primary {
-    background-color: #2D6A4F;
-    border-color: #2D6A4F;
+    background-color: #5c7e74;
+    border-color: #5c7e74;
 }
 
 .btn-primary:hover {
@@ -326,7 +326,7 @@ section {
 
 /* Call to Action */
 .cta {
-    background: linear-gradient(135deg, #2D6A4F 0%, #1B4332 100%);
+    background: linear-gradient(135deg, #66948a 0%, #1B4332 100%);
     padding: 80px 0;
     text-align: center;
     color: white;
@@ -358,7 +358,7 @@ section {
 
 /* Footer */
 .footer {
-    background-color: #2D6A4F;
+    background-color: #66948a;
     color: white;
     padding: 60px 0 30px;
 }

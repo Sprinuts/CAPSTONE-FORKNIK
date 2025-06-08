@@ -131,7 +131,7 @@
         </div>
         
         <div class="results-interpretation">
-            <h3>What These Results Mean</h3>
+            <h3>What Your Score Means</h3>
             <p>
                 The DASS-21 is not a clinical diagnostic tool, but it can help identify symptoms of depression, 
                 anxiety, and stress that may benefit from professional support.
