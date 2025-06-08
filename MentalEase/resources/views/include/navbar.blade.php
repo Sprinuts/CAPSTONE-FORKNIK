@@ -68,7 +68,7 @@
                         </li>
                         <li>
                             <a class="dropdown-item {{ request()->routeIs('assessment.dass') ? 'active' : '' }}" 
-                               href="{{ route('assessment.dass') }}">DASS21 Assessment</a>
+                               href="{{ route('assessment.dass') }}">DASS-21 Assessment</a>
                         </li>
                     </ul>
                 </li>

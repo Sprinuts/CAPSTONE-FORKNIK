@@ -7,7 +7,7 @@
 }
 
 .assessment-header {
-    background-color: #347e5d;
+    background-color: #66948a;
     color: white;
     padding: 3rem 2rem;
     text-align: center;
@@ -119,7 +119,7 @@
 }
 
 .start-btn {
-    background-color: #2f684e;
+    background-color: #5c7e74;
     color: white;
     border: none;
     padding: 1rem 3rem;
@@ -132,7 +132,7 @@
 }
 
 .start-btn:hover {
-    background-color: #1d4e3a;
+    background-color: #276254;
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(47, 104, 78, 0.3);
 }

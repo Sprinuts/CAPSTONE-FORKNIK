@@ -15,7 +15,7 @@
     
     <div class="results-content">
                 <div class="results-summary">
-            <p>The DASS-21 measures three related states of depression, anxiety and stress. Your results indicate:</p>
+            <p>The PSS assessment measures your perception of stress in your life. Your results indicate:</p>
             
             <div class="severity-legend">
                 <div class="legend-title">Severity Levels:</div>
