@@ -94,7 +94,7 @@
                         </li>
                         <li>
                             <a class="dropdown-item {{ request()->routeIs('journal.record') ? 'active' : '' }}" 
-                               href="{{ route('journal.record') }}">Journal Records</a>
+                               href="{{ route('journal.record') }}">Appointment History</a>
                         </li>
                     </ul>
                 </li>

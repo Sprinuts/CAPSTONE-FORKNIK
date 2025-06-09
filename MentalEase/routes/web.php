@@ -93,6 +93,7 @@ Route::get('/users/idview/{id}', [Users::class, 'usersidview'])->name('users.idv
 Route::get('/users/idview/disabled/{id}', [Users::class, 'usersidviewdisabled'])->name('users.idview.disabled');
 Route::get('/users/enable/{id}', [Users::class, 'usersenable'])->name('users.enable');
 Route::get('/usersarchive', [Users::class, 'usersarchive'])->name('users.archive');
+Route::get('/users/pdf', [Users::class, 'generatePdf'])->name('users.pdf');
 
 
 // consultation
@@ -107,7 +108,9 @@ Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
 
 // journal
 Route::get('/journal', [Index::class, 'journal'])->name('journal');
+Route::get('/journal/add', [Journal::class, 'journaladd'])->name('journal.add');
 Route::post('/journal/store', [Journal::class, 'journalstore'])->name('journal.store');
+Route::get('/journal/{id}', [Journal::class, 'journalshow'])->name('journal.show');
 
 Route::get('/journal/record', [Index::class, 'journalrecord'])->name('journal.record');
 
