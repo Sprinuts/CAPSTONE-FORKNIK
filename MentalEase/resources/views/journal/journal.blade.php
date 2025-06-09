@@ -1,44 +1,141 @@
-<form method="POST" action="{{ route('journal.store') }}">
-    @csrf
-    <div class="max-w-md mx-auto p-6 bg-white rounded shadow">
-        <h2 class="text-xl font-bold mb-4">How are you feeling today?</h2>
-        <div class="flex space-x-2 mb-6">
-            @foreach(['Sad', 'Meh', 'Okay', 'Good', 'Great'] as $mood)
-                <button type="button" 
-                    class="px-4 py-2 rounded bg-gray-200 hover:bg-blue-200 focus:bg-blue-400 mood-btn"
-                    data-mood="{{ $mood }}">
-                    {{ $mood }}
-                </button>
-            @endforeach
-        </div>
-        <input type="hidden" name="mood" id="selected-mood">
+<link rel="stylesheet" href="{{ asset('style/journal.css') }}">
 
-        <h3 class="text-lg font-semibold mb-2">What emotions are you feeling?</h3>
-        <div class="flex flex-wrap gap-2 mb-6">
-            @foreach(['Anxious', 'Calm', 'Joyful', 'Angry', 'Excited', 'Tired', 'Hopeful', 'Frustrated'] as $emotion)
-                <button type="button" 
-                    class="px-3 py-1 rounded-full bg-gray-100 hover:bg-blue-100 focus:bg-blue-300 emotion-btn"
-                    data-emotion="{{ $emotion }}">
-                    {{ $emotion }}
-                </button>
-            @endforeach
-        </div>
-        <input type="hidden" name="emotions" id="selected-emotions">
-
-        <h3 class="text-lg font-semibold mb-2">What's on your mind?</h3>
-        <textarea name="thoughts" class="w-full p-2 border rounded mb-4" rows="4" placeholder="Share your thoughts..."></textarea>
-
-        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Save Journal Entry</button>
+<div class="main-content">
+    <div class="top-bar shadow-sm">
+        <h1 class="text-2xl font-bold">Journal</h1>
     </div>
-</form>
+
+    <div class="dashboard-header">
+        <div class="dashboard-title-button">
+            <h2 class="text-xl font-semibold">My Wellness Journal</h2>
+            <div class="flex items-center">
+                <span class="date-display mr-2">{{ date('l, F j, Y') }}</span>
+                <span class="entry-badge">Daily Entry</span>
+            </div>
+        </div>
+    </div>
+
+    <form method="POST" action="{{ route('journal.store') }}" class="journal-form">
+        @csrf
+        <div class="journal-card">
+            
+            <!-- Mood Section -->
+            <div class="form-section">
+                <h2 class="section-title">
+                    How are you feeling today?
+                </h2>
+                <div class="mood-container">
+                    @foreach([
+                        ['Sad', '😢', 'bg-blue-100'], 
+                        ['Meh', '😐', 'bg-gray-100'], 
+                        ['Okay', '🙂', 'bg-green-100'], 
+                        ['Good', '😊', 'bg-yellow-100'], 
+                        ['Great', '😁', 'bg-orange-100']
+                    ] as [$mood, $emoji, $bgColor])
+                        <button type="button" 
+                            class="mood-btn {{ $bgColor }}"
+                            data-mood="{{ $mood }}">
+                            <span class="mood-emoji">{{ $emoji }}</span>
+                            <span class="mood-text">{{ $mood }}</span>
+                        </button>
+                    @endforeach
+                </div>
+                <input type="hidden" name="mood" id="selected-mood">
+                <div id="mood-feedback" class="feedback-message hidden">
+                    You're feeling <span id="selected-mood-text"></span> today
+                </div>
+            </div>
+
+            <!-- Emotions Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    What emotions are you experiencing?
+                </h3>
+                <p class="section-subtitle">Select all that apply to you right now</p>
+                <div class="emotions-container">
+                    @foreach([
+                        ['Anxious', '😰', 'bg-purple-50'], 
+                        ['Calm', '😌', 'bg-blue-50'], 
+                        ['Joyful', '😄', 'bg-yellow-50'], 
+                        ['Angry', '😠', 'bg-red-50'], 
+                        ['Excited', '🤩', 'bg-pink-50'], 
+                        ['Tired', '😴', 'bg-gray-50'], 
+                        ['Hopeful', '🙏', 'bg-green-50'], 
+                        ['Frustrated', '😤', 'bg-orange-50'],
+                        ['Grateful', '🥰', 'bg-teal-50'],
+                        ['Overwhelmed', '😩', 'bg-indigo-50'],
+                        ['Motivated', '💪', 'bg-lime-50'],
+                        ['Confused', '🤔', 'bg-amber-50']
+                    ] as [$emotion, $emoji, $bgColor])
+                        <button type="button" 
+                            class="emotion-btn {{ $bgColor }}"
+                            data-emotion="{{ $emotion }}">
+                            <span class="emotion-emoji">{{ $emoji }}</span>
+                            <span class="emotion-text">{{ $emotion }}</span>
+                        </button>
+                    @endforeach
+                </div>
+                <input type="hidden" name="emotions" id="selected-emotions">
+                <div id="emotions-count" class="feedback-message hidden">
+                    <span id="emotions-selected">0</span> emotions selected
+                </div>
+            </div>
+
+            <!-- Thoughts Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    What's on your mind?
+                </h3>
+                <div class="relative">
+                    <textarea 
+                        name="thoughts" 
+                        class="input-field" 
+                        rows="5" 
+                        placeholder="Share your thoughts, feelings, or experiences..."
+                    ></textarea>
+                    <div class="char-counter">
+                        <span id="char-count">0</span> characters
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gratitude Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    What are you grateful for today?
+                </h3>
+                <input 
+                    type="text" 
+                    name="gratitude" 
+                    class="input-field" 
+                    placeholder="I am grateful for..."
+                >
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-actions">
+                <button type="submit" class="submit-button">
+                    Save Journal Entry
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <script>
     // Mood selection (single)
     document.querySelectorAll('.mood-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            document.getElementById('selected-mood').value = this.dataset.mood;
-            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('bg-blue-400', 'text-white'));
-            this.classList.add('bg-blue-400', 'text-white');
+            const mood = this.dataset.mood;
+            document.getElementById('selected-mood').value = mood;
+            document.getElementById('selected-mood-text').textContent = mood.toLowerCase();
+            document.getElementById('mood-feedback').classList.remove('hidden');
+            
+            // Visual feedback
+            document.querySelectorAll('.mood-btn').forEach(b => {
+                b.classList.remove('selected');
+            });
+            this.classList.add('selected');
         });
     });
 
@@ -47,14 +144,44 @@
     document.querySelectorAll('.emotion-btn').forEach(btn => {
         btn.addEventListener('click', function() {
             const emotion = this.dataset.emotion;
+            
             if (selectedEmotions.includes(emotion)) {
                 selectedEmotions.splice(selectedEmotions.indexOf(emotion), 1);
-                this.classList.remove('bg-blue-300', 'text-white');
+                this.classList.remove('selected');
             } else {
                 selectedEmotions.push(emotion);
-                this.classList.add('bg-blue-300', 'text-white');
+                this.classList.add('selected');
             }
+            
             document.getElementById('selected-emotions').value = selectedEmotions.join(',');
+            
+            // Update counter
+            const count = selectedEmotions.length;
+            document.getElementById('emotions-selected').textContent = count;
+            document.getElementById('emotions-count').classList.toggle('hidden', count === 0);
         });
     });
+
+    // Character counter for thoughts
+    const textarea = document.querySelector('textarea[name="thoughts"]');
+    const charCount = document.getElementById('char-count');
+    
+    textarea.addEventListener('input', function() {
+        charCount.textContent = this.value.length;
+    });
+
+    // Add animation when form loads
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.journal-card');
+        setTimeout(() => {
+            form.classList.add('fade-in');
+        }, 300);
+    });
 </script>
+
+
+
+
+
+
+
