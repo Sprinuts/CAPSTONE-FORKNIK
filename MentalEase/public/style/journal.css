@@ -3,7 +3,7 @@
     --primary-color: #2D6A4F;
     --primary-light: #40916C;
     --primary-dark: #1B4332;
-    --secondary-color: #95D5B2;
+    --secondary-color: #66948a;
     --background-color: #F8F9FA;
     --card-background: #FFFFFF;
     --text-color: #333333;
@@ -53,7 +53,7 @@ body {
 
 /* Dashboard Header */
 .dashboard-header {
-    background: linear-gradient(to right, var(--primary-light), var(--primary-color ));
+    background: linear-gradient(to right, var(--secondary-color), var(--primary-light ));
     padding: 1.5rem 2rem;
     color: white;
     display: flex;
@@ -274,7 +274,7 @@ body {
 }
 
 .submit-button {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: white;
     border: none;
     border-radius: 0.5rem;

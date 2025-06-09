@@ -183,8 +183,6 @@
 
 
 
-
-
 <div class="container">
     <h2>Your Journals</h2>
     <a href="{{ route('journal.add') }}" class="btn btn-primary mb-3">Add Journal</a>
