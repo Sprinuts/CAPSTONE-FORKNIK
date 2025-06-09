@@ -129,21 +129,15 @@ class Index extends Controller
 
     public function journal()
     {
-        // This method should return the user's journal.
-        // For now, it returns a temporary view.
-        // You can replace this with actual logic to fetch user journal entries.
-        return view('include/header')
-            .view('include/navbar')
-            .view('journal/journal'); // temporary
-    }
+        $user = session('user');
+        $journals = [];
 
-    public function journalrecord()
-    {
-        // This method should return the user's journal record.
-        // For now, it returns a temporary view.
-        // You can replace this with actual logic to fetch user journal records.
+        if ($user) {
+            $journals = \App\Models\Journal::where('user_id', $user->id)->get();
+        }
+
         return view('include/header')
             .view('include/navbar')
-            .view('journal/journalrecord'); // temporary
+            .view('journal/journal', ['journals' => $journals]);
     }
 }

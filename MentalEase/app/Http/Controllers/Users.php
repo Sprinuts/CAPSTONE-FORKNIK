@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class Users extends Controller
 {
@@ -207,6 +208,17 @@ class Users extends Controller
         
         return redirect()->back()->withErrors(['user' => 'User not found']);
     }
+
+    public function generatePdf()
+    {
+        $usersmodel = new \App\Models\Users();
+        $users = $usersmodel->where('disable', 0)->get();
+
+        $pdf = Pdf::loadView('users/userspdf', compact('users'));
+
+        return $pdf->download('users.pdf');
+    }
+
 }
 
 

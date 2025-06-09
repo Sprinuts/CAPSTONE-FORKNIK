@@ -3,6 +3,7 @@
     <h3 class="text-center">List of Users</h3>
     <div class="adjust">
         <a href="{{ route('users.add') }}" class="btn btn-lg btn-success adjustBtn">Add New User</a>
+        <a href="{{ route('users.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a>
         <table class="adjustBtn table table-striped table-hover table-light table-bordered table-responsive">
             <thead>
                 <tr>
