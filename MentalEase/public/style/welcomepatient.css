@@ -1,3 +1,22 @@
+:root {
+    --primary-color: #2D6A4F;
+    --primary-light: #40916C;
+    --primary-dark: #1B4332;
+    --secondary-color: #95D5B2;
+    --background-color: #F8F9FA;
+    --card-background: #FFFFFF;
+    --text-color: #333333;
+    --text-light: #6C757D;
+    --border-color: #E9ECEF;
+    --success-color: #28A745;
+    --warning-color: #FFC107;
+    --danger-color: #DC3545;
+    --transition-fast: 0.2s ease;
+    --transition-medium: 0.3s ease;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
 body {
   margin: 0;
   padding: 0;
@@ -16,6 +35,13 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0; /* Connect with top-bar below */
+  background: linear-gradient(to right, var(--primary-light), var(--primary-color ));
+  padding: 1.5rem 2rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-md);
 }
 
 .top-bar {
