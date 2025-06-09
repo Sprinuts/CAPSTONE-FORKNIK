@@ -8,6 +8,8 @@ use App\Http\Controllers\Assessment;
 use App\Http\Controllers\Users;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\VideoSDKController;
+
 use App\Http\Controllers\Journal;
 
 use Illuminate\Support\Facades\Route;
@@ -122,4 +124,5 @@ Route::post('/activate/resend', [Users::class, 'resendActivationCode'])->name('r
 Route::get('/assessment/pss/results', [Assessment::class, 'pssResults'])->name('assessment.pss.results');
 
 
-
+// videosdk
+Route::post('/create/meeting', [VideoSDKController::class, 'createmeeting'])->name('create.meeting');

@@ -1,5 +1,31 @@
-<div>
+<body>
+    <div id="join-screen">
+        <!-- Create new Meeting Button -->
+        <button id="createMeetingBtn">New Meeting</button>
+        OR
+        <!-- Join existing Meeting -->
+        <input type="text" id="meetingIdTxt" placeholder="Enter Meeting id" />
+        <button id="joinBtn">Join Meeting</button>
+    </div>
 
-    <h1>Consultation code: _____</h1>
-    <!-- I begin to speak only when I am certain what I will say is not better left unsaid. - Cato the Younger -->
-</div>
+    <!-- for Managing meeting status -->
+    <div id="textDiv"></div>
+
+    <div id="grid-screen" style="display: none">
+        <!-- To Display MeetingId -->
+        <h3 id="meetingIdHeading"></h3>
+
+        <!-- Controllers -->
+        <button id="leaveBtn">Leave</button>
+        <button id="toggleMicBtn">Toggle Mic</button>
+        <button id="toggleWebCamBtn">Toggle WebCam</button>
+
+        <!-- render Video -->
+        <div class="row" id="videoContainer"></div>
+    </div>
+
+    <!-- Add VideoSDK script -->
+    <script src="https://sdk.videosdk.live/js-sdk/0.1.6/videosdk.js"></script>
+    <script src="{{ asset('javascript/config.js') }}"></script>
+    <script src="{{ asset('javascript/consultation.js') }}"></script>
+</body>
