@@ -89,5 +89,58 @@ class Journal extends Controller
 
         return redirect()->route('journal.list')->with('success', 'Journal entry deleted successfully.');
     }
+
+    public function journaledit($id)
+    {
+        $journalModel = new \App\Models\Journal();
+        $journalEntry = $journalModel->find($id);
+
+        if (!$journalEntry) {
+            return redirect()->route('journal.list')->withErrors(['error' => 'Journal entry not found.']);
+        }
+
+        // Check if the journal belongs to the current user
+        if ($journalEntry->user_id != session('user')->id) {
+            return redirect()->route('journal.list')->withErrors(['error' => 'You are not authorized to edit this journal entry.']);
+        }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('journal/journaledit', compact('journalEntry'))
+            .view('include/footer');
+    }
+
+    public function journalupdate($id, Request $request)
+    {
+        $journalModel = new \App\Models\Journal();
+        $journalEntry = $journalModel->find($id);
+
+        if (!$journalEntry) {
+            return redirect()->route('journal.list')->withErrors(['error' => 'Journal entry not found.']);
+        }
+
+        // Check if the journal belongs to the current user
+        if ($journalEntry->user_id != session('user')->id) {
+            return redirect()->route('journal.list')->withErrors(['error' => 'You are not authorized to edit this journal entry.']);
+        }
+
+        $data = $request->only(['mood', 'emotion', 'thoughts']);
+        
+        // Validate the data
+        $validator = \Illuminate\Support\Facades\Validator::make($data, [
+            'mood' => 'nullable|string',
+            'emotion' => 'nullable|string',
+            'thoughts' => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $journalEntry->update($data);
+
+        return redirect()->route('journal.show', $id)->with('success', 'Journal entry updated successfully.');
+    }
 }
+
 
