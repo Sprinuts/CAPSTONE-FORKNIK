@@ -103,7 +103,7 @@
                 </div>
             </div>
 
-            <!-- Gratitude Section -->
+            {{-- <!-- Gratitude Section -->
             <div class="form-section">
                 <h3 class="section-title">
                     What are you grateful for today?
@@ -114,7 +114,7 @@
                     class="input-field" 
                     placeholder="I am grateful for..."
                 >
-            </div>
+            </div> --}}
 
             <!-- Submit Button -->
             <div class="form-actions">
