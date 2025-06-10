@@ -7,7 +7,7 @@ const createButton = document.getElementById("createMeetingBtn");
 const videoContainer = document.getElementById("videoContainer");
 const textDiv = document.getElementById("textDiv");
 
-// Declare Variables
+// Declare Variablesfo
 let meeting = null;
 let meetingId = "";
 let isMicOn = false;
@@ -66,6 +66,20 @@ function initializeMeeting() {
         webcamEnabled: true, // optional, default: true
     });
 
+    // Set initial states for toggles
+    isMicOn = true;
+    isWebCamOn = true;
+    
+    toggleMicButton.classList.add('active');
+    toggleMicButton.classList.remove('disabled');
+    toggleMicButton.setAttribute('data-tooltip', 'Microphone On');
+    toggleMicButton.innerHTML = '<i class="fas fa-microphone"></i>';
+    
+    toggleWebCamButton.classList.add('active');
+    toggleWebCamButton.classList.remove('disabled');
+    toggleWebCamButton.setAttribute('data-tooltip', 'Camera On');
+    toggleWebCamButton.innerHTML = '<i class="fas fa-video"></i>';
+
     meeting.join();
 
     // Creating local participant
@@ -116,41 +130,57 @@ function initializeMeeting() {
     });
 
     // leave Meeting Button Event Listener
-leaveButton.addEventListener("click", async () => {
-    meeting?.leave();
-    document.getElementById("grid-screen").style.display = "none";
-    document.getElementById("join-screen").style.display = "block";
+    leaveButton.addEventListener("click", async () => {
+        meeting?.leave();
+        document.getElementById("grid-screen").style.display = "none";
+        document.getElementById("join-screen").style.display = "block";
     });
 
     // Toggle Mic Button Event Listener
     toggleMicButton.addEventListener("click", async () => {
-    if (isMicOn) {
-        // Disable Mic in Meeting
-        meeting?.muteMic();
-    } else {
-        // Enable Mic in Meeting
-        meeting?.unmuteMic();
-    }
-    isMicOn = !isMicOn;
+        if (isMicOn) {
+            // Disable Mic in Meeting
+            meeting?.muteMic();
+            toggleMicButton.classList.remove('active');
+            toggleMicButton.classList.add('disabled');
+            toggleMicButton.setAttribute('data-tooltip', 'Microphone Off');
+            toggleMicButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+        } else {
+            // Enable Mic in Meeting
+            meeting?.unmuteMic();
+            toggleMicButton.classList.remove('disabled');
+            toggleMicButton.classList.add('active');
+            toggleMicButton.setAttribute('data-tooltip', 'Microphone On');
+            toggleMicButton.innerHTML = '<i class="fas fa-microphone"></i>';
+        }
+        isMicOn = !isMicOn;
     });
 
     // Toggle Web Cam Button Event Listener
     toggleWebCamButton.addEventListener("click", async () => {
-    if (isWebCamOn) {
-        // Disable Webcam in Meeting
-        meeting?.disableWebcam();
+        if (isWebCamOn) {
+            // Disable Webcam in Meeting
+            meeting?.disableWebcam();
+            toggleWebCamButton.classList.remove('active');
+            toggleWebCamButton.classList.add('disabled');
+            toggleWebCamButton.setAttribute('data-tooltip', 'Camera Off');
+            toggleWebCamButton.innerHTML = '<i class="fas fa-video-slash"></i>';
 
-        let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
-        vElement.style.display = "none";
-    } else {
-        // Enable Webcam in Meeting
-        meeting?.enableWebcam();
+            let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
+            if (vElement) vElement.style.display = "none";
+        } else {
+            // Enable Webcam in Meeting
+            meeting?.enableWebcam();
+            toggleWebCamButton.classList.remove('disabled');
+            toggleWebCamButton.classList.add('active');
+            toggleWebCamButton.setAttribute('data-tooltip', 'Camera On');
+            toggleWebCamButton.innerHTML = '<i class="fas fa-video"></i>';
 
-        let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
-        vElement.style.display = "inline";
-    }
-    isWebCamOn = !isWebCamOn;
-});
+            let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
+            if (vElement) vElement.style.display = "inline";
+        }
+        isWebCamOn = !isWebCamOn;
+    });
 }
 
 // creating video element
@@ -220,3 +250,4 @@ function createLocalParticipant() {
         }
     }
 }
+
