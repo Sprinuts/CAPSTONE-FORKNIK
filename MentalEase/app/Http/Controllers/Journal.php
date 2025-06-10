@@ -35,7 +35,8 @@ class Journal extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('journal/journaladd');
+            .view('journal/journaladd')
+            .view('include/footer');
     }
     
     public function journalshow($id)
@@ -49,7 +50,8 @@ class Journal extends Controller
 
         return view('include/header')
             .view('include/navbar')
-            .view('journal/journalshow', compact('journalEntry'));
+            .view('journal/journalshow', compact('journalEntry'))
+            .view('include/footer');
     }
 
     public function journallist()
@@ -65,7 +67,8 @@ class Journal extends Controller
 
         return view('include/header')
             .view('include/navbar')
-            .view('journal/journal-list', ['journals' => $journals]);
+            .view('journal/journal-list', ['journals' => $journals])
+            .view('include/footer');
     }
 
     public function journaldelete($id)

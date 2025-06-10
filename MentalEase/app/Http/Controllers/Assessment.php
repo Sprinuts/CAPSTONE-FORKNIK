@@ -10,14 +10,16 @@ class Assessment extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('assessment/pss');
+            .view('assessment/pss')
+            .view('include/footer');
     }
 
     public function pssassessment()
     {
         return view('include/header')
             .view('include/navbar')
-            .view('assessment/pssassessment');
+            .view('assessment/pssassessment')
+            .view('include/footer');
     }
 
     public function pssSubmit(Request $request)
@@ -111,21 +113,24 @@ class Assessment extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('assessment/dass');
+            .view('assessment/dass')
+            .view('include/footer');
     }
 
     public function dassassessment()
     {
         return view('include/header')
             .view('include/navbar')
-            .view('assessment/dassassessment');
+            .view('assessment/dassassessment')
+            .view('include/footer');
     }
 
     public function dassAssessmentTake()
     {
         return view('include/header')
             .view('include/navbar')
-            .view('assessment/dassassessment');
+            .view('assessment/dassassessment')
+            .view('include/footer');
     }
 
     public function dassSubmit(Request $request)

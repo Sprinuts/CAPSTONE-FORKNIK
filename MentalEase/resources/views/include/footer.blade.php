@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('style/footer.css') }}">
 
-<!-- Footer
+<!-- Footer -->
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -32,4 +32,3 @@
         </div>
     </div>
 </footer>
- -->

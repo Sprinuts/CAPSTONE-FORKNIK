@@ -65,40 +65,61 @@
         const selectedTimeDisplay = document.getElementById('selected_time_display');
         const proceedButton = document.getElementById('proceed_button');
         
+        // Get current date and time
+        const now = new Date();
+        
         timeSlots.forEach(slot => {
-            slot.addEventListener('click', function() {
-                // Remove active class from all slots
-                timeSlots.forEach(s => s.classList.remove('active'));
-                
-                // Add active class to selected slot
-                this.classList.add('active');
-                
-                // Update hidden inputs
-                const date = this.getAttribute('data-date');
-                const time = this.getAttribute('data-time');
-                selectedDateInput.value = date;
-                selectedTimeInput.value = time;
-                
-                // Update display
-                const formattedDate = new Date(date).toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
+            // Check if the date is in the past
+            const slotDate = new Date(slot.getAttribute('data-date'));
+            const slotTime = slot.getAttribute('data-time');
+            
+            // Create a datetime by combining date and time
+            const [hours, minutes] = slotTime.split(':');
+            slotDate.setHours(parseInt(hours), parseInt(minutes), 0);
+            
+            // If the slot datetime is in the past, disable it
+            if (slotDate < now) {
+                slot.classList.add('disabled');
+                slot.setAttribute('title', 'This time slot is no longer available');
+            } else {
+                slot.addEventListener('click', function() {
+                    // Only proceed if the slot is not disabled
+                    if (!this.classList.contains('disabled')) {
+                        // Remove active class from all slots
+                        timeSlots.forEach(s => s.classList.remove('active'));
+                        
+                        // Add active class to selected slot
+                        this.classList.add('active');
+                        
+                        // Update hidden inputs
+                        const date = this.getAttribute('data-date');
+                        const time = this.getAttribute('data-time');
+                        selectedDateInput.value = date;
+                        selectedTimeInput.value = time;
+                        
+                        // Update display
+                        const formattedDate = new Date(date).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        
+                        const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                        });
+                        
+                        selectedDateDisplay.innerHTML = `<strong>Date:</strong> ${formattedDate}`;
+                        selectedTimeDisplay.innerHTML = `<strong>Time:</strong> ${formattedTime}`;
+                        
+                        // Enable proceed button
+                        proceedButton.disabled = false;
+                    }
                 });
-                
-                const formattedTime = new Date(`2000-01-01T${time}`).toLocaleTimeString('en-US', {
-                    hour: 'numeric',
-                    minute: 'numeric',
-                    hour12: true
-                });
-                
-                selectedDateDisplay.innerHTML = `<strong>Date:</strong> ${formattedDate}`;
-                selectedTimeDisplay.innerHTML = `<strong>Time:</strong> ${formattedTime}`;
-                
-                // Enable proceed button
-                proceedButton.disabled = false;
-            });
+            }
         });
     });
 </script>
+

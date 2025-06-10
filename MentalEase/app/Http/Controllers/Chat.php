@@ -49,6 +49,7 @@ class Chat extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('chatbot');
+            .view('chatbot')
+            .view('include/footer');
     }
 }

@@ -108,14 +108,16 @@ class Index extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('appointment');
+            .view('appointment')
+            .view('include/footer');
     }
 
     public function consultation()
     {
         return view('include/header')
             .view('include/navbar')
-            .view('consult/consultation'); // temporary
+            .view('consult/consultation')
+            .view('include/footer'); // temporary
     }
 
     public function myrecords()
@@ -125,7 +127,8 @@ class Index extends Controller
         // You can replace this with actual logic to fetch user records.
         return view('include/header')
             .view('include/navbar')
-            .view('patientrecord/record'); // temporary
+            .view('patientrecord/record')
+            .view('include/footer'); // temporary
     }
 
     public function journal()
@@ -139,6 +142,7 @@ class Index extends Controller
 
         return view('include/header')
             .view('include/navbar')
-            .view('journal/journal', ['journals' => $journals]);
+            .view('journal/journal', ['journals' => $journals])
+            .view('include/footer');
     }
 }

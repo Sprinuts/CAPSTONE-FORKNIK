@@ -14,7 +14,8 @@ class ScheduleController extends Controller
 
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
-            .view('schedule.create', compact('psychometrician', 'schedules'));
+            .view('schedule.create', compact('psychometrician', 'schedules'))
+            .view('include/footer');
     }
 
     public function store(Request $request)
@@ -36,6 +37,7 @@ class ScheduleController extends Controller
 
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
-            .view('schedule/scheduleview', compact('schedules', 'psychometrician'));
+            .view('schedule/scheduleview', compact('schedules', 'psychometrician'))
+            .view('include/footer');
     }
 }
