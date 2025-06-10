@@ -37,6 +37,7 @@ body {
 
 /* Top Navigation */
 .top-bar {
+
     padding: 1rem 2rem;
     background-color: var(--card-background);
     border-bottom: 1px solid var(--border-color);
