@@ -11,23 +11,8 @@
     <input type="hidden" name="psychometrician_id" value="{{ $psychometrician->id }}">
     <label>Date:</label>
     <input type="text" name="date" id="date" required>
-    <div>
-        <label>Start Time:</label>
-        <br>
-        @for ($hour = 8; $hour <= 17; $hour++)
-            @if ($hour != 12 && $hour != 13)
-                @php
-                    $displayHour = $hour > 12 ? $hour - 12 : $hour;
-                    $ampm = $hour < 12 ? 'AM' : 'PM';
-                    $timeValue = sprintf('%02d:00', $hour);
-                    $display = $displayHour . ':00 ' . $ampm;
-                @endphp
-                <label>
-                    <input type="radio" name="start_time" value="{{ $timeValue }}" required>
-                    {{ $display }}
-                </label><br>
-            @endif
-        @endfor
+    <div id="time-slot-container">
+        <label>Select a time after picking a date:</label><br>
     </div>
     <button type="submit">Submit</button>
 </form>
@@ -39,9 +24,40 @@
         dateFormat: "Y-m-d",
         disable: [
             function(date) {
-                // return true to disable
-                return (date.getDay() === 0 || date.getDay() === 6);
+                return (date.getDay() === 0 || date.getDay() === 6); // Disable Sat/Sun
             }
-        ]
+        ],
+        onChange: function(selectedDates, dateStr) {
+            if (!dateStr) return;
+
+            const psychometricianId = "{{ $psychometrician->id }}";
+
+            fetch(`/available-times?date=${dateStr}&psychometrician_id=${psychometricianId}`)
+                .then(response => response.json())
+                .then(times => {
+                    const container = document.getElementById('time-slot-container');
+                    container.innerHTML = ""; // clear previous
+
+                    if (times.length === 0) {
+                        container.innerHTML = "<p>No available times for this date.</p>";
+                        return;
+                    }
+
+                    container.innerHTML = "<label>Start Time:</label><br>";
+
+                    times.forEach(time => {
+                        const [hour, minute] = time.split(":");
+                        let hour12 = hour % 12 || 12;
+                        const ampm = hour < 12 || hour == 24 ? 'AM' : 'PM';
+
+                        container.innerHTML += `
+                            <label>
+                                <input type="radio" name="start_time" value="${time}" required>
+                                ${hour12}:00 ${ampm}
+                            </label><br>
+                        `;
+                    });
+                });
+        }
     });
 </script>

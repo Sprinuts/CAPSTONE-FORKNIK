@@ -64,6 +64,7 @@ Route::get('/assessment/dass/results', [Assessment::class, 'dassResults'])->name
 Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('schedule.create');
 Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::get('/schedule/view', [ScheduleController::class, 'view'])->name('schedule.view');
+Route::get('/available-times', [ScheduleController::class, 'getAvailableTimes'])->name('schedule.available-times');
 
 // appointment 
 Route::get('/appointment/select', [AppointmentController::class, 'selectPsychometrician'])->name('appointment.selectPsychometrician');
