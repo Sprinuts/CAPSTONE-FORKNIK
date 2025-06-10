@@ -1,3 +1,4 @@
+
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
@@ -11,7 +12,12 @@
             <p class="mb-1"><strong>Thoughts:</strong> {{ Str::limit($journalEntry->thoughts ?? '') }}</p>
         </div>
         <div class="card-footer text-end">
-            <a href="{{ route('journal') }}" class="btn btn-secondary">Back to Journals</a>
+            <form method="POST" action="{{ route('journal.delete', $journalEntry->id) }}" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this journal entry?')">Delete</button>
+            </form>
+            <a href="{{ route('journal.list') }}" class="btn btn-secondary ms-2">Back to Journals</a>
         </div>
     </div>
 </div>

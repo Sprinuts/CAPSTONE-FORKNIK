@@ -23,7 +23,7 @@
                 </button>
             @endforeach
         </div>
-        <input type="hidden" name="emotion" id="selected-emotions">
+        <input type="hidden" name="emotions" id="selected-emotions">
 
         <h3 class="text-lg font-semibold mb-2">What's on your mind?</h3>
         <textarea name="thoughts" class="w-full p-2 border rounded mb-4" rows="4" placeholder="Share your thoughts..."></textarea>
@@ -58,3 +58,6 @@
         });
     });
 </script>
+
+
+

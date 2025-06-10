@@ -108,11 +108,13 @@ Route::get('/welcome/psychometrician', [Index::class, 'welcomepsychometrician'])
 // patient record
 Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
 
-// journal
+// journal routes
 Route::get('/journal', [Index::class, 'journal'])->name('journal');
+Route::get('/journal/list', [Journal::class, 'journallist'])->name('journal.list');
 Route::get('/journal/add', [Journal::class, 'journaladd'])->name('journal.add');
 Route::post('/journal/store', [Journal::class, 'journalstore'])->name('journal.store');
 Route::get('/journal/{id}', [Journal::class, 'journalshow'])->name('journal.show');
+Route::delete('/journal/{id}', [Journal::class, 'journaldelete'])->name('journal.delete');
 
 Route::get('/journal/record', [Index::class, 'journalrecord'])->name('journal.record');
 
@@ -126,3 +128,5 @@ Route::get('/assessment/pss/results', [Assessment::class, 'pssResults'])->name('
 
 // videosdk
 Route::post('/create/meeting', [VideoSDKController::class, 'createmeeting'])->name('create.meeting');
+
+

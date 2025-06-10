@@ -44,11 +44,54 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .top-bar h1 {
     color: var(--primary-dark);
     margin: 0;
+}
+
+/* View Journals Button */
+.view-journals-btn {
+    display: flex;
+    align-items: center;
+    background-color: var(--primary-light);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.view-journals-btn:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.view-journals-btn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .view-journals-btn span {
+        display: none;
+    }
+    
+    .view-journals-btn i {
+        margin-right: 0;
+        font-size: 1.2rem;
+    }
+    
+    .view-journals-btn {
+        padding: 0.5rem;
+    }
 }
 
 /* Dashboard Header */

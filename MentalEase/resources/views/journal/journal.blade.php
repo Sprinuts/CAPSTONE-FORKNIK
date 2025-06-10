@@ -3,6 +3,10 @@
 <div class="main-content">
     <div class="top-bar shadow-sm">
         <h1 class="text-2xl font-bold">Journal</h1>
+        <a href="{{ route('journal.list') }}" class="view-journals-btn">
+            <i class="fas fa-book"></i>
+            <span>View My Journals</span>
+        </a>
     </div>
 
     <div class="dashboard-header">
@@ -75,7 +79,7 @@
                         </button>
                     @endforeach
                 </div>
-                <input type="hidden" name="emotions" id="selected-emotions">
+                <input type="hidden" name="emotion" id="selected-emotions">
                 <div id="emotions-count" class="feedback-message hidden">
                     <span id="emotions-selected">0</span> emotions selected
                 </div>
@@ -180,22 +184,6 @@
 </script>
 
 
-<div class="container">
-    <h2>Your Journals</h2>
-    <a href="{{ route('journal.add') }}" class="btn btn-primary mb-3">Add Journal</a>
-    @if(empty($journals))
-        <p>You have no journal entries yet.</p>
-    @else
-        <div class="list-group">
-            @foreach($journals as $journal)
-                <a href="{{ route('journal.show', $journal->id) }}" class="list-group-item list-group-item-action">
-                    <h5 class="mb-1">Journal</h5>
-                    <small>{{ $journal->created_at->format('F d, Y') }}</small>
-                    <p class="mb-1"><strong>Mood:</strong> {{ $journal->mood ?? 'N/A' }}</p>
-                    <p class="mb-1"><strong>Emotion:</strong> {{ $journal->emotion ?? 'N/A' }}</p>
-                    <p class="mb-1"><strong>Thoughts:</strong> {{ Str::limit($journal->thoughts ?? '', 100) }}</p>
-                </a>
-            @endforeach
-        </div>
-    @endif
-</div>
+
+
+
