@@ -23,11 +23,6 @@
         <!-- Navigation links -->
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('welcomepatient') ? 'active' : '' }}" href="{{ route('welcomepatient') }}">
-                        Home
-                    </a>
-                </li>
                 
                 <!-- Combine related items into a Services dropdown -->
                 <li class="nav-item dropdown">

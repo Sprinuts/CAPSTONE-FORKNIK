@@ -71,7 +71,8 @@ class Index extends Controller
 
         return view('include/header')
             .view('include/navbar')
-            .view('welcomepatient');
+            .view('welcomepatient')
+            .view('include/footer');
     }
 
     public function welcomeadmin()
