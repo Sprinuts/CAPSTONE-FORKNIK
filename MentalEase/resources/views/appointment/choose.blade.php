@@ -56,6 +56,7 @@
     </form>
 </div>
 
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const timeSlots = document.querySelectorAll('.time-slot-option');

@@ -9,6 +9,7 @@ use App\Http\Controllers\Users;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\VideoSDKController;
+use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\Journal;
 
@@ -133,6 +134,8 @@ Route::get('/assessment/pss/results', [Assessment::class, 'pssResults'])->name('
 Route::post('/create/meeting', [VideoSDKController::class, 'createmeeting'])->name('create.meeting');
 
 
-
-
-
+// payment
+Route::post('/pay', [PaymentController::class, 'createCheckout'])->name('pay');
+Route::get('/payment/success/{id}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
+Route::get('/payment/failed/{id}', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
+Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancelled'])->name('payment.cancelled');
