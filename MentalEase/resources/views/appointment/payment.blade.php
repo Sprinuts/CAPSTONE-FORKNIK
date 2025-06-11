@@ -2,10 +2,10 @@
 <p>Pay for your appointment.</p>
 <form action="{{ route('pay') }}" method="POST">
     @csrf
-    {{-- <input type="hidden" name="user_id" value="{{ $data['user_id'] }}">
+    <input type="hidden" name="user_id" value="{{ $data['user_id'] }}">
     <input type="hidden" name="psychometrician_id" value="{{ $data['psychometrician_id'] }}">
     <input type="hidden" name="date" value="{{ $data['date'] }}">
-    <input type="hidden" name="start_time" value="{{ $data['start_time'] }}"> --}}
+    <input type="hidden" name="start_time" value="{{ $data['start_time'] }}">
     <button type="submit">Pay with Paymaya</button>
 
 </form>

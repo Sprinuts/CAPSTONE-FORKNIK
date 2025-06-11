@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Invoice;
 use Illuminate\Support\Str;
+use App\Models\Schedule;
+use App\Models\Appointment;
 
 class PaymentController extends Controller
 {
     public function createCheckout(Request $request)
     {
+        $data = [
+            'user_id' => $request->user_id,
+            'psychometrician_id' => $request->psychometrician_id,
+            'date' => $request->date,
+            'start_time' => $request->start_time,
+            'end_time' => \Carbon\Carbon::parse($request->start_time)->addHour(),
+        ];
+
         $amount = 300.00; // or get dynamically
         $referenceNumber = Str::uuid();
 
@@ -41,7 +51,7 @@ class PaymentController extends Controller
                     'contact' => ['email' => 'john@example.com'],
                 ],
                 'redirectUrl' => [
-                    'success' => route('payment.success', $invoice->id),
+                    'success' => route('payment.success', ['id' => $invoice->id, 'data' => json_encode($data)]),
                     'failure' => route('payment.failed', $invoice->id),
                     'cancel'  => route('payment.cancelled', $invoice->id),
                 ],
@@ -51,13 +61,36 @@ class PaymentController extends Controller
         return redirect($response['redirectUrl']);
     }
 
-    public function paymentSuccess($id)
+    public function paymentSuccess(Request $request, $id)
     {
         $invoice = Invoice::findOrFail($id);
         $invoice->payment_status = 'paid';
         $invoice->save();
 
-        return view('appointment/paymentsuccess', compact('invoice'));
+        // Retrieve and decode the 'data' parameter from the query string
+        $data = [];
+        if ($request->has('data')) {
+            $data = json_decode($request->query('data'), true);
+        }
+
+        Appointment::create([
+            'user_id' => $data['user_id'],
+            'psychometrician_id' => $data['psychometrician_id'],
+            'date' => $data['date'],
+            'start_time' => $data['start_time'],
+            'end_time' => \Carbon\Carbon::parse($data['start_time'])->addHour(),
+            'payment_status' => true,
+        ]);
+
+        // Update the schedule's 'scheduled' column to true
+        Schedule::where('psychometrician_id', $data['psychometrician_id'])
+            ->where('date', $data['date'])
+            ->where('start_time', $data['start_time'])
+            ->update(['scheduled' => true]);
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment/paymentsuccess', compact('invoice'));
     }
 
     public function paymentFailed($id)
