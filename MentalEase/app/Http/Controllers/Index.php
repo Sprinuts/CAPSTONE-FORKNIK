@@ -30,6 +30,8 @@ class Index extends Controller
                             return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
                         } else if ($user->role == 'psychometrician'){
                             return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
+                        } else if ($user->role == 'cashier'){
+                            return redirect()->route('welcomecashier'); // Redirect to psychometrician dashboard
                         } 
                     } else {
                         return redirect()->route('activate', [$data['username']]);
@@ -87,6 +89,13 @@ class Index extends Controller
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
             .view('welcome/welcomepsychometrician');
+    }
+
+    public function welcomecashier()
+    {
+        return view('include/headercashier')
+            .view('include/navbarcashier')
+            .view('welcome/welcomecashier');
     }
 
     public function logout()

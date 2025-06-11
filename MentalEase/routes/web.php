@@ -139,3 +139,6 @@ Route::post('/pay', [PaymentController::class, 'createCheckout'])->name('pay');
 Route::get('/payment/success/{id}', [PaymentController::class, 'paymentSuccess'])->name('payment.success');
 Route::get('/payment/failed/{id}', [PaymentController::class, 'paymentFailed'])->name('payment.failed');
 Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancelled'])->name('payment.cancelled');
+
+// welcome cashier
+Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
