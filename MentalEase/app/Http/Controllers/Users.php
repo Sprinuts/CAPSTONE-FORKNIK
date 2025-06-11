@@ -57,7 +57,7 @@ class Users extends Controller
             $usersmodel = new \App\Models\Users();
             $usersmodel->create($data);
 
-            return redirect()->route('usersview')->with('success', 'User added successfully.');
+            return redirect()->route('users.view')->with('success', 'User added successfully.');
         }
         return view('include/headeradmin')
             .view('include/navbaradmin')

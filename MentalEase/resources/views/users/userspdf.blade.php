@@ -27,6 +27,8 @@
                 <th>#</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Role</th>
+                <th>Contact Number</th>
                 <!-- Add more columns as needed -->
             </tr>
         </thead>
@@ -37,6 +39,7 @@
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->role }}</td>
+                <td>{{ $user->contactnumber}}</td>
                 <!-- Add more fields as needed -->
             </tr>
             @endforeach

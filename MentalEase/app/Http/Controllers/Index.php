@@ -30,7 +30,7 @@ class Index extends Controller
                             return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
                         } else if ($user->role == 'psychometrician'){
                             return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
-                        }
+                        } 
                     } else {
                         return redirect()->route('activate', [$data['username']]);
                     }
