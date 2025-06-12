@@ -15,20 +15,34 @@ class ScheduleController extends Controller
 
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
-            .view('schedule.create', compact('psychometrician', 'schedules'))
-            .view('include/footer');
+            .view('schedule.create', compact('psychometrician', 'schedules'));
     }
 
     public function store(Request $request)
     {
-        Schedule::create([
-            'psychometrician_id' => $request->psychometrician_id,
-            'date' => $request->date,
-            'start_time' => $request->start_time,
-            'end_time' => \Carbon\Carbon::parse($request->start_time)->addHour(),
-        ]);
-
-        return redirect()->back()->with('success', 'Schedule added.');
+        // Check if we're creating multiple appointments
+        if ($request->has('appointments')) {
+            foreach ($request->appointments as $appointment) {
+                Schedule::create([
+                    'psychometrician_id' => $request->psychometrician_id,
+                    'date' => $appointment['date'],
+                    'start_time' => $appointment['start_time'],
+                    'end_time' => \Carbon\Carbon::parse($appointment['start_time'])->addHour(),
+                ]);
+            }
+            
+            return redirect()->back()->with('success', 'Multiple schedules added successfully.');
+        } else {
+            // Original single appointment logic
+            Schedule::create([
+                'psychometrician_id' => $request->psychometrician_id,
+                'date' => $request->date,
+                'start_time' => $request->start_time,
+                'end_time' => \Carbon\Carbon::parse($request->start_time)->addHour(),
+            ]);
+            
+            return redirect()->back()->with('success', 'Schedule added.');
+        }
     }
 
     public function view()
@@ -38,8 +52,7 @@ class ScheduleController extends Controller
 
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
-            .view('schedule/scheduleview', compact('schedules', 'psychometrician'))
-            .view('include/footer');
+            .view('schedule/scheduleview', compact('schedules', 'psychometrician'));
     }
 
     public function getAvailableTimes(Request $request)
@@ -47,10 +60,10 @@ class ScheduleController extends Controller
         $date = $request->query('date');
         $psychometricianId = $request->query('psychometrician_id');
 
-        // Already booked times
+        // Get booked times
         $booked = Schedule::where('psychometrician_id', $psychometricianId)
             ->where('date', $date)
-            ->where('scheduled', false)
+            ->where('scheduled', true)
             ->pluck('start_time')
             ->map(function ($time) {
                 return Carbon::parse($time)->format('H:i');
@@ -65,8 +78,34 @@ class ScheduleController extends Controller
             }
         }
 
+        // Available times are all slots minus booked ones
         $available = array_diff($allSlots, $booked);
 
-        return response()->json(array_values($available));
+        return response()->json([
+            'available_times' => array_values($available),
+            'booked_times' => $booked
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $schedule = Schedule::findOrFail($id);
+        $psychometrician = session('user');
+        
+        // Check if the schedule belongs to the logged-in psychometrician
+        if ($schedule->psychometrician_id != $psychometrician->id) {
+            return redirect()->route('schedule.view')->with('error', 'You are not authorized to delete this schedule.');
+        }
+        
+        // Check if the schedule is already booked
+        if ($schedule->scheduled) {
+            return redirect()->route('schedule.view')->with('error', 'Cannot delete a scheduled appointment.');
+        }
+        
+        // Delete the schedule
+        $schedule->delete();
+        
+        return redirect()->route('schedule.view')->with('success', 'Schedule deleted successfully.');
     }
 }
+

@@ -13,4 +13,11 @@ class Schedule extends Model
     {
         return $this->belongsTo(Users::class, 'psychometrician_id');
     }
+    
+    public function appointment()
+    {
+        return $this->hasOne(Appointment::class, 'psychometrician_id', 'psychometrician_id')
+                    ->where('date', $this->date)
+                    ->where('start_time', $this->start_time);
+    }
 }

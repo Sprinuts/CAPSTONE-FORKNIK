@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="{{ asset('style/welcomeadmin.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+<h6>pagawa nalang na accurate yung mga data sa dashboard thankyou.</h6>
+
 <div class="dashboard-header">
     <h1><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
     <p class="current-date" id="currentDate">Loading date...</p>

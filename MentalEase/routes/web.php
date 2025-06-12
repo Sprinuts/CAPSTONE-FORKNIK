@@ -66,6 +66,9 @@ Route::get('/schedule/create', [ScheduleController::class, 'create'])->name('sch
 Route::post('/schedule/store', [ScheduleController::class, 'store'])->name('schedule.store');
 Route::get('/schedule/view', [ScheduleController::class, 'view'])->name('schedule.view');
 Route::get('/available-times', [ScheduleController::class, 'getAvailableTimes'])->name('schedule.available-times');
+Route::get('/schedule/{id}/edit', [ScheduleController::class, 'edit'])->name('schedule.edit');
+Route::put('/schedule/{id}', [ScheduleController::class, 'update'])->name('schedule.update');
+Route::delete('/schedule/{id}', [ScheduleController::class, 'destroy'])->name('schedule.destroy');
 
 // appointment 
 Route::get('/appointment/select', [AppointmentController::class, 'selectPsychometrician'])->name('appointment.selectPsychometrician');
