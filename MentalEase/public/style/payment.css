@@ -297,6 +297,128 @@ body {
     margin-right: 8px;
 }
 
+/* Payment Success Styles */
+.success-card {
+    text-align: center;
+    padding: 0;
+    overflow: hidden;
+}
+
+.success-icon {
+    background: linear-gradient(135deg, #2D6A4F, #40916C);
+    color: white;
+    padding: 40px 0;
+    margin-bottom: 20px;
+}
+
+.success-icon i {
+    font-size: 80px;
+    animation: scaleIn 0.5s ease-out forwards;
+}
+
+.success-content {
+    padding: 0 30px 40px;
+}
+
+.success-content h2 {
+    color: #2D6A4F;
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+.invoice-details {
+    background-color: #F8F9FA;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-sm);
+}
+
+.invoice-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #E9ECEF;
+}
+
+.invoice-item:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-weight: 600;
+    color: #6C757D;
+}
+
+.value {
+    font-weight: 600;
+    color: #333;
+}
+
+.status-badge {
+    background-color: #28A745;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.success-message {
+    margin-bottom: 30px;
+    color: #6C757D;
+    line-height: 1.6;
+}
+
+.action-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #2D6A4F;
+    color: white;
+    box-shadow: 0 4px 6px rgba(45, 106, 79, 0.2);
+}
+
+.btn-primary:hover {
+    background-color: #1B4332;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(45, 106, 79, 0.3);
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0); opacity: 0; }
+    70% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .success-icon {
+        padding: 30px 0;
+    }
+    
+    .success-icon i {
+        font-size: 60px;
+    }
+    
+    .success-content {
+        padding: 0 20px 30px;
+    }
+    
+    .success-content h2 {
+        font-size: 24px;
+    }
+}
+
 @media (max-width: 768px) {
     .payment-container {
         padding: 15px;
@@ -330,6 +452,7 @@ body {
 .payment-container {
     animation: fadeIn 0.6s ease-out forwards;
 }
+
 
 
 

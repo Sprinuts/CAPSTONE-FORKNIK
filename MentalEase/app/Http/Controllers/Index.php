@@ -155,3 +155,4 @@ class Index extends Controller
             .view('include/footer');
     }
 }
+

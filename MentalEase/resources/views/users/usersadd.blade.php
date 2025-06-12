@@ -1,43 +1,74 @@
 <div class="d-flex align-items-center justify-content-center">
     <!-- Connect External CSS -->
-    <link rel="stylesheet" href="{{ asset('style/usersadd.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/user-forms.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-    <!-- Inline styles for additional customizations -->
-    <div class="col col-md-6" style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="col col-md-6 form-container">
+        <div class="form-header">
+            <h2><i class="fas fa-user-plus"></i> Add New User</h2>
+            <p>Create a new user account with the form below</p>
+        </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('users.add') }}" method="post" class="adjust">
             @csrf
             <div class="form-group mb-3">
-                <label for="username" class="form-label" style="font-weight: bold; font-size: 16px;">Username</label>
-                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" style="border-radius: 5px; padding: 10px; border: 1px solid #ddd;">
+                <label for="username" class="form-label">
+                    <i class="fas fa-user-tag"></i> Username
+                </label>
+                <input type="text" name="username" id="username" class="form-control" value="{{ old('username') }}" placeholder="Enter username">
             </div>
 
             <div class="form-group mb-3">
-                <label for="name" class="form-label" style="font-weight: bold; font-size: 16px;">Full Name</label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" style="border-radius: 5px; padding: 10px; border: 1px solid #ddd;">
+                <label for="name" class="form-label">
+                    <i class="fas fa-user"></i> Full Namea
+                </label>
+                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Enter full name">
             </div>
 
             <div class="form-group mb-3">
-                <label for="contact_number" class="form-label" style="font-weight: bold; font-size: 16px;">Contact Number</label>
-                <input type="tel" name="contact_number" id="contact_number" class="form-control" value="{{ old('contact_number') }}" style="border-radius: 5px; padding: 10px; border: 1px solid #ddd;">
+                <label for="contact_number" class="form-label">
+                    <i class="fas fa-phone"></i> Contact Number
+                </label>
+                <input type="tel" name="contact_number" id="contact_number" class="form-control" value="{{ old('contact_number') }}" placeholder="Enter contact number">
             </div>
 
             <div class="form-group mb-3">
-                <label for="email" class="form-label" style="font-weight: bold; font-size: 16px;">Email</label>
-                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" style="border-radius: 5px; padding: 10px; border: 1px solid #ddd;">
+                <label for="email" class="form-label">
+                    <i class="fas fa-envelope"></i> Email
+                </label>
+                <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" placeholder="Enter email address">
             </div>
 
             <div class="form-group mb-3">
-                <label for="role" class="form-label" style="font-weight: bold; font-size: 16px;">Role</label>
-                <select name="role" id="role" class="form-control" style="border-radius: 5px; padding: 10px; border: 1px solid #ddd;">
+                <label for="role" class="form-label">
+                    <i class="fas fa-user-shield"></i> Role
+                </label>
+                <select name="role" id="role" class="form-control">
+                    <option value="" disabled selected>Select a role</option>
                     <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="psychometrician" {{ old('role') == 'psychometrician' ? 'selected' : '' }}>Psychometrician</option>
                 </select>
             </div>
 
             <div class="form-group-button">
-                <button type="submit" class="btn btn-success">Add User</button>
-                <a href="{{ route('users.view') }}" class="btn btn-danger">Cancel</a>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Add User
+                </button>
+                <a href="{{ route('users.view') }}" class="btn btn-danger">
+                    <i class="fas fa-times"></i> Cancel
+                </a>
             </div>
         </form>
     </div>
 </div>
+
