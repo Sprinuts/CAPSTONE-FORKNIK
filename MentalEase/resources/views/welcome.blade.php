@@ -13,8 +13,6 @@
 </head>
 <body>
 
-@include('include.landingnavbar')
-
 <!-- Hero Section (Home) -->
 <section id="home" class="hero parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg1.jpg') }}'); background-color: #F4F4F2;">
     <div class="container">
