@@ -125,8 +125,7 @@ class Index extends Controller
     {
         return view('include/header')
             .view('include/navbar')
-            .view('consult/consultation')
-            .view('include/footer'); // temporary
+            .view('consult/consultation');
     }
 
     public function myrecords()

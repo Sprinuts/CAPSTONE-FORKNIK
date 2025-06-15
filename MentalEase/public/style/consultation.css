@@ -182,130 +182,35 @@ body {    font-family: 'Poppins', sans-serif;
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Camera off placeholder */
+.camera-off-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    color: #666;
+    z-index: 5;
+}
+
+.camera-off-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #888;
+}
+
+.camera-off-placeholder p {
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Make sure video frame has position relative for absolute positioning of placeholder */
+.video-frame {
+    position: relative;
+}

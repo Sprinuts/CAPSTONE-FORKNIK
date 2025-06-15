@@ -162,35 +162,91 @@ section {
 
 /* About Section */
 .about-section {
-    background-color: #F4F4F2;
+    position: relative;
+    padding: 80px 0;
 }
 
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.about-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.section-header .divider {
+    height: 4px;
+    width: 70px;
+    background: linear-gradient(to right, #5c7e74, #2D6A4F);
+    border-radius: 2px;
+}
 
 /* About Card */
 .about-card {
-    background-color: #FCFEFE;
-    border: 1px solid rgba(45, 106, 79, 0.1);
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
+    border-radius: 15px;
     overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .about-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
 }
 
 .about-card .card-body {
     padding: 30px;
 }
 
+.section-icon {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: rgba(92, 126, 116, 0.1);
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.section-icon i {
+    color: #2D6A4F;
+}
+
 .about-card .card-title {
     color: #2D6A4F;
     font-size: 1.8rem;
     margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.about-card .card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #5c7e74, #2D6A4F);
+    border-radius: 2px;
+}
+
+.about-card .card-subtitle {
+    color: #5c7e74;
     font-weight: 600;
+}
+
+.about-card .list-group-item i {
+    width: 20px;
 }
 
 .about-content p {
@@ -205,11 +261,28 @@ section {
 
 /* Services Section */
 .services {
-    background-color: #F4F4F2;
+    position: relative;
+    padding: 80px 0;
+}
+
+.services::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
+
+.services .container {
+    position: relative;
+    z-index: 2;
 }
 
 .service-card {
-    background-color: #FCFEFE; /* Slightly whiter background for cards */
+    background-color: #FCFEFE;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
@@ -238,17 +311,25 @@ section {
 
 .service-card .icon i {
     font-size: 30px;
-    color: #2D6A4F;
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 15px;
     color: #2D6A4F;
+    font-weight: 600;
 }
 
 .service-card p {
-    color: #555;
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 991.98px) {
+    .service-card h3 {
+        font-size: 1.2rem;
+    }
 }
 
 /* Contact Section */
@@ -470,3 +551,54 @@ section {
         margin-bottom: 30px;
     }
 }
+
+/* Welcome Header Styles */
+.welcome-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.text-green {
+    color: #2D6A4F !important;
+}
+
+.welcome-title .text-primary {
+    color: #2D6A4F !important;
+    font-weight: 700;
+}
+
+.trusted-partner-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2D6A4F;
+    margin-bottom: 20px;
+}
+
+.trusted-by-title {
+    font-size: 2.2rem;
+    color: #2D6A4F;
+    font-weight: 600;
+}
+
+.trusted-logo img {
+    max-height: 200px;
+    transition: transform 0.3s ease;
+    border: 2px solid rgba(45, 106, 79, 0.5); /* 0.5 = 50% opacity */
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.trusted-logo img {
+    max-height: 200px;
+    size: 100px;
+    transition: transform 0.3s ease;
+}
+
+.trusted-logo img:hover {
+    transform: scale(1.05);
+}
+
+
+
