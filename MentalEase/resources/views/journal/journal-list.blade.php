@@ -44,7 +44,7 @@
         </div>
 
         <div class="journals-grid">
-            @if(empty($journals))
+            @if($journals->isEmpty())
                 <div class="empty-state">
                     <div class="empty-icon">
                         <i class="fas fa-book"></i>
@@ -111,6 +111,12 @@
                 @endforeach
             @endif
         </div>
+        
+        @if(!$journals->isEmpty() && $journals->hasPages())
+        <div class="pagination-container">
+            {{ $journals->links('pagination::bootstrap-4') }}
+        </div>
+        @endif
     </div>
 </div>
 
@@ -151,3 +157,6 @@
         });
     }
 </script>
+
+
+

@@ -62,7 +62,7 @@ class Journal extends Controller
         if ($user) {
             $journals = \App\Models\Journal::where('user_id', $user->id)
                 ->orderBy('created_at', 'desc')
-                ->get();
+                ->paginate(10); // Paginate with 10 entries per page
         }
 
         return view('include/header')
@@ -142,5 +142,6 @@ class Journal extends Controller
         return redirect()->route('journal.show', $id)->with('success', 'Journal entry updated successfully.');
     }
 }
+
 
 
