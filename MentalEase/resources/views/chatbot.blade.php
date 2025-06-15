@@ -10,7 +10,7 @@
   <!-- CSS -->
   <link rel="stylesheet" href="{{ asset('style/chatbot.css') }}">
   <link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <!-- End CSS -->
 </head>

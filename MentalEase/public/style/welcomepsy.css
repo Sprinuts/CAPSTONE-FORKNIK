@@ -12,7 +12,8 @@
     --info: #17A2B8;    --warning: #FFC107;
     --danger: #DC3545;}
 body {
-    font-family: 'Nunito', 'Segoe UI', sans-serif;    color: var(--text-dark);
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-dark);
     background-color: var(--background-light);    line-height: 1.6;
 }
 /* Grid Layout */.parent {
