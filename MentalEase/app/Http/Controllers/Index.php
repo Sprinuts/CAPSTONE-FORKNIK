@@ -70,10 +70,27 @@ class Index extends Controller
 
     public function welcomepatient()
     {
+        $user = session('user');
+        $appointments = [];
+
+        if ($user) {
+            // Get appointments for the user
+            $appointments = \App\Models\Appointment::where('user_id', $user->id)->get();
+
+            // For each appointment, get the psychometrician info
+            foreach ($appointments as $appointment) {
+                if ($appointment->psychometrician_id) {
+                    $psychometrician = \App\Models\Users::find($appointment->psychometrician_id);
+                    $appointment->psychometrician = $psychometrician;
+                } else {
+                    $appointment->psychometrician = null;
+                }
+            }
+        }
 
         return view('include/header')
             .view('include/navbar')
-            .view('welcomepatient')
+            .view('welcomepatient', ['appointments' => $appointments])
             .view('include/footer');
     }
 

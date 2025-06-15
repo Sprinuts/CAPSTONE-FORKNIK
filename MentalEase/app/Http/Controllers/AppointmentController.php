@@ -44,7 +44,6 @@ class AppointmentController extends Controller
             'date' => $request->date,
             'start_time' => $request->start_time,
             'end_time' => \Carbon\Carbon::parse($request->start_time)->addHour(),
-            'payment_status' => true,
         ]);
 
         // Update the schedule's 'scheduled' column to true

@@ -1,4 +1,4 @@
-<h6>pagawa nalang na accurate yung mga data sa dashboard thankyou.</h6>
+<h6>di ako sure sa reminders parang upcoming appointments nalang dapat</h6>
 
 <link rel="stylesheet" href="{{ asset('style/welcomepatient.css') }}">
 <div class="main-content">
@@ -38,32 +38,34 @@
             <div class="col-md-6">
                 <div class="overview-card">
                     <div class="card-header">
-                        <h3><i class="fas fa-calendar-check"></i> Upcoming Appointments //not accurate</h3>
+                        <h3><i class="fas fa-calendar-check"></i> Upcoming Appointments</h3>
                         <a href="{{ route('consultation') }}" class="view-all">View All</a>
                     </div>
                     <div class="card-content">
-                        <div class="appointment-item">
-                            <div class="appointment-date">
-                                <span class="day">15</span>
-                                <span class="month">May</span>
-                            </div>
-                            <div class="appointment-details">
-                                <h4>Counseling Session</h4>
-                                <p><i class="fas fa-user-md"></i> Dr. Maria Santos</p>
-                                <p><i class="fas fa-clock"></i> 2:00 PM - 3:00 PM</p>
-                            </div>
-                        </div>
-                        <div class="appointment-item">
-                            <div class="appointment-date">
-                                <span class="day">22</span>
-                                <span class="month">May</span>
-                            </div>
-                            <div class="appointment-details">
-                                <h4>Follow-up Session</h4>
-                                <p><i class="fas fa-user-md"></i> Dr. Maria Santos</p>
-                                <p><i class="fas fa-clock"></i> 3:30 PM - 4:30 PM</p>
-                            </div>
-                        </div>
+                        @if(count($appointments) > 0)
+                            @foreach($appointments as $appointment)
+                                <div class="appointment-item">
+                                    <div class="appointment-date">
+                                        <span class="day">{{ \Carbon\Carbon::parse($appointment->date)->format('d') }}</span>
+                                        <span class="month">{{ \Carbon\Carbon::parse($appointment->date)->format('M') }}</span>
+                                    </div>
+                                    <div class="appointment-details">
+                                        <p>
+                                            <i class="fas fa-user-md"></i>
+                                            {{ $appointment->psychometrician->name ?? 'Psychometrician' }}
+                                        </p>
+                                        <p>
+                                            <i class="fas fa-clock"></i>
+                                            {{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }}
+                                            -
+                                            {{ \Carbon\Carbon::parse($appointment->end_time)->format('g:i A') }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>No upcoming appointments.</p>
+                        @endif
                     </div>
                 </div>
             </div>

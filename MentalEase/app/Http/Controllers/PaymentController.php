@@ -79,7 +79,6 @@ class PaymentController extends Controller
             'date' => $data['date'],
             'start_time' => $data['start_time'],
             'end_time' => \Carbon\Carbon::parse($data['start_time'])->addHour(),
-            'payment_status' => true,
         ]);
 
         // Update the schedule's 'scheduled' column to true

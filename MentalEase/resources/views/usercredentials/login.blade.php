@@ -13,7 +13,7 @@
 
 <div class="container" id="container">
     <div class="form-container sign-up">
-        <form action="{{ ('register') }}" class="sign-up-form" method="POST" id="sign-up-form">
+        <form action="{{ route('register') }}" class="sign-up-form" method="POST" id="sign-up-form">
             @csrf
             <h1>Register</h1>
             <input type="text" name="username" id="username" placeholder="Username" required>
@@ -28,7 +28,7 @@
         </form>
     </div>
     <div class="form-container sign-in">
-        <form action="{{ url('login') }}" method="POST">
+        <form action="{{ route('login') }}" method="POST">
             @csrf
             <h1>Log In</h1>
             <input type="text" name="username" id="username" placeholder="Username">
