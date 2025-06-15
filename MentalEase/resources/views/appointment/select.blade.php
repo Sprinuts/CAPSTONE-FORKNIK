@@ -41,13 +41,35 @@
                     
                     <div class="info-column">
                         <h4>Availability</h4>
-                        <p>not synchronized with schedule</p>
-                        <div class="availability-status">
-                            <div class="availability-badge available">
-                                <i class="fa-solid fa-calendar-check"></i> Available Today
+                        @php
+                            $now = \Carbon\Carbon::now();
+                            $availableSchedules = $psy->schedules
+                                ->where('scheduled', false)
+                                ->filter(function($schedule) use ($now) {
+                                    return \Carbon\Carbon::parse($schedule->date)->isAfter($now->toDateString());
+                                })
+                                ->sortBy('start_time')
+                                ->take(2);
+                        @endphp
+                        @if($availableSchedules->count() > 0)
+                            <div class="availability-status">
+                                <div class="availability-badge available">
+                                    <i class="fa-solid fa-calendar-check"></i> Available Today
+                                </div>
+                                <p class="availability-times">
+                                    Next slots:
+                                    @foreach($availableSchedules as $schedule)
+                                        {{ \Carbon\Carbon::parse($schedule->start_time)->format('g:i A') }}@if(!$loop->last), @endif
+                                    @endforeach
+                                </p>
                             </div>
-                            <p class="availability-times">Next slots: 2:00 PM, 4:30 PM</p>
-                        </div>
+                        @else
+                            <div class="availability-status">
+                                <div class="availability-badge unavailable">
+                                    <i class="fa-solid fa-calendar-xmark"></i> No Slots Today
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     
                     <div class="info-column action-column">

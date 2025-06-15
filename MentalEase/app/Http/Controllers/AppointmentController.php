@@ -19,8 +19,10 @@ class AppointmentController extends Controller
 
     public function chooseSchedule(Request $request, $psychometrician_id)
     {
+        $now = \Carbon\Carbon::now();
         $schedules = Schedule::where('psychometrician_id', $psychometrician_id)
             ->where('scheduled', false)
+            ->where('date', '>', $now->toDateString())
             ->get();
         return view('include/header')
             .view('include/navbar')
