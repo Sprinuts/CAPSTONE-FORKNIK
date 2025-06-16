@@ -33,6 +33,12 @@
                 View Schedules
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('appointment.view') ? 'active' : '' }}" href="{{ route('appointment.view') }}">
+                <i class="fa-solid fa-calendar-days me-2"></i>
+                View Appointments
+            </a>
+        </li>
     </ul>
 
     <!-- User Profile Section -->

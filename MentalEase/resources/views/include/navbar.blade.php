@@ -99,7 +99,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('style/assets/default-avatar.png') }}" alt="User Avatar" class="user-avatar-small">
+                        <img src="{{ asset('style/assets/defaultprofile.jpg') }}" alt="User Avatar" class="user-avatar-small">
                         <span class="d-none d-md-inline-block ms-2">{{ session('user')->name ?? 'User' }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

@@ -77,6 +77,12 @@ Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
 
+// view appointments for psychometrician
+Route::get('/appointment/view', [AppointmentController::class, 'appointmentsview'])->name('appointment.view');
+Route::get('/appointments/show/{id}', [AppointmentController::class, 'appointmentsshow'])->name('appointments.show');
+Route::get('/appointments/edit/{id}', [AppointmentController::class, 'appointmentsedit'])->name('appointments.edit');
+Route::post('/appointments/complete/{id}', [AppointmentController::class, 'appointmentscomplete'])->name('appointments.complete');
+
 // User profile
 Route::get('/profile', [Users::class, 'profile'])->name('profile');
 Route::post('/profile/update', [Users::class, 'updateProfile'])->name('profile.update');

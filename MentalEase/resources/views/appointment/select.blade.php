@@ -66,7 +66,7 @@
                         @else
                             <div class="availability-status">
                                 <div class="availability-badge unavailable">
-                                    <i class="fa-solid fa-calendar-xmark"></i> No Slots Today
+                                    <i class="fa-solid fa-calendar-xmark"></i> No Slots Available
                                 </div>
                             </div>
                         @endif

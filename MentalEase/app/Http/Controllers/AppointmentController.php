@@ -63,4 +63,63 @@ class AppointmentController extends Controller
             .view('include/navbar')
             .view('appointment.success');
     }
+
+    public function appointmentsview()
+    {
+        $user = session('user');
+        if (!$user || $user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        $appointments = Appointment::where('psychometrician_id', $user->id)->get();
+        foreach ($appointments as $appointment) {
+                if ($appointment->user_id) {
+                    $client = \App\Models\Users::find($appointment->user_id);
+                    $appointment->client = $client;
+                } else {
+                    $appointment->psychometrician = null;
+                }
+            }
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment/appointmentview', [
+                'appointments' => $appointments
+            ]);
+    }
+
+    public function appointmentsshow($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $client = Users::find($appointment->user_id);
+        $psychometrician = Users::find($appointment->psychometrician_id);
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment/appointmentshow', [
+                'appointment' => $appointment,
+                'client' => $client,
+                'psychometrician' => $psychometrician
+            ]);
+    }
+
+    public function appointmentsedit($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment.edit', [
+                'appointment' => $appointment
+            ]);
+    }
+
+    public function appointmentscomplete(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->status = 'completed';
+        $appointment->save();
+
+        return redirect()->route('appointments.show', $id)
+            ->with('success', 'Appointment marked as completed.');
+    }
 }

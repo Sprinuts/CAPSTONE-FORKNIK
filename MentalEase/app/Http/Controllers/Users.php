@@ -164,11 +164,20 @@ class Users extends Controller
 
     public function profile()
     {
-        $user = session('user');
-        
+        $sessionUser = session('user');
+        if (!$sessionUser) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+
+        $user = \App\Models\Users::find($sessionUser->id);
+
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not found']);
+        }
+
         return view('include/header')
             .view('include/navbar')
-            .view('users/profile', compact('user'));
+            .view('users/usersprofile', compact('user'));
     }
 
     public function updateProfile(Request $request)
