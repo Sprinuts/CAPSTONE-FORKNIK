@@ -42,8 +42,17 @@
                         <a href="{{ route('consultation') }}" class="view-all">View All</a>
                     </div>
                     <div class="card-content">
-                        @if(count($appointments) > 0)
-                            @foreach($appointments as $appointment)
+                        @php
+                            $today = \Carbon\Carbon::now()->startOfDay();
+                            $upcomingAppointments = $appointments->filter(function($appointment) use ($today) {
+                                return \Carbon\Carbon::parse($appointment->date)->startOfDay()->greaterThanOrEqualTo($today);
+                            })->sortBy(function($appointment) {
+                                return $appointment->date . ' ' . $appointment->start_time;
+                            })->take(3);
+                        @endphp
+                        
+                        @if(count($upcomingAppointments) > 0)
+                            @foreach($upcomingAppointments as $appointment)
                                 <div class="appointment-item">
                                     <div class="appointment-date">
                                         <span class="day">{{ \Carbon\Carbon::parse($appointment->date)->format('d') }}</span>
@@ -317,5 +326,7 @@
         return date.toLocaleDateString('en-US', options);
     }
 </script>
+
+
 
 

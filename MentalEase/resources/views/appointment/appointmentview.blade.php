@@ -1,3 +1,4 @@
+    <div class="main-content">
 <div class="container mt-4">
     <h2>My Appointments</h2>
     @if($appointments->isEmpty())
@@ -33,4 +34,5 @@
             </tbody>
         </table>
     @endif
+</div>
 </div>

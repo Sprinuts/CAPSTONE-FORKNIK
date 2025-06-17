@@ -1,3 +1,5 @@
+<div class="main-content">
+
 <div class="container mt-4">
     <a href="{{ route('appointment.view') }}" class="btn btn-secondary mb-3">Go Back</a>
     <h2>Appointment Details</h2>
@@ -16,4 +18,5 @@
             <p class="card-text"><strong>Email:</strong> {{ $psychometrician->email }}</p>
         </div>
     </div>
+</div>
 </div>
