@@ -15,13 +15,20 @@ use App\Http\Controllers\Journal;
 
 use Illuminate\Support\Facades\Route;
 
+
+// uncomment when maintenance is done
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('maintenance');
 });
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
 
 // login route
 Route::get('/login', [Index::class, 'login'])->name('login');
