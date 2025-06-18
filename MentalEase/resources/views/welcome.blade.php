@@ -8,15 +8,15 @@
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('style/landingnavbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('style/welcomepage.css') }}">
+    <link rel="stylesheet" href="{{ asset('style/landingnavbar.css', true) }}">
+    <link rel="stylesheet" href="{{ asset('style/welcomepage.css', true) }}">
 </head>
 <body>
 
 @include('include.landingnavbar')
 
 <!-- Hero Section (Home) -->
-<section id="home" class="hero parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg1.jpg') }}'); background-color: #F4F4F2;">
+<section id="home" class="hero parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg1.jpg', true) }}'); background-color: #F4F4F2;">
     <div class="container text-center">
         <div class="welcome-header mb-4">
             <h2 class="welcome-title"><span class="text-secondary">WELCOME TO</span> <span class="text-primary">MENTALEASE</span></h2>
@@ -33,7 +33,7 @@
             <h3 class="trusted-by-title mb-4">Trusted By</h3>
             <div class="trusted-logo">
                 <a href="https://www.facebook.com/sanda.diagnostic/" target="_blank">
-                    <img src="{{ asset('style/assets/sanda_logo.jpg') }}" alt="Sanda Diagnostic Center" class="img-fluid" style="max-width: 200px;">
+                    <img src="{{ asset('style/assets/sanda_logo.jpg', true) }}" alt="Sanda Diagnostic Center" class="img-fluid" style="max-width: 200px;">
                 </a>
             </div>
         </div>
@@ -41,7 +41,7 @@
 </section>
 
 <!-- About Us Section -->
-<section id="about" class="about-section parallax-section" style="background-image: url('{{ asset('style/assets/sanda.jpg') }}'); background-color: #F4F4F2;">
+<section id="about" class="about-section parallax-section" style="background-image: url('{{ asset('style/assets/sanda.jpg', true) }}'); background-color: #F4F4F2;">
     <div class="container">
         <div class="section-header text-center mb-5">
             <h2 class="display-4 fw-bold text-white">About Us</h2>
@@ -113,7 +113,7 @@
 </section>
 
 <!-- Services Section -->
-<section id="services" class="services parallax-section" style="background-image: url('{{ asset('style/assets/healthservices.jpg') }}'); background-color: #F4F4F2;">
+<section id="services" class="services parallax-section" style="background-image: url('{{ asset('style/assets/healthservices.jpg', true) }}'); background-color: #F4F4F2;">
     <div class="container">
         <div class="section-header text-center mb-5">
             <h2 class="display-4 fw-bold text-white">Our Services</h2>
@@ -180,7 +180,7 @@
 </section>
 
 <!-- Contact Section -->
-<section id="contact" class="contact-section parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg4.jpg') }}'); background-color: #F4F4F2;">
+<section id="contact" class="contact-section parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg4.jpg', true) }}'); background-color: #F4F4F2;">
     <div class="container">
         <div class="section-contact">
             <h2>Contact Us</h2>
@@ -248,7 +248,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="footer-logo">
-                    <img src="{{ asset('style/assets/mentaleaselogo.png') }}" alt="MentalEase Logo">
+                    <img src="{{ asset('style/assets/mentaleaselogo.png', true) }}" alt="MentalEase Logo">
                     <span>MentalEase</span>
                 </div>
                 <p>Providing professional mental health services to help you live a balanced and fulfilling life.</p>

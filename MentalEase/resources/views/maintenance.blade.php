@@ -57,7 +57,7 @@
         <h1>We'll Be Back Soon</h1>
         <p>Sorry for the inconvenience. We're performing some maintenance at the moment.<br>
         We’ll be back online shortly!</p>
-        <div class="footer">— Your Team</div>
+        <div class="footer">— Forknik</div>
     </div>
 </body>
 </html>
