@@ -1,5 +1,3 @@
-<h6>di ako sure sa reminders parang upcoming appointments nalang dapat</h6>
-
 <link rel="stylesheet" href="{{ asset('style/welcomepatient.css') }}">
 <div class="main-content">
     <div class="top-bar">

@@ -28,7 +28,7 @@ Route::get('/', function () {
 
 // Route::get('/welcome', function () {
 //     return view('welcome');
-// })->name('welcome');
+// })->name('welcome'); 
 
 // login route
 Route::get('/login', [Index::class, 'login'])->name('login');
