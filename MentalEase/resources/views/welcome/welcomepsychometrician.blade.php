@@ -1,6 +1,3 @@
-<h6>pagawa nalang na accurate yung mga data sa dashboard thankyou.</h6>
-<h6>accurate na yung todays appointment</h6>
-
 <link rel="stylesheet" href="{{ asset('style/welcomepsy.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
