@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <title>Chat with Aira | MentalEase</title>
-  <link rel="icon" href="{{ asset('style/botpic.jpg', true) }}"/>
+  <link rel="icon" href="{{ asset('style/botpic.jpg') }}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- JavaScript -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <!-- End JavaScript -->
   <!-- CSS -->
-  <link rel="stylesheet" href="{{ asset('style/chatbot.css', true) }}">
-  <link rel="stylesheet" href="{{ asset('style/navbar.css', true) }}">
+  <link rel="stylesheet" href="{{ asset('style/chatbot.css') }}">
+  <link rel="stylesheet" href="{{ asset('style/navbar.css') }}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <!-- End CSS -->
@@ -24,7 +24,7 @@
       <div class="chat-header">
         <div class="chat-title">
           <a href="/welcomepatient" class="back-link"><i class="fas fa-arrow-left"></i></a>
-          <img src="{{ asset('style/botpic.jpg', true) }}" alt="Aira" class="header-avatar">
+          <img src="{{ asset('style/botpic.jpg') }}" alt="Aira" class="header-avatar">
           <div>
             <h2>Aira - Mental Health Assistant</h2>
             <span class="status"><i class="fas fa-circle status-indicator"></i> Online and ready to help</span>
@@ -38,7 +38,7 @@
       <!-- User Profile Bar -->
       <div class="user-profile-bar">
         <div class="user-profile-info">
-          <img src="{{ asset('style/assets/default-avatar.png', true) }}" alt="User" class="user-profile-avatar">
+          <img src="{{ asset('style/assets/default-avatar.png') }}" alt="User" class="user-profile-avatar">
           <div class="user-profile-details">
             <h4>{{ session('user')->name ?? 'User' }}</h4>
             <span>Patient</span>
@@ -56,7 +56,7 @@
           
           <div class="message-row bot">
             <div class="avatar">
-              <img src="{{ asset('style/botpic.jpg', true) }}" alt="Aira">
+              <img src="{{ asset('style/botpic.jpg') }}" alt="Aira">
             </div>
             <div class="message-content">
               <div class="message-bubble">

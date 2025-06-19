@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 // uncomment when maintenance is done
 
-Route::get('/', function () {
-    return view('maintenance');
-});
-
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('maintenance');
 // });
+
+Route::get('/', function () {
+    return view('welcome');
+});
 
 // Route::get('/welcome', function () {
 //     return view('welcome');

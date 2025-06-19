@@ -35,6 +35,7 @@ class Users extends Controller
     public function usersview()
     {
         
+        
         $usersmodel = new \App\Models\Users();
 
         //$data['users'] = $usersmodel->get()->getResult();
