@@ -255,7 +255,7 @@
             </div>
             <div class="col-lg-4">
                 <h4>Contact Us</h4>
-                <p><i class="fa-solid fa-location-dot"></i> 1418 Larson Ave, Sampaloc, Manila</p>
+                <p><i class="fa-solid fa-location-dot"></i> 1418 Lacson Ave, Sampaloc, Manila</p>
                 <p><i class="fa-solid fa-phone"></i> (+63) 939 939 1293</p>
                 <p><i class="fa-solid fa-envelope"></i> info@mentalease.com</p>
             </div>
