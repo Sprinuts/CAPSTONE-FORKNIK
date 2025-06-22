@@ -62,23 +62,23 @@ function initializeMeeting() {
     meeting = window.VideoSDK.initMeeting({
         meetingId: meetingId, // required
         name: window.userName, // required
-        micEnabled: true, // optional, default: true
-        webcamEnabled: true, // optional, default: true
+        micEnabled: false, // optional, default: true
+        webcamEnabled: false, // optional, default: true
     });
 
     // Set initial states for toggles
-    isMicOn = true;
-    isWebCamOn = true;
+    isMicOn = false;
+    isWebCamOn = false;
     
-    toggleMicButton.classList.add('active');
+    toggleMicButton.classList.add('disabled');
     toggleMicButton.classList.remove('disabled');
-    toggleMicButton.setAttribute('data-tooltip', 'Microphone On');
-    toggleMicButton.innerHTML = '<i class="fas fa-microphone"></i>';
+    toggleMicButton.setAttribute('data-tooltip', 'Microphone Off');
+    toggleMicButton.innerHTML = '<i class="fas fa-microphone-slash"></i>';
     
-    toggleWebCamButton.classList.add('active');
+    toggleWebCamButton.classList.add('disabled');
     toggleWebCamButton.classList.remove('disabled');
-    toggleWebCamButton.setAttribute('data-tooltip', 'Camera On');
-    toggleWebCamButton.innerHTML = '<i class="fas fa-video"></i>';
+    toggleWebCamButton.setAttribute('data-tooltip', 'Camera Off');
+    toggleWebCamButton.innerHTML = '<i class="fas fa-video-slash"></i>';
 
     meeting.join();
 
@@ -89,6 +89,18 @@ function initializeMeeting() {
     meeting.localParticipant.on("stream-enabled", (stream) => {
         setTrack(stream, null, meeting.localParticipant, true);
     });
+
+    // Also listen for stream-disabled to show placeholder at the beginning
+    meeting.localParticipant.on("stream-disabled", (stream) => {
+        if (stream.kind === "video") {
+            const localId = meeting.localParticipant.id;
+            const videoElm = document.getElementById(`v-${localId}`);
+            const placeholderElm = document.getElementById(`placeholder-${localId}`);
+            if (videoElm) videoElm.style.display = "none";
+            if (placeholderElm) placeholderElm.style.display = "flex";
+        }
+    });
+
 
     // meeting joined event
     meeting.on("meeting-joined", () => {
@@ -158,9 +170,8 @@ function initializeMeeting() {
 
     // Toggle Web Cam Button Event Listener
     toggleWebCamButton.addEventListener("click", async () => {
-        const localId = meeting.localParticipant.id;
-        const videoElm = document.getElementById(`v-${localId}`);
-        const placeholderElm = document.getElementById(`placeholder-${localId}`);
+        const placeholder = document.getElementById(`placeholder-${meeting.localParticipant.id}`);
+        const videoElm = document.getElementById(`v-${meeting.localParticipant.id}`);
 
         if (isWebCamOn) {
             // Disable Webcam in Meeting
@@ -171,7 +182,7 @@ function initializeMeeting() {
             toggleWebCamButton.innerHTML = '<i class="fas fa-video-slash"></i>';
 
             if (videoElm) videoElm.style.display = "none";
-            if (placeholderElm) placeholderElm.style.display = "flex";
+            if (placeholder) placeholder.style.display = "flex";
         } else {
             // Enable Webcam in Meeting
             meeting?.enableWebcam();
@@ -181,11 +192,12 @@ function initializeMeeting() {
             toggleWebCamButton.innerHTML = '<i class="fas fa-video"></i>';
 
             if (videoElm) videoElm.style.display = "block";
-            if (placeholderElm) placeholderElm.style.display = "none";
+            if (placeholder) placeholder.style.display = "none";
         }
 
         isWebCamOn = !isWebCamOn;
     });
+
 
 }
 
@@ -201,18 +213,21 @@ function createVideoElement(pId, name) {
     videoElement.setAttribute("id", `v-${pId}`);
     videoElement.setAttribute("playsinline", true);
     videoElement.setAttribute("width", "300");
+    videoElement.setAttribute("height", "225");
+    videoElement.setAttribute("autoplay", true);
+    videoElement.setAttribute("muted", true);
     videoFrame.appendChild(videoElement);
 
-    // Placeholder for camera off
+    // Placeholder when webcam is off
     let placeholder = document.createElement("div");
     placeholder.setAttribute("id", `placeholder-${pId}`);
     placeholder.classList.add("video-placeholder");
-    placeholder.innerHTML = `<span>${name}</span>`;
-    placeholder.style.display = "none";
+    placeholder.innerText = name || "Camera Off";
     videoFrame.appendChild(placeholder);
 
     return videoFrame;
 }
+
 
 
 // creating local participant
@@ -224,22 +239,30 @@ function createLocalParticipant() {
     videoContainer.appendChild(localParticipant);
     }
 
-    // setting media track
+
+
+// setting media track
 function setTrack(stream, audioElement, participant, isLocal) {
+    const placeholder = document.getElementById(`placeholder-${participant.id}`);
     const videoElm = document.getElementById(`v-${participant.id}`);
-    const placeholderElm = document.getElementById(`placeholder-${participant.id}`);
 
     if (stream.kind === "video") {
+        isWebCamOn = true;
+
+        // Show video and hide placeholder
         const mediaStream = new MediaStream();
         mediaStream.addTrack(stream.track);
-        if (videoElm) {
-            videoElm.srcObject = mediaStream;
-            videoElm.style.display = "block";
-            videoElm.play().catch((error) =>
-                console.error("videoElem.play() failed", error)
-            );
+        videoElm.srcObject = mediaStream;
+        videoElm.play().catch(err => console.error("video play failed", err));
+        if (placeholder) placeholder.style.display = "none";
+
+    } else if (stream.kind === "audio") {
+        const mediaStream = new MediaStream();
+        mediaStream.addTrack(stream.track);
+        if (!isLocal && audioElement) {
+            audioElement.srcObject = mediaStream;
+            audioElement.play().catch(err => console.error("audio play failed", err));
         }
-        if (placeholderElm) placeholderElm.style.display = "none";
     }
 
     if (stream.kind === "audio") {

@@ -85,6 +85,9 @@ Route::get('/appointment/choose/{id}', [AppointmentController::class, 'chooseSch
 Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->name('appointment.payment');
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
+Route::get('/appointment/patientview', [AppointmentController::class, 'appointmentspatientview'])->name('appointment.patientview');
+Route::post('/appointments/cancel/{id}', [AppointmentController::class, 'appointmentscancel'])->name('appointments.cancel');
+
 
 // get videosdk token
 Route::get('/get-videosdk-token', [VideoController::class, 'getToken']);

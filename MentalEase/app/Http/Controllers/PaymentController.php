@@ -73,6 +73,18 @@ class PaymentController extends Controller
             $data = json_decode($request->query('data'), true);
         }
 
+        // Find the schedule ID based on the appointment details
+        $schedule = Schedule::where('psychometrician_id', $data['psychometrician_id'])
+            ->where('date', $data['date'])
+            ->where('start_time', $data['start_time'])
+            ->first();
+
+        // Update the invoice with the schedule_id
+        if ($schedule) {
+            $invoice->schedule_id = $schedule->id;
+            $invoice->save();
+        }
+
         Appointment::create([
             'user_id' => $data['user_id'],
             'psychometrician_id' => $data['psychometrician_id'],
@@ -82,10 +94,10 @@ class PaymentController extends Controller
         ]);
 
         // Update the schedule's 'scheduled' column to true
-        Schedule::where('psychometrician_id', $data['psychometrician_id'])
-            ->where('date', $data['date'])
-            ->where('start_time', $data['start_time'])
-            ->update(['scheduled' => true]);
+        if ($schedule) {
+            $schedule->scheduled = true;
+            $schedule->save();
+        }
 
         return view('include/header')
             .view('include/navbar')
@@ -98,7 +110,9 @@ class PaymentController extends Controller
         $invoice->payment_status = 'failed';
         $invoice->save();
 
-        return view('payment.failed');
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment/paymentfailed');
     }
 
     public function paymentCancelled($id)
@@ -107,6 +121,8 @@ class PaymentController extends Controller
         $invoice->payment_status = 'cancelled';
         $invoice->save();
 
-        return view('payment.cancelled');
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment/paymentcancelled');
     }
 }

@@ -1,0 +1,69 @@
+/* Card styling */
+.card {
+    background: #f9fbfc;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(44, 62, 80, 0.07);
+    margin-top: 32px;
+    border: none;
+}
+
+.card-body {
+    padding: 28px 24px;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d3e50;
+    margin-bottom: 18px;
+    letter-spacing: 0.2px;
+}
+
+.card p {
+    font-size: 1.05rem;
+    color: #34495e;
+    margin-bottom: 10px;
+}
+
+.card p strong {
+    color: #2d3e50;
+    font-weight: 600;
+}
+
+/* Button styling */
+.btn-danger {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.btn-danger:hover,
+.btn-danger:focus {
+    background: #c0392b;
+    color: #fff;
+}
+
+/* Margin utilities */
+.mt-3 { margin-top: 1rem; }
+.mt-4 { margin-top: 1.5rem; }
+.mt-5 { margin-top: 2.5rem; }
+
+/* Alert styling (reuse existing if needed) */
+.alert {
+    padding: 14px 18px;
+    border-radius: 6px;
+    font-size: 1.05rem;
+    margin-top: 18px;
+}
+
+.alert-info {
+    background: #eaf6fb;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}

@@ -116,10 +116,45 @@ class AppointmentController extends Controller
     public function appointmentscomplete(Request $request, $id)
     {
         $appointment = Appointment::findOrFail($id);
-        $appointment->status = 'completed';
+        $appointment->complete = true;
         $appointment->save();
 
         return redirect()->route('appointments.show', $id)
             ->with('success', 'Appointment marked as completed.');
+    }
+
+    public function appointmentspatientview()
+    {
+        $user = session('user');
+
+        $appointments = Appointment::where('user_id', $user->id)
+            ->where('complete', false)
+            ->orderByDesc('date')
+            ->orderByDesc('start_time')
+            ->first();
+
+        if ($appointments->psychometrician_id) {
+                $psychometrician = Users::find($appointments->psychometrician_id);
+                $appointments->psychometrician = $psychometrician;
+            } else {
+                $appointments->psychometrician = null;
+            }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment/patientview', compact('appointments'));
+    }
+
+    public function appointmentscancel($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->delete(); // or $appointment->update(['cancelled' => true]);
+
+        Schedule::where('psychometrician_id', $appointment->psychometrician_id)
+            ->where('date', $appointment->date)
+            ->where('start_time', $appointment->start_time)
+            ->update(['scheduled' => false]);
+
+        return redirect()->route('welcomepatient')->with('success', 'Appointment cancelled successfully.');
     }
 }

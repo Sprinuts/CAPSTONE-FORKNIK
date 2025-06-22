@@ -43,11 +43,22 @@
                     </ul>
                 </li>
                 
+                @php
+                    $hasAppointment = \App\Models\Appointment::where('user_id', session('user')->id ?? null)->exists();
+                @endphp
+
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('appointment.selectPsychometrician') ? 'active' : '' }}" 
-                       href="{{ route('appointment.selectPsychometrician') }}">
-                        Appointments
-                    </a>
+                    @if($hasAppointment)
+                        <a class="nav-link {{ request()->routeIs('appointment.patientview') ? 'active' : '' }}" 
+                           href="{{ route('appointment.patientview') }}">
+                            My Appointment
+                        </a>
+                    @else
+                        <a class="nav-link {{ request()->routeIs('appointment.selectPsychometrician') ? 'active' : '' }}" 
+                           href="{{ route('appointment.selectPsychometrician') }}">
+                            Appointment
+                        </a>
+                    @endif
                 </li>
 
                 <li class="nav-item">

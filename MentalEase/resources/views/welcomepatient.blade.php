@@ -36,8 +36,7 @@
             <div class="col-md-6">
                 <div class="overview-card">
                     <div class="card-header">
-                        <h3><i class="fas fa-calendar-check"></i> Upcoming Appointments</h3>
-                        <a href="{{ route('consultation') }}" class="view-all">View All</a>
+                        <h3><i class="fas fa-calendar-check"></i> Upcoming Appointment</h3>
                     </div>
                     <div class="card-content">
                         @php
