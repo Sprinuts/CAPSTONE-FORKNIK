@@ -60,18 +60,35 @@
                         $selectedEmotions = explode(',', $journalEntry->emotion ?? '');
                     @endphp
                     @foreach([
-                        ['Anxious', '😰', 'bg-purple-50'], 
-                        ['Calm', '😌', 'bg-blue-50'], 
-                        ['Joyful', '😄', 'bg-yellow-50'], 
-                        ['Angry', '😠', 'bg-red-50'], 
-                        ['Excited', '🤩', 'bg-pink-50'], 
-                        ['Tired', '😴', 'bg-gray-50'], 
-                        ['Hopeful', '🙏', 'bg-green-50'], 
-                        ['Frustrated', '😤', 'bg-orange-50'],
-                        ['Grateful', '🥰', 'bg-teal-50'],
-                        ['Overwhelmed', '😩', 'bg-indigo-50'],
-                        ['Motivated', '💪', 'bg-lime-50'],
-                        ['Confused', '🤔', 'bg-amber-50']
+     // Primary emotions (inner wheel)
+                        ['Joy', '😊', 'bg-yellow-50'],
+                        ['Trust', '🤝', 'bg-green-50'],
+                        ['Fear', '😨', 'bg-purple-50'],
+                        ['Surprise', '😲', 'bg-blue-50'],
+                        ['Sadness', '😢', 'bg-indigo-50'],
+                        ['Disgust', '🤢', 'bg-teal-50'],
+                        ['Anger', '😠', 'bg-red-50'],
+                        ['Anticipation', '🤔', 'bg-orange-50'],
+                        
+                        // Secondary emotions (middle wheel)
+                        ['Serenity', '😌', 'bg-yellow-100'],
+                        ['Acceptance', '👍', 'bg-green-100'],
+                        ['Apprehension', '😰', 'bg-purple-100'],
+                        ['Distraction', '😵', 'bg-blue-100'],
+                        ['Pensiveness', '😔', 'bg-indigo-100'],
+                        ['Boredom', '😒', 'bg-teal-100'],
+                        ['Annoyance', '😤', 'bg-red-100'],
+                        ['Interest', '🧐', 'bg-orange-100'],
+                        
+                        // Tertiary emotions (outer wheel)
+                        ['Ecstasy', '🥳', 'bg-yellow-200'],
+                        ['Admiration', '🥰', 'bg-green-200'],
+                        ['Terror', '😱', 'bg-purple-200'],
+                        ['Amazement', '😮', 'bg-blue-200'],
+                        ['Grief', '😭', 'bg-indigo-200'],
+                        ['Loathing', '🤮', 'bg-teal-200'],
+                        ['Rage', '😡', 'bg-red-200'],
+                        ['Vigilance', '👀', 'bg-orange-200']
                     ] as [$emotion, $emoji, $bgColor])
                         <button type="button" 
                             class="emotion-btn {{ $bgColor }} {{ in_array($emotion, $selectedEmotions) ? 'selected' : '' }}"
