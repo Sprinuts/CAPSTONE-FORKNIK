@@ -9,6 +9,7 @@ use App\Http\Controllers\Users;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\VideoSDKController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PaymentController;
 
 use App\Http\Controllers\Journal;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 // Route::get('/welcome', function () {
 //     return view('welcome');
@@ -35,6 +36,7 @@ Route::get('/login', [Index::class, 'login'])->name('login');
 Route::post('/login', [Index::class, 'login'])->name('login');
 
 // register route
+Route::get('/register', [Index::class, 'register'])->name('register');
 Route::post('/register', [Index::class, 'register'])->name('register');
 
 Route::match(['get', 'post'], '/activate/{username}', [Users::class, 'activate'])->name('activate');
@@ -83,6 +85,9 @@ Route::get('/appointment/choose/{id}', [AppointmentController::class, 'chooseSch
 Route::post('/appointment/payment', [AppointmentController::class, 'payment'])->name('appointment.payment');
 Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->name('appointment.confirm');
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
+
+// get videosdk token
+Route::get('/get-videosdk-token', [VideoController::class, 'getToken']);
 
 // view appointments for psychometrician
 Route::get('/appointment/view', [AppointmentController::class, 'appointmentsview'])->name('appointment.view');

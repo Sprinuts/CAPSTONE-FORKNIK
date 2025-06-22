@@ -11,49 +11,30 @@
     </div>
 @endif
 
-<div class="container" id="container">
-    <div class="form-container sign-up">
-        <form action="{{ route('register') }}" class="sign-up-form" method="POST" id="sign-up-form">
-            @csrf
-            <h1>Register</h1>
-            <input type="text" name="username" id="username" placeholder="Username" required>
-            <input type="text" name="name" id="name" placeholder="Full Name" required>
-            <input type="email" name="email" id="email" placeholder="Email" required>
-            <input type="tel" name="contactnumber" id="contactnumber" placeholder="Contact Number" required>
+<div class="login-container">
+    <a href="{{ route('welcome') }}" class="back-icon" style="position: absolute; top: 20px; left: 20px; color: #333; text-decoration: none;">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+    <form action="{{ route('login') }}" method="POST" class="login-form">
+        @csrf
+        <h2>Login</h2>
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Enter your username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
             <div class="input-wrapper">
-                <input type="password" name="password" id="password" placeholder="Password" required>
+                <input type="password" name="password" id="password" placeholder="Enter your password" required>
                 <i id="eyePassword" class="fa-solid fa-eye-slash toggle-icon" onclick="togglePassword('password', 'eyePassword')"></i>
-            </div>
-            <button type="submit" id="sign-up-btn">Register</button>
-        </form>
-    </div>
-    <div class="form-container sign-in">
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-            <h1>Log In</h1>
-            <input type="text" name="username" id="username" placeholder="Username">
-            <div class="input-wrapper">
-                <input type="password" name="password" id="password" placeholder="Password">
-                <i id="eyePassword" class="fa-solid fa-eye-slash toggle-icon" onclick="togglePassword('password', 'eyePassword')"></i>
-            </div>
-
-            <button type="submit" id="sign-in-btn">Log In</button>
-        </form>
-    </div>
-    <div class="toggle-container">
-        <div class="toggle">
-            <div class="toggle-panel toggle-left">
-                <h1>Welcome!</h1>
-                <p>Login?</p>
-                <button class="hidden" id="login">Log In</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>Welcome Back!</h1>
-                <p>Not Registered?</p>
-                <button class="hidden" id="register">Register</button>
             </div>
         </div>
-    </div>
+        <button type="submit" class="login-btn">Login</button>
+        <div class="register-link" style="margin-top: 15px; text-align: center;">
+            <span>Don't have an account?</span>
+            <a href="{{ route('register') }}">Register here</a>
+        </div>
+    </form>
 </div>
 
 <script src="{{ asset('javascript/login.js') }}"></script>

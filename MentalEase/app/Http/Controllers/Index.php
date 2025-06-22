@@ -65,7 +65,7 @@ class Index extends Controller
 
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }
-        return view('usercredentials/login');
+        return view('usercredentials/register');
     }
 
     public function welcomepatient()

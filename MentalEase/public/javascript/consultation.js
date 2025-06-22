@@ -61,7 +61,7 @@ function initializeMeeting() {
 
     meeting = window.VideoSDK.initMeeting({
         meetingId: meetingId, // required
-        name: "Thomas Edison", // required
+        name: window.userName, // required
         micEnabled: true, // optional, default: true
         webcamEnabled: true, // optional, default: true
     });
@@ -158,6 +158,10 @@ function initializeMeeting() {
 
     // Toggle Web Cam Button Event Listener
     toggleWebCamButton.addEventListener("click", async () => {
+        const localId = meeting.localParticipant.id;
+        const videoElm = document.getElementById(`v-${localId}`);
+        const placeholderElm = document.getElementById(`placeholder-${localId}`);
+
         if (isWebCamOn) {
             // Disable Webcam in Meeting
             meeting?.disableWebcam();
@@ -166,8 +170,8 @@ function initializeMeeting() {
             toggleWebCamButton.setAttribute('data-tooltip', 'Camera Off');
             toggleWebCamButton.innerHTML = '<i class="fas fa-video-slash"></i>';
 
-            let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
-            if (vElement) vElement.style.display = "none";
+            if (videoElm) videoElm.style.display = "none";
+            if (placeholderElm) placeholderElm.style.display = "flex";
         } else {
             // Enable Webcam in Meeting
             meeting?.enableWebcam();
@@ -176,19 +180,22 @@ function initializeMeeting() {
             toggleWebCamButton.setAttribute('data-tooltip', 'Camera On');
             toggleWebCamButton.innerHTML = '<i class="fas fa-video"></i>';
 
-            let vElement = document.getElementById(`f-${meeting.localParticipant.id}`);
-            if (vElement) vElement.style.display = "inline";
+            if (videoElm) videoElm.style.display = "block";
+            if (placeholderElm) placeholderElm.style.display = "none";
         }
+
         isWebCamOn = !isWebCamOn;
     });
+
 }
 
 // creating video element
 function createVideoElement(pId, name) {
     let videoFrame = document.createElement("div");
     videoFrame.setAttribute("id", `f-${pId}`);
+    videoFrame.classList.add("video-frame-wrapper");
 
-    //create video
+    // Video element
     let videoElement = document.createElement("video");
     videoElement.classList.add("video-frame");
     videoElement.setAttribute("id", `v-${pId}`);
@@ -196,23 +203,17 @@ function createVideoElement(pId, name) {
     videoElement.setAttribute("width", "300");
     videoFrame.appendChild(videoElement);
 
-    let displayName = document.createElement("div");
-    displayName.innerHTML = `Name : ${name}`;
+    // Placeholder for camera off
+    let placeholder = document.createElement("div");
+    placeholder.setAttribute("id", `placeholder-${pId}`);
+    placeholder.classList.add("video-placeholder");
+    placeholder.innerHTML = `<span>${name}</span>`;
+    placeholder.style.display = "none";
+    videoFrame.appendChild(placeholder);
 
-    videoFrame.appendChild(displayName);
     return videoFrame;
-    }
-
-    // creating audio element
-    function createAudioElement(pId) {
-    let audioElement = document.createElement("audio");
-    audioElement.setAttribute("autoPlay", "false");
-    audioElement.setAttribute("playsInline", "true");
-    audioElement.setAttribute("controls", "false");
-    audioElement.setAttribute("id", `a-${pId}`);
-    audioElement.style.display = "none";
-    return audioElement;
 }
+
 
 // creating local participant
 function createLocalParticipant() {
@@ -224,30 +225,56 @@ function createLocalParticipant() {
     }
 
     // setting media track
-    function setTrack(stream, audioElement, participant, isLocal) {
-    if (stream.kind == "video") {
-        isWebCamOn = true;
+function setTrack(stream, audioElement, participant, isLocal) {
+    const videoElm = document.getElementById(`v-${participant.id}`);
+    const placeholderElm = document.getElementById(`placeholder-${participant.id}`);
+
+    if (stream.kind === "video") {
         const mediaStream = new MediaStream();
         mediaStream.addTrack(stream.track);
-        let videoElm = document.getElementById(`v-${participant.id}`);
-        videoElm.srcObject = mediaStream;
-        videoElm
-        .play()
-        .catch((error) =>
-            console.error("videoElem.current.play() failed", error)
-        );
+        if (videoElm) {
+            videoElm.srcObject = mediaStream;
+            videoElm.style.display = "block";
+            videoElm.play().catch((error) =>
+                console.error("videoElem.play() failed", error)
+            );
+        }
+        if (placeholderElm) placeholderElm.style.display = "none";
     }
-    if (stream.kind == "audio") {
-        if (isLocal) {
-        isMicOn = true;
-        } else {
+
+    if (stream.kind === "audio") {
         const mediaStream = new MediaStream();
         mediaStream.addTrack(stream.track);
-        audioElement.srcObject = mediaStream;
-        audioElement
-            .play()
-            .catch((error) => console.error("audioElem.play() failed", error));
+        if (!isLocal && audioElement) {
+            audioElement.srcObject = mediaStream;
+            audioElement
+                .play()
+                .catch((error) => console.error("audioElem.play() failed", error));
         }
     }
+
+    // Toggle placeholder when stream disabled/enabled
+    participant.on("stream-disabled", (s) => {
+        if (s.kind === "video") {
+            if (videoElm) videoElm.style.display = "none";
+            if (placeholderElm) placeholderElm.style.display = "flex";
+        }
+    });
+
+    participant.on("stream-enabled", (s) => {
+        if (s.kind === "video") {
+            const mediaStream = new MediaStream();
+            mediaStream.addTrack(s.track);
+            if (videoElm) {
+                videoElm.srcObject = mediaStream;
+                videoElm.style.display = "block";
+                videoElm.play().catch((error) =>
+                    console.error("videoElem.play() failed", error)
+                );
+            }
+            if (placeholderElm) placeholderElm.style.display = "none";
+        }
+    });
 }
+
 

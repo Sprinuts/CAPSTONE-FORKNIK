@@ -73,8 +73,12 @@
 
     <!-- Add VideoSDK script -->
     <script src="https://sdk.videosdk.live/js-sdk/0.1.6/videosdk.js"></script>
+    <script>
+        window.user = @json(session('user'));
+        window.userName = "{{ session('user')->name ?? '' }}";
+    </script>
     <script src="{{ asset('javascript/config.js') }}"></script>
     <script src="{{ asset('javascript/consultation.js') }}"></script>
 </body>
-</html>
+
 
