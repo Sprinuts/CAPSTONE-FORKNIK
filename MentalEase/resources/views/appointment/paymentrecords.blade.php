@@ -1,7 +1,7 @@
 
 <div class="container mt-4">
-    <h2>Appointment Records</h2>
-    <a href="{{ route('appointment.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a>
+    <h2>Payment Records</h2>
+    {{-- <a href="{{ route('appointment.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a> --}}
     <table class="table table-bordered mt-3">
         <thead>
             <tr>
