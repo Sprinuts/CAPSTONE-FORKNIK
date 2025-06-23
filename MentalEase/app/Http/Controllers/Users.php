@@ -229,6 +229,52 @@ class Users extends Controller
         return $pdf->download('users.pdf');
     }
 
+    public function profilecomplete()
+    {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+
+        if (request()->isMethod('post')) {
+            $data = request()->only([
+            'contact',
+            'address',
+            'age',
+            'gender',
+            'civil_status',
+            'birthdate',
+            'birthplace',
+            'religion'
+            ]);
+
+            // Validate the data
+            $validatedData = request()->validate([
+            'contactnumber' => ['required', 'regex:/^[0-9]{11}$/'],
+            'address' => 'required|string|max:255',
+            'age' => 'required|integer|min:0|max:150',
+            'gender' => 'required|string|max:20',
+            'civil_status' => 'required|string|max:50',
+            'birthdate' => 'required|date',
+            'birthplace' => 'required|string|max:255',
+            'religion' => 'required|string|max:100',
+            ]);
+
+            $user->update($data);
+
+            $user->has_completed_profile = true; // Mark profile as complete
+            $user->save();
+
+            // Update session data
+            session(['user' => $user]);
+
+            return redirect()->route('profile')->with('success', 'Profile updated successfully');
+        }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('usercredentials/profilecomplete');
+    }
 }
 
 

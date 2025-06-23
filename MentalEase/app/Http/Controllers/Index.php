@@ -13,6 +13,22 @@ class Index extends Controller
 
             $data = request()->only(['username', 'password']);
 
+            // $messages = [
+            //     'username.required' => 'Please enter your username.',
+            //     'username.string' => 'Username is wrong.',
+            //     'username.alpha_num' => 'Username is wrong.',
+            //     'username.min' => 'Username is wrong.',
+            //     'username.max' => 'Username is wrong.',
+            //     'password.required' => 'Please enter your password.',
+            //     'password.string' => 'Password is wrong.',
+            //     'password.min' => 'Password is wrong.',
+            // ];
+
+            // $validatedData = $request->validate([
+            //     'username' => 'required|string|alpha_num|min:3|max:50',
+            //     'password' => 'required|string|min:6',
+            // ], $messages);
+
             $usersmodel = new \App\Models\Users();
             $user = $usersmodel->where('username', $data['username'])
                 ->where('password', $data['password'])
@@ -22,7 +38,7 @@ class Index extends Controller
                 if ($user->disable) {
                     return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
                 } else {
-                    if ($user->status == '1') { // Check if the account is activated
+                    if ($user->status == '1' && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
                         session(['user' => $user]);
                         if ($user->role == 'patient'){
                             return redirect()->route('welcomepatient'); // Redirect to welcome page
@@ -31,8 +47,11 @@ class Index extends Controller
                         } else if ($user->role == 'psychometrician'){
                             return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
                         } else if ($user->role == 'cashier'){
-                            return redirect()->route('welcomecashier'); // Redirect to psychometrician dashboard
+                            return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
                         } 
+                    } else if (!$user->has_completed_profile) {
+                        session(['user' => $user]);
+                        return redirect()->route('profile.complete'); // Redirect to profile completion page
                     } else {
                         return redirect()->route('activate', [$data['username']]);
                     }
@@ -51,17 +70,22 @@ class Index extends Controller
 
             $usersmodel = new \App\Models\Users();
 
-            //put here validation of data
+            // Validate the data
+            $validatedData = request()->validate([
+                'name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\.]+$/',
+                'email' => 'required|email|unique:users,email|max:255',
+                'username' => 'required|string|min:3|max:50|unique:users,username|alpha_num',
+                'password' => 'required|string|min:6|confirmed',
+            ]);
 
             $data = request()->only(['name', 'password', 'email', 'username']);
             $data['role'] = 'patient';
             $data['activationcode'] = $activationcode;
-
-            // Validate the data here if needed
+            $data['password'] = Hash::make($data['password']);
 
             $usersmodel->create($data);
 
-            Mail::to($data['email'])->send(new Sendactivationcode($activationcode));
+            Mail::to($data['email'])->send(new SendActivationCode($activationcode));
 
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }
