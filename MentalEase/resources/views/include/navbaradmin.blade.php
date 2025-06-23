@@ -43,6 +43,12 @@
                 </ul>
             </div>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('appointment.records') ? 'active' : '' }}" href="{{ route('appointment.records') }}">
+                <i class="fa-solid fa-gauge-high me-2"></i>
+                Appointment Records
+            </a>
+        </li>
     </ul>
 
     <!-- User Profile Section -->

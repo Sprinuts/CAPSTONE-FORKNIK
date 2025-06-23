@@ -50,7 +50,7 @@
     <!-- User Profile Section -->
     <div class="user-profile">
         <div class="user-avatar">
-            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Psychometrician Avatar">
+            <img src="{{ asset('style/assets/profile2.jpg') }}" alt="Psychometrician Avatar">
         </div>
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Psychometrician' }}</h5>

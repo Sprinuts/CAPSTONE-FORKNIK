@@ -132,6 +132,9 @@ Route::get('/users/enable/{id}', [Users::class, 'usersenable'])->name('users.ena
 Route::get('/usersarchive', [Users::class, 'usersarchive'])->name('users.archive');
 Route::get('/users/pdf', [Users::class, 'generatePdf'])->name('users.pdf');
 
+// admin appointment records
+Route::get('/appointments/records', [AppointmentController::class, 'appointmentsrecords'])->name('appointment.records');
+Route::get('/appointments/pdf', [AppointmentController::class, 'generatePdf'])->name('appointment.pdf');
 
 // consultation
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');

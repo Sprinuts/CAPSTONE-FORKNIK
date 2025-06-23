@@ -6,6 +6,6 @@
         <h4 class="alert-heading">Payment Cancelled</h4>
         <p>Your payment has been cancelled.</p>
         <hr>
-        <a href="{{ url('appointment.selectPsychometrician') }}" class="btn btn-primary mt-3">Go Back</a>
+        <a href="{{ route('appointment.selectPsychometrician') }}" class="btn btn-primary mt-3">Go Back</a>
     </div>
 </div>

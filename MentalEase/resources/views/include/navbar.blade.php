@@ -98,10 +98,6 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="recordsDropdown">
                         <li>
-                            <a class="dropdown-item {{ request()->routeIs('myrecords') ? 'active' : '' }}" 
-                               href="{{ route('myrecords') }}">Medical Records</a>
-                        </li>
-                        <li>
                             <a class="dropdown-item {{ request()->routeIs('journal.record') ? 'active' : '' }}" 
                                href="{{ route('journal.record') }}">Appointment History</a>
                         </li>

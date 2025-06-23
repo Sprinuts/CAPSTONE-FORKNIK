@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Mail\Sendrefund;
 use Illuminate\Support\Facades\Mail;
 
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Appointment;
@@ -261,5 +261,40 @@ class AppointmentController extends Controller
         Mail::to($data['email'])->send(new Sendrefund($referencecode));
 
         return redirect()->route('welcomepatient')->with('success', 'Appointment cancelled successfully.');
+    }
+
+    public function appointmentsrecords()
+    {
+        $appointments = Appointment::all();
+        foreach ($appointments as $appointment) {
+            if ($appointment->user_id) {
+                $client = Users::find($appointment->user_id);
+                $appointment->client = $client;
+            } else {
+                $appointment->client = null;
+            }
+        }
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment.records', [
+                'appointments' => $appointments
+            ]);
+    }
+
+    public function generatePdf()
+    {
+        $appointments = Appointment::all();
+        foreach ($appointments as $appointment) {
+            if ($appointment->user_id) {
+                $client = Users::find($appointment->user_id);
+                $appointment->client = $client;
+            } else {
+                $appointment->client = null;
+            }
+        }
+
+        $pdf = Pdf::loadView('appointment/recordspdf', compact('appointments'));
+
+        return $pdf->download('appointment.pdf');
     }
 }
