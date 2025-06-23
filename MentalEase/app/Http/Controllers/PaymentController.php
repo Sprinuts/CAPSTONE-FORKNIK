@@ -8,6 +8,7 @@ use App\Models\Invoice;
 use Illuminate\Support\Str;
 use App\Models\Schedule;
 use App\Models\Appointment;
+use App\Models\Users;
 
 class PaymentController extends Controller
 {
@@ -127,5 +128,23 @@ class PaymentController extends Controller
         return view('include/header')
             .view('include/navbar')
             .view('appointment/paymentcancelled');
+    }
+
+    public function paymentrecords()
+    {
+        $invoices = Invoice::all();
+
+        foreach ($invoices as $invoice) {
+            if ($invoice->user_id) {
+                $client = Users::find($invoice->user_id);
+                $invoice->client = $client;
+            } else {
+                $invoice->client = null;
+            }
+        }
+        
+        return view('include/headercashier')
+            .view('include/navbarcashier')
+            .view('appointment/paymentrecords', compact('invoices'));
     }
 }

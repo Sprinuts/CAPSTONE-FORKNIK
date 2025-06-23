@@ -179,3 +179,5 @@ Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancell
 
 // welcome cashier
 Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
+
+Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->name('payment.records');

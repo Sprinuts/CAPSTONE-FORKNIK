@@ -6,23 +6,21 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Client Name</th>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Reference Number</th>
+                <th>User Name</th>
                 <th>Status</th>
                 <!-- Add more columns as needed -->
             </tr>
         </thead>
         <tbody>
-            @foreach($appointments as $appointment)
+            @foreach($invoices as $invoice)
             <tr>
-                <td>{{ $appointment->id }}</td>
-                <td>{{ $appointment->client->name ?? 'N/A' }}</td>
-                <td>{{ $appointment->date ?? 'N/A' }}</td>
-                <td>{{ $appointment->start_time ?? 'N/A' }}</td>
-                <td>{{ $appointment->status ?? 'N/A' }}</td>
+                <td>{{ $invoice->id }}</td>
+                <td>{{ $invoice->reference_number}}
+                <td>{{ $invoice->client ? $invoice->client->name : 'N/A' }}</td>
+                <td>{{ $invoice->payment_status }}</td>
                 <!-- Add more fields as needed -->
-            </tr>   
+            </tr>
             @endforeach
         </tbody>
     </table>

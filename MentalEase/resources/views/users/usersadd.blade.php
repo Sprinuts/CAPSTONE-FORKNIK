@@ -29,20 +29,6 @@
             </div>
 
             <div class="form-group mb-3">
-                <label for="name" class="form-label">
-                    <i class="fas fa-user"></i> Full Namea
-                </label>
-                <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" placeholder="Enter full name">
-            </div>
-
-            <div class="form-group mb-3">
-                <label for="contact_number" class="form-label">
-                    <i class="fas fa-phone"></i> Contact Number
-                </label>
-                <input type="tel" name="contact_number" id="contact_number" class="form-control" value="{{ old('contact_number') }}" placeholder="Enter contact number">
-            </div>
-
-            <div class="form-group mb-3">
                 <label for="email" class="form-label">
                     <i class="fas fa-envelope"></i> Email
                 </label>
@@ -57,6 +43,7 @@
                     <option value="" disabled selected>Select a role</option>
                     <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                     <option value="psychometrician" {{ old('role') == 'psychometrician' ? 'selected' : '' }}>Psychometrician</option>
+                    <option value="cashier" {{ old('role') == 'cashier' ? 'selected' : '' }}>Cashier</option>
                 </select>
             </div>
 

@@ -49,11 +49,16 @@ class Users extends Controller
     public function usersadd()
     {
         if (request()->isMethod('post')) {
-            $data = request()->only(['name', 'username', 'email', 'role', 'contactnumber']);
+            $data = request()->only(['username', 'email', 'role']);
             $data['password'] = "123"; // Default password, should be changed later
             $data['status'] = '1'; // Default status, activated
 
             // Validate the data here if needed
+            $validateData = request()->validate([
+                'username' => 'required|string|max:255|unique:users,username',
+                'email' => 'required|email|max:255|unique:users,email',
+                'role' => 'required|string|max:50',
+            ]);
 
             $usersmodel = new \App\Models\Users();
             $usersmodel->create($data);
