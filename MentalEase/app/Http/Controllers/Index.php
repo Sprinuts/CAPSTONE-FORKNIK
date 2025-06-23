@@ -75,7 +75,10 @@ class Index extends Controller
 
         if ($user) {
             // Get appointments for the user
-            $appointments = \App\Models\Appointment::where('user_id', $user->id)->get();
+            $appointments = \App\Models\Appointment::where('user_id', $user->id)
+                ->where('complete', false)
+                ->where('cancelled', false)
+                ->get();
 
             // For each appointment, get the psychometrician info
             foreach ($appointments as $appointment) {

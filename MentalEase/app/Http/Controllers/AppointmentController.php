@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Mail\Sendrefund;
+use Illuminate\Support\Facades\Mail;
+
 
 use Illuminate\Http\Request;
 use App\Models\Schedule;
 use App\Models\Appointment;
 use App\Models\Users;
+use App\Models\Invoice;
 
 class AppointmentController extends Controller
 {
@@ -74,7 +78,35 @@ class AppointmentController extends Controller
         $appointments = Appointment::where('psychometrician_id', $user->id)->get();
         foreach ($appointments as $appointment) {
                 if ($appointment->user_id) {
-                    $client = \App\Models\Users::find($appointment->user_id);
+                    $client = Users::find($appointment->user_id);
+                    $appointment->client = $client;
+                } else {
+                    $appointment->psychometrician = null;
+                }
+            }
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment/appointmentview', [
+                'appointments' => $appointments
+            ]);
+    }
+
+    public function appointmentsviewconfirmed()
+    {
+        $user = session('user');
+        if (!$user || $user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        $appointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', true)
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->get();
+        foreach ($appointments as $appointment) {
+                if ($appointment->user_id) {
+                    $client = Users::find($appointment->user_id);
                     $appointment->client = $client;
                 } else {
                     $appointment->psychometrician = null;
@@ -129,6 +161,7 @@ class AppointmentController extends Controller
 
         $appointments = Appointment::where('user_id', $user->id)
             ->where('complete', false)
+            ->where('cancelled', false)
             ->orderByDesc('date')
             ->orderByDesc('start_time')
             ->first();
@@ -148,12 +181,22 @@ class AppointmentController extends Controller
     public function appointmentscancel($id)
     {
         $appointment = Appointment::findOrFail($id);
-        $appointment->delete(); // or $appointment->update(['cancelled' => true]);
+        $appointment->cancelled = true;
+        $appointment->save();
 
         Schedule::where('psychometrician_id', $appointment->psychometrician_id)
             ->where('date', $appointment->date)
             ->where('start_time', $appointment->start_time)
             ->update(['scheduled' => false]);
+
+        $user = session('user');
+        $data['email'] = $user->email;
+
+        $referencecode = Invoice::where('appointment_id', $appointment->id)
+            ->value('reference_number');
+
+
+        Mail::to($data['email'])->send(new Sendrefund($referencecode));
 
         return redirect()->route('welcomepatient')->with('success', 'Appointment cancelled successfully.');
     }

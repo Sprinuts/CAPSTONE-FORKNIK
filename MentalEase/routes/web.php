@@ -94,6 +94,7 @@ Route::get('/get-videosdk-token', [VideoController::class, 'getToken']);
 
 // view appointments for psychometrician
 Route::get('/appointment/view', [AppointmentController::class, 'appointmentsview'])->name('appointment.view');
+Route::get('/appointment/viewconfirmed', [AppointmentController::class, 'appointmentsviewconfirmed'])->name('appointment.viewconfirmed');
 Route::get('/appointments/show/{id}', [AppointmentController::class, 'appointmentsshow'])->name('appointments.show');
 Route::get('/appointments/edit/{id}', [AppointmentController::class, 'appointmentsedit'])->name('appointments.edit');
 Route::post('/appointments/complete/{id}', [AppointmentController::class, 'appointmentscomplete'])->name('appointments.complete');

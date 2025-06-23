@@ -33,21 +33,6 @@
                 <i class="bi bi-key"></i> Change Password
             </button>
         </div>
-        
-        <div class="profile-stats">
-            <div class="stat-item">
-                <span class="stat-value">{{ $user->age ?? '?' }}</span>
-                <span class="stat-label">Age</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">{{ $user->gender ? ucfirst(substr($user->gender, 0, 1)) : '?' }}</span>
-                <span class="stat-label">Gender</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-value">{{ $user->civil_status ? ucfirst(substr($user->civil_status, 0, 1)) : '?' }}</span>
-                <span class="stat-label">Status</span>
-            </div>
-        </div>
 
         <!-- User Details Accordion -->
         <div class="profile-details-accordion" id="userDetailsAccordion">

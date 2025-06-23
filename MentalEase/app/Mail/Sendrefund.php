@@ -9,26 +9,26 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class Sendactivationcode extends Mailable
+class Sendrefund extends Mailable
 {
     use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
      */
-    public $activationcode;
+    public $referencecode;
 
-    public function __construct($activationcode)
+    public function __construct($referencecode)
     {
-        $this->activationcode = $activationcode; 
+        $this->referencecode = $referencecode; 
     }
 
     public function build()
     {
-        return $this->subject('Activation Code')
-            ->view('email.activationcode')
+        return $this->subject('Appointment Refund')
+            ->view('email.appointmentrefund')
             ->with([
-                'code' => $this->activationcode,
+                'reference' => $this->referencecode,
             ]);
     }
 }

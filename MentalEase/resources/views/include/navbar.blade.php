@@ -44,14 +44,17 @@
                 </li>
                 
                 @php
-                    $hasAppointment = \App\Models\Appointment::where('user_id', session('user')->id ?? null)->exists();
+                    $hasAppointment = \App\Models\Appointment::where('user_id', session('user')->id ?? null)
+                        ->where('cancelled', false)
+                        ->where('complete', false)
+                        ->exists();
                 @endphp
 
                 <li class="nav-item">
                     @if($hasAppointment)
                         <a class="nav-link {{ request()->routeIs('appointment.patientview') ? 'active' : '' }}" 
                            href="{{ route('appointment.patientview') }}">
-                            My Appointment
+                            Appointment
                         </a>
                     @else
                         <a class="nav-link {{ request()->routeIs('appointment.selectPsychometrician') ? 'active' : '' }}" 
@@ -115,8 +118,6 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{{ route('settings') }}"><i class="fa-solid fa-gear me-2"></i> Settings</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{{ route('logout') }}"><i class="fa-solid fa-right-from-bracket me-2"></i> Logout</a></li>
                         

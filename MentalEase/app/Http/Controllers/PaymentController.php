@@ -79,19 +79,22 @@ class PaymentController extends Controller
             ->where('start_time', $data['start_time'])
             ->first();
 
-        // Update the invoice with the schedule_id
-        if ($schedule) {
-            $invoice->schedule_id = $schedule->id;
-            $invoice->save();
-        }
-
-        Appointment::create([
+        // Create the appointment and set the invoice_id
+        $appointment = Appointment::create([
             'user_id' => $data['user_id'],
             'psychometrician_id' => $data['psychometrician_id'],
             'date' => $data['date'],
             'start_time' => $data['start_time'],
             'end_time' => \Carbon\Carbon::parse($data['start_time'])->addHour(),
+            'invoice_id' => $invoice->id, // Set invoice_id in appointment
         ]);
+
+        // Update the invoice with the schedule_id and appointment_id
+        if ($schedule) {
+            $invoice->schedule_id = $schedule->id;
+        }
+        $invoice->appointment_id = $appointment->id;
+        $invoice->save();
 
         // Update the schedule's 'scheduled' column to true
         if ($schedule) {

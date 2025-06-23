@@ -27,14 +27,7 @@
                 </div>
                 
                 <div class="join-options">
-                    <div class="option-card">
-                        <h3><i class="fas fa-video"></i> Create New Meeting</h3>
-                        <p>Start a new consultation session</p>
-                        <button id="createMeetingBtn" class="btn-primary">Create Meeting</button>
-                    </div>
-                    
-                    <div class="option-divider">OR</div>
-                    
+
                     <div class="option-card">
                         <h3><i class="fas fa-sign-in-alt"></i> Join Existing Meeting</h3>
                         <p>Enter a meeting ID to join</p>
