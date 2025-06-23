@@ -72,7 +72,6 @@ class Index extends Controller
 
             // Validate the data
             $validatedData = request()->validate([
-                'name' => 'required|string|max:255|regex:/^[a-zA-Z\s\-\.]+$/',
                 'email' => 'required|email|unique:users,email|max:255',
                 'username' => 'required|string|min:3|max:50|unique:users,username|alpha_num',
                 'password' => 'required|string|min:6|confirmed',

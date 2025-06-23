@@ -238,27 +238,32 @@ class Users extends Controller
 
         if (request()->isMethod('post')) {
             $data = request()->only([
-            'contact',
-            'address',
-            'age',
-            'gender',
-            'civil_status',
-            'birthdate',
-            'birthplace',
-            'religion'
+                'contact',
+                'address',
+                'gender',
+                'civil_status',
+                'birthdate',
+                'birthplace',
+                'religion'
             ]);
 
             // Validate the data
             $validatedData = request()->validate([
-            'contactnumber' => ['required', 'regex:/^[0-9]{11}$/'],
-            'address' => 'required|string|max:255',
-            'age' => 'required|integer|min:0|max:150',
-            'gender' => 'required|string|max:20',
-            'civil_status' => 'required|string|max:50',
-            'birthdate' => 'required|date',
-            'birthplace' => 'required|string|max:255',
-            'religion' => 'required|string|max:100',
+                'contactnumber' => ['required', 'regex:/^[0-9]{11}$/'],
+                'address' => 'required|string|max:255',
+                'gender' => 'required|string|max:20',
+                'civil_status' => 'required|string|max:50',
+                'birthdate' => 'required|date',
+                'birthplace' => 'required|string|max:255',
+                'religion' => 'required|string|max:100',
             ]);
+
+            if (isset($data['birthdate'])) {
+                $birthdate = new \DateTime($data['birthdate']);
+                $today = new \DateTime();
+                $age = $today->diff($birthdate)->y;
+                $data['age'] = $age;
+            }
 
             $user->update($data);
 
