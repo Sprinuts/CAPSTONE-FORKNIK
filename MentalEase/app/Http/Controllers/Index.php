@@ -171,6 +171,13 @@ class Index extends Controller
             .view('consult/consultation');
     }
 
+    public function consultationpsychometrician()
+    {
+        return view('include/headerpsychometrician')
+            .view('include/navbarpsychometrician')
+            .view('consult/consultationpsychometrician');
+    }
+
     public function myrecords()
     {
         // This method should return the user's records.

@@ -32,17 +32,6 @@
             </div>
             
             <div class="form-group mb-3">
-                <label for="name" class="form-label">
-                    <i class="fas fa-user"></i> Full Name
-                </label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $user->name) }}">
-                </div>
-            </div>
-            
-            <div class="form-group mb-3">
                 <label for="email" class="form-label">
                     <i class="fas fa-envelope"></i> Email
                 </label>
@@ -65,17 +54,6 @@
                         <option value="admin" {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
                         <option value="psychometrician" {{ old('role', $user->role) == 'psychometrician' ? 'selected' : '' }}>Psychometrician</option>
                     </select>
-                </div>
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="contactnumber" class="form-label">
-                    <i class="fas fa-phone"></i> Contact Number
-                </label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="text" name="contactnumber" id="contactnumber" class="form-control" value="{{ old('contactnumber', $user->contactnumber) }}">
                 </div>
             </div>
             

@@ -75,7 +75,10 @@ class AppointmentController extends Controller
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
-        $appointments = Appointment::where('psychometrician_id', $user->id)->get();
+        $appointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('complete', false)
+            ->where('cancelled', false)
+            ->get();
         foreach ($appointments as $appointment) {
                 if ($appointment->user_id) {
                     $client = Users::find($appointment->user_id);
@@ -115,9 +118,62 @@ class AppointmentController extends Controller
 
         return view('include/header')
             .view('include/navbarpsychometrician')
-            .view('appointment/appointmentview', [
+            .view('appointment/appointmentviewconfirmed', [
                 'appointments' => $appointments
             ]);
+    }
+
+    public function appointmentsconfirmation()
+    {
+        $user = session('user');
+        if (!$user || $user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        $appointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', false)
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->get();
+        foreach ($appointments as $appointment) {
+                if ($appointment->user_id) {
+                    $client = Users::find($appointment->user_id);
+                    $appointment->client = $client;
+                } else {
+                    $appointment->psychometrician = null;
+                }
+            }
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment/appointmentconfirmation', [
+                'appointments' => $appointments
+            ]);
+    }
+
+    public function appointmentsshowconfirmation($id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $client = Users::find($appointment->user_id);
+        $psychometrician = Users::find($appointment->psychometrician_id);
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('appointment/appointmentshowconfirmation', [
+                'appointment' => $appointment,
+                'client' => $client,
+                'psychometrician' => $psychometrician
+            ]);
+    }
+
+    public function appointmentconfirming(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+        $appointment->confirmed = true;
+        $appointment->save();
+
+        return redirect()->route('appointments.showconfirmation', $id)
+            ->with('success', 'Appointment confirmed successfully.');
     }
 
     public function appointmentsshow($id)

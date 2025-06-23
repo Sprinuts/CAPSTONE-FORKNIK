@@ -39,6 +39,12 @@
                 View Appointments
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('consultationpsychometrician') ? 'active' : '' }}" href="{{ route('consultationpsychometrician') }}">
+            <i class="fa-solid fa-comments me-2"></i>
+            Online Consultation
+            </a>
+        </li>
     </ul>
 
     <!-- User Profile Section -->

@@ -23,12 +23,33 @@
             
             <div class="form-group mb-3">
                 <label for="name" class="form-label">
-                    <i class="fas fa-user"></i> Full Name
+                    <i class="fas fa-user"></i> First Name
                 </label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                     </div>
                     <input type="text" name="name" id="name" class="form-control" value="{{ $user->name }}" readonly>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="middle_name" class="form-label">
+                    <i class="fas fa-user"></i> Middle Name
+                </label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" name="middle_name" id="middle_name" class="form-control" value="{{ $user->middle_name }}" readonly>
+                </div>
+            </div>
+            <div class="form-group mb-3">
+                <label for="last_name" class="form-label">
+                    <i class="fas fa-user"></i> Last Name
+                </label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                    </div>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ $user->last_name }}" readonly>
                 </div>
             </div>
             
@@ -62,17 +83,6 @@
                     <div class="input-group-prepend">
                     </div>
                     <input type="text" name="role" id="role" class="form-control" value="{{ $user->role }}" readonly>
-                </div>
-            </div>
-            
-            <div class="form-group mb-3">
-                <label for="contact_number" class="form-label">
-                    <i class="fas fa-phone"></i> Contact Number
-                </label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                    </div>
-                    <input type="text" name="contact_number" id="contact_number" class="form-control" value="{{ $user->contactnumber }}" readonly>
                 </div>
             </div>
             

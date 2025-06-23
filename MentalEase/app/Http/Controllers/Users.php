@@ -71,7 +71,7 @@ class Users extends Controller
         $user = $usersmodel->find($id);
 
         if (request()->isMethod('post')) {
-            $data = request()->only(['name', 'username', 'email', 'role', 'contactnumber']);
+            $data = request()->only(['username', 'email', 'role']);
             // Update the user with the provided data
             $user->update($data);
 
@@ -238,6 +238,9 @@ class Users extends Controller
 
         if (request()->isMethod('post')) {
             $data = request()->only([
+                'name',           // firstname
+                'middle_name',
+                'last_name',
                 'contact',
                 'address',
                 'gender',
@@ -249,6 +252,9 @@ class Users extends Controller
 
             // Validate the data
             $validatedData = request()->validate([
+                'name' => 'required|string|max:255',
+                'middle_name' => 'nullable|string|max:255',
+                'last_name' => 'required|string|max:255',
                 'contactnumber' => ['required', 'regex:/^[0-9]{11}$/'],
                 'address' => 'required|string|max:255',
                 'gender' => 'required|string|max:20',
