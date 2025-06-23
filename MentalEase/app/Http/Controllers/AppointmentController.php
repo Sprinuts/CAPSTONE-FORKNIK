@@ -172,7 +172,7 @@ class AppointmentController extends Controller
         $appointment->confirmed = true;
         $appointment->save();
 
-        return redirect()->route('appointments.showconfirmation', $id)
+        return redirect()->route('appointments.view', $id)
             ->with('success', 'Appointment confirmed successfully.');
     }
 
@@ -207,7 +207,13 @@ class AppointmentController extends Controller
         $appointment->complete = true;
         $appointment->save();
 
-        return redirect()->route('appointments.show', $id)
+        // Mark the corresponding schedule as complete
+        Schedule::where('psychometrician_id', $appointment->psychometrician_id)
+            ->where('date', $appointment->date)
+            ->where('start_time', $appointment->start_time)
+            ->update(['complete' => true]);
+
+        return redirect()->route('appointments.view', $id)
             ->with('success', 'Appointment marked as completed.');
     }
 

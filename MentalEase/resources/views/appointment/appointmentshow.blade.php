@@ -1,7 +1,7 @@
 <div class="main-content">
 
 <div class="container mt-4">
-    <a href="{{ route('appointment.view') }}" class="btn btn-secondary mb-3">Go Back</a>
+    <a href="{{ route('appointment.viewconfirmed') }}" class="btn btn-secondary mb-3">Go Back</a>
     <h2>Appointment Details</h2>
     <div class="card mb-3">
         <div class="card-body">

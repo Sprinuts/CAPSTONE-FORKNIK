@@ -23,7 +23,7 @@
                         <td>{{ $appointment->status }}</td>
                         <td>
                             <a href="{{ route('appointments.showconfirmation', $appointment->id) }}" class="btn btn-info btn-sm">View</a>
-                            <form action="{{ route('appointments.cancel', $appointments->id) }}" method="POST" class="mt-3">
+                            <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" class="mt-3">
                                 @csrf
                                 <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this appointment?')">Cancel Appointment</button>
                             </form>

@@ -48,11 +48,19 @@ class ScheduleController extends Controller
     public function view()
     {
         $psychometrician = session('user');
-        $schedules = Schedule::where('psychometrician_id', $psychometrician->id)->get();
+        $schedules = Schedule::where('psychometrician_id', $psychometrician->id)
+            ->where('scheduled', false)
+            ->where('complete', false)
+            ->get();
+
+        $schedulescomplete = Schedule::where('psychometrician_id', $psychometrician->id)
+            ->where('scheduled', true)
+            ->where('complete', true)
+            ->get();
 
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
-            .view('schedule/scheduleview', compact('schedules', 'psychometrician'));
+            .view('schedule/scheduleview', compact('schedules', 'psychometrician', 'schedulescomplete'));
     }
 
     public function getAvailableTimes(Request $request)
