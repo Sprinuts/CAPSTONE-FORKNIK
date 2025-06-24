@@ -34,6 +34,7 @@
     gap: 10px;
 }
 
+/* Base icon circle styling */
 .icon-circle {
     width: 40px;
     height: 40px;
@@ -43,6 +44,25 @@
     align-items: center;
     justify-content: center;
     color: #2D6A4F;
+    overflow: hidden;
+    flex-shrink: 0;
+    position: relative; /* For precise positioning */
+}
+
+/* Individual icon adjustments */
+.icon-circle .fa-phone {
+    font-size: 20px; /* Phone icon size */
+    transform: translate(7px,-4px); /* X: 7px, Y: 10px */
+}
+
+.icon-circle .fa-clock {
+    font-size: 20px; /* Clock icon size */
+    transform: translate(7px,-4px); /* X: 7px, Y: 10px */
+}
+
+.icon-circle .fa-location-dot {
+    font-size: 20px; /* Location icon size */
+    transform: translate(7px,-4px); /* X: 7px, Y: 10px */
 }
 
 .contact-text {
@@ -144,7 +164,18 @@ body {
     .icon-circle {
         width: 30px;
         height: 30px;
-        font-size: 0.8rem;
+    }
+    
+    .icon-circle .fa-phone {
+        font-size: 13px;
+    }
+    
+    .icon-circle .fa-clock {
+        font-size: 14px;
+    }
+    
+    .icon-circle .fa-location-dot {
+        font-size: 13px;
     }
 }
 
@@ -178,6 +209,7 @@ body {
         max-width: 150px;
     }
 }
+
 
 
 

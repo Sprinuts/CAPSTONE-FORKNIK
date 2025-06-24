@@ -24,24 +24,22 @@
                             <span class="value">(+63) 939 939 1293</span>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
                         <div class="icon-circle">
-                            <i class="fa-regular fa-clock"></i>
+                            <i class="fa-solid fa-clock"></i>
                         </div>
                         <div class="contact-text">
                             <span class="label">WORK HOUR</span>
                             <span class="value">08:00 - 5:00 Mon - Fri</span>
                         </div>
                     </div>
-                    
                     <div class="contact-item">
                         <div class="icon-circle">
                             <i class="fa-solid fa-location-dot"></i>
                         </div>
                         <div class="contact-text">
                             <span class="label">LOCATION</span>
-                            <span class="value">1418 Larson Ave, Sampaloc, Manila, 1008 Kalakhang Maynila</span>
+                            <span class="value">1418 Larson Ave, Sampaloc, Manila</span>
                         </div>
                     </div>
                 </div>
@@ -68,5 +66,7 @@
         </div>
     </div>
 </nav>
+
+
 
 
