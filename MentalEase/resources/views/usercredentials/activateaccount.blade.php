@@ -9,11 +9,11 @@
         <input type="text" id="activationcode" name="activationcode" maxlength="6" pattern="\d{6}" required autofocus>
         <button type="submit">Activate Account</button>
         
-        <div class="help-links">
+        {{-- <div class="help-links">
             <a href="{{ route('resend.activation.code', ['username' => $username]) }}" class="resend-link">
                 Didn't receive activation code?
             </a>
-        </div>
+        </div> --}}
     </form>
 </div>
 

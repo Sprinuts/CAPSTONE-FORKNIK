@@ -30,9 +30,13 @@ class Index extends Controller
             // ], $messages);
 
             $usersmodel = new \App\Models\Users();
-            $user = $usersmodel->where('username', $data['username'])
-                ->where('password', $data['password'])
-                ->first();
+            $user = $usersmodel->where('username', $data['username'])->first();
+
+            if ($user && Hash::check($data['password'], $user->password)) {
+                // Password matches, $user is valid
+            } else {
+                $user = null;
+            }
 
             if ($user) {
                 if ($user->disable) {
