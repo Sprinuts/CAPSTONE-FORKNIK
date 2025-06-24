@@ -101,7 +101,7 @@ class Index extends Controller
                 'password' => 'required|string|min:6|confirmed',
             ]);
 
-            $data = request()->only(['name', 'password', 'email', 'username']);
+            $data = $validatedData;
             $data['role'] = 'patient';
             $data['activationcode'] = $activationcode;
             $data['password'] = Hash::make($data['password']);
