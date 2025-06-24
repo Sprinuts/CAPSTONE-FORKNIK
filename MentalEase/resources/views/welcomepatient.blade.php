@@ -100,34 +100,10 @@
                         <h3><i class="fas fa-bell"></i> Reminders</h3>
                         <button class="add-reminder" id="add-reminder-btn"><i class="fas fa-plus"></i></button>
                     </div>
-                    {{-- <div class="card-content" id="reminders-container">
-                        <div class="reminder-item">
-                            <div class="reminder-checkbox">
-                                <input type="checkbox" id="reminder1">
-                                <label for="reminder1"></label>
-                            </div>
-                            <div class="reminder-details">
-                                <h4>Complete DASS-21 Assessment</h4>
-                                <p><i class="fas fa-clock"></i> Due by May 18</p>
-                            </div>
-                            <div class="reminder-actions">
-                                <button class="delete-reminder"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                        <div class="reminder-item">
-                            <div class="reminder-checkbox">
-                                <input type="checkbox" id="reminder2">
-                                <label for="reminder2"></label>
-                            </div>
-                            <div class="reminder-details">
-                                <h4>Journal Entry</h4>
-                                <p><i class="fas fa-clock"></i> Daily reminder</p>
-                            </div>
-                            <div class="reminder-actions">
-                                <button class="delete-reminder"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div> --}}
+                    <div class="card-content" id="reminders-container">
+                        <!-- Reminders will be loaded here dynamically -->
+                        <p id="no-reminders-message">No reminders yet. Click the + button to add one.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -244,6 +220,9 @@
         // Quote of the Day API
         fetchQuote();
         
+        // Load saved reminders
+        loadReminders();
+        
         // Reminder Modal
         const modal = document.getElementById('reminder-modal');
         const addReminderBtn = document.getElementById('add-reminder-btn');
@@ -277,19 +256,28 @@
             const title = document.getElementById('reminder-title').value;
             const date = document.getElementById('reminder-date').value;
             
-            addReminder(title, formatDate(date));
+            saveReminder(title, date);
             
             // Reset form and close modal
             reminderForm.reset();
             modal.style.display = 'none';
         });
         
-        // Delete reminder
+        // Handle reminder actions (delete, check)
         const remindersContainer = document.getElementById('reminders-container');
         remindersContainer.addEventListener('click', function(e) {
+            // Handle delete button click
             if (e.target.classList.contains('fa-trash') || e.target.classList.contains('delete-reminder')) {
                 const reminderItem = e.target.closest('.reminder-item');
-                reminderItem.remove();
+                const reminderId = reminderItem.getAttribute('data-id');
+                deleteReminder(reminderId);
+            }
+            
+            // Handle checkbox click
+            if (e.target.type === 'checkbox') {
+                const reminderItem = e.target.closest('.reminder-item');
+                const reminderId = reminderItem.getAttribute('data-id');
+                toggleReminderComplete(reminderId, e.target.checked);
             }
         });
     });
@@ -309,30 +297,112 @@
             });
     }
     
-    // Add new reminder to the list
-    function addReminder(title, date) {
+    // Load reminders from localStorage
+    function loadReminders() {
         const remindersContainer = document.getElementById('reminders-container');
-        const reminderCount = remindersContainer.querySelectorAll('.reminder-item').length + 1;
+        const noRemindersMessage = document.getElementById('no-reminders-message');
         
-        const reminderHTML = `
-            <div class="reminder-item">
+        // Get reminders from localStorage
+        let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        
+        // Sort reminders by date
+        reminders.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Clear container
+        remindersContainer.innerHTML = '';
+        
+        if (reminders.length === 0) {
+            remindersContainer.appendChild(noRemindersMessage);
+            return;
+        }
+        
+        // Add reminders to container
+        reminders.forEach(reminder => {
+            const reminderHTML = createReminderElement(reminder);
+            remindersContainer.insertAdjacentHTML('beforeend', reminderHTML);
+            
+            // Set checkbox state
+            if (reminder.completed) {
+                const checkbox = document.getElementById(`reminder-${reminder.id}`);
+                if (checkbox) checkbox.checked = true;
+            }
+        });
+    }
+
+    // Save a new reminder
+    function saveReminder(title, date) {
+        // Get existing reminders
+        let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        
+        // Create new reminder
+        const newReminder = {
+            id: Date.now().toString(), // Use timestamp as ID
+            title: title,
+            date: date,
+            completed: false
+        };
+        
+        // Add to array
+        reminders.push(newReminder);
+        
+        // Save to localStorage
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        
+        // Reload reminders
+        loadReminders();
+    }
+
+    // Delete a reminder
+    function deleteReminder(id) {
+        // Get existing reminders
+        let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        
+        // Filter out the reminder to delete
+        reminders = reminders.filter(reminder => reminder.id !== id);
+        
+        // Save to localStorage
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+        
+        // Reload reminders
+        loadReminders();
+    }
+
+    // Toggle reminder complete status
+    function toggleReminderComplete(id, completed) {
+        // Get existing reminders
+        let reminders = JSON.parse(localStorage.getItem('reminders') || '[]');
+        
+        // Find and update the reminder
+        reminders = reminders.map(reminder => {
+            if (reminder.id === id) {
+                reminder.completed = completed;
+            }
+            return reminder;
+        });
+        
+        // Save to localStorage
+        localStorage.setItem('reminders', JSON.stringify(reminders));
+    }
+
+    // Create HTML for a reminder
+    function createReminderElement(reminder) {
+        return `
+            <div class="reminder-item" data-id="${reminder.id}">
                 <div class="reminder-checkbox">
-                    <input type="checkbox" id="reminder${reminderCount}">
-                    <label for="reminder${reminderCount}"></label>
+                    <input type="checkbox" id="reminder-${reminder.id}" ${reminder.completed ? 'checked' : ''}>
+                    <label for="reminder-${reminder.id}"></label>
                 </div>
                 <div class="reminder-details">
-                    <h4>${title}</h4>
-                    <p><i class="fas fa-clock"></i> Due by ${date}</p>
+                    <h4>${reminder.title}</h4>
+                    <p><i class="fas fa-clock"></i> Due by ${formatDate(reminder.date)}</p>
                 </div>
                 <div class="reminder-actions">
                     <button class="delete-reminder"><i class="fas fa-trash"></i></button>
                 </div>
             </div>
         `;
-        
-        remindersContainer.insertAdjacentHTML('beforeend', reminderHTML);
     }
-    
+
     // Format date for display
     function formatDate(dateString) {
         const date = new Date(dateString);
@@ -352,5 +422,7 @@
         }
     });
 </script>
+
+
 
 

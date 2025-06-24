@@ -68,9 +68,11 @@
         
         // Get current date and time
         const now = new Date();
+        // Add 3 hours to current time for minimum booking window
+        const minBookingTime = new Date(now.getTime() + (3 * 60 * 60 * 1000));
         
         timeSlots.forEach(slot => {
-            // Check if the date is in the past
+            // Get slot date and time
             const slotDate = new Date(slot.getAttribute('data-date'));
             const slotTime = slot.getAttribute('data-time');
             
@@ -78,10 +80,12 @@
             const [hours, minutes] = slotTime.split(':');
             slotDate.setHours(parseInt(hours), parseInt(minutes), 0);
             
-            // If the slot datetime is in the past, disable it
-            if (slotDate < now) {
+            // If the slot datetime is in the past or within 3 hours from now, disable it
+            if (slotDate < minBookingTime) {
                 slot.classList.add('disabled');
-                slot.setAttribute('title', 'This time slot is no longer available');
+                slot.setAttribute('title', slotDate < now ? 
+                    'This time slot is no longer available' : 
+                    'Appointments must be booked at least 3 hours in advance');
             } else {
                 slot.addEventListener('click', function() {
                     // Only proceed if the slot is not disabled
@@ -123,4 +127,7 @@
         });
     });
 </script>
+
+
+
 
