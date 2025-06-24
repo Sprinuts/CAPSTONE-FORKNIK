@@ -40,7 +40,7 @@ class Index extends Controller
                 if ($user->disable) {
                     return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
                 } else {
-                    if ($user->status == '1' && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
+                    if ($user->status == true && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
                         session(['user' => $user]);
                         switch ($user->role) {
                             case 'patient':
@@ -89,7 +89,13 @@ class Index extends Controller
 
             $usersmodel->create($data);
 
-            Mail::to($data['email'])->send(new SendActivationCode($activationcode));
+            try {
+                Mail::to($data['email'])->send(new SendActivationCode($activationcode));
+            } catch (\Exception $e) {
+                // Log the error or handle it as needed
+                \Log::error('Mail sending failed: ' . $e->getMessage());
+                // Optionally, you can show a user-friendly message or continue without failing
+            }
 
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }

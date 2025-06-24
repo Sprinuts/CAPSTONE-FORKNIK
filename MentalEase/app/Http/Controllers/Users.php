@@ -271,7 +271,18 @@ class Users extends Controller
             session(['user' => $user]);
 
             // Redirect to welcomepatient instead of profile
-            return redirect()->route('welcomepatient')->with('success', 'Profile completed successfully');
+            switch ($user->role) {
+                case 'patient':
+                    return redirect()->route('welcomepatient')->with('success', 'Profile completed successfully');
+                case 'admin':
+                    return redirect()->route('welcomeadmin')->with('success', 'Profile completed successfully');
+                case 'psychometrician':
+                    return redirect()->route('welcomepsychometrician')->with('success', 'Profile completed successfully');
+                case 'cashier':
+                    return redirect()->route('welcomecashier')->with('success', 'Profile completed successfully');
+                default:
+                    return back()->withErrors(['login' => 'Unknown user role.']);
+            }
         }
 
         return view('include/header')
