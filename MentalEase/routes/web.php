@@ -19,19 +19,9 @@ use Illuminate\Support\Facades\Route;
 
 // uncomment when maintenance is done
 
-<<<<<<< Updated upstream
-Route::get('/', function () {
-    return view('maintenance');
-});
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
-=======
 // Route::get('/', function () {
 //     return view('maintenance');
 // });
->>>>>>> Stashed changes
 
 Route::get('/', function () {
     return view('welcome');
