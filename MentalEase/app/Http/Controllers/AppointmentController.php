@@ -275,7 +275,7 @@ class AppointmentController extends Controller
             }
         }
         return view('include/header')
-            .view('include/navbarpsychometrician')
+            .view('include/navbaradmin') // Changed from navbarpsychometrician to navbaradmin
             .view('appointment.records', [
                 'appointments' => $appointments
             ]);
