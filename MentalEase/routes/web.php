@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return view('maintenance');
+    return view('welcome');
 })->name('welcome');
 
 Route::get('/welcome', function () {
