@@ -105,6 +105,12 @@ class Index extends Controller
     public function welcomepatient()
     {
         $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
         $appointments = [];
 
         if ($user) {
@@ -133,6 +139,14 @@ class Index extends Controller
 
     public function welcomeadmin()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('welcome/welcomeadmin');
@@ -140,6 +154,14 @@ class Index extends Controller
 
     public function welcomepsychometrician()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
             .view('welcome/welcomepsychometrician');
@@ -147,6 +169,14 @@ class Index extends Controller
 
     public function welcomecashier()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'cashier') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/headercashier')
             .view('include/navbarcashier')
             .view('welcome/welcomecashier');
@@ -162,13 +192,19 @@ class Index extends Controller
 
     public function about()
     {
-        return view('include/header')
-            .view('include/navbar')
-            .view('about');
+        return view('about');
     }
 
     public function appointment()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+        
         return view('include/header')
             .view('include/navbar')
             .view('appointment')
@@ -177,6 +213,14 @@ class Index extends Controller
 
     public function consultation()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/header')
             .view('include/navbar')
             .view('consult/consultation');
@@ -184,6 +228,14 @@ class Index extends Controller
 
     public function consultationpsychometrician()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
             .view('consult/consultationpsychometrician');
@@ -191,6 +243,13 @@ class Index extends Controller
 
     public function myrecords()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
         // This method should return the user's records.
         // For now, it returns a temporary view.
         // You can replace this with actual logic to fetch user records.
@@ -202,6 +261,14 @@ class Index extends Controller
 
     public function journal()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+        
         $user = session('user');
         $journals = [];
 

@@ -100,7 +100,7 @@
                         <h3><i class="fas fa-bell"></i> Reminders</h3>
                         <button class="add-reminder" id="add-reminder-btn"><i class="fas fa-plus"></i></button>
                     </div>
-                    <div class="card-content" id="reminders-container">
+                    {{-- <div class="card-content" id="reminders-container">
                         <div class="reminder-item">
                             <div class="reminder-checkbox">
                                 <input type="checkbox" id="reminder1">
@@ -127,7 +127,7 @@
                                 <button class="delete-reminder"><i class="fas fa-trash"></i></button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

@@ -175,6 +175,10 @@ class Users extends Controller
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
 
+        if ($sessionUser->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $user = \App\Models\Users::find($sessionUser->id);
 
         if (!$user) {
@@ -226,6 +230,14 @@ class Users extends Controller
 
     public function generatePdf()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $users = $usersmodel->where('disable', 0)->get();
 
