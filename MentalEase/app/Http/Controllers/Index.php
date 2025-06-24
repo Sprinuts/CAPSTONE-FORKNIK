@@ -32,21 +32,28 @@ class Index extends Controller
             $usersmodel = new \App\Models\Users();
             $user = $usersmodel->where('username', $data['username'])->first();
 
+            if (!$user) {
+                return back()->withErrors(['login' => 'Invalid username or password']);
+            }
+
             if (Hash::check($data['password'], $user->password)) {
                 if ($user->disable) {
                     return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
                 } else {
                     if ($user->status == '1' && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
                         session(['user' => $user]);
-                        if ($user->role == 'patient'){
-                            return redirect()->route('welcomepatient'); // Redirect to welcome page
-                        } else if ($user->role == 'admin'){
-                            return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
-                        } else if ($user->role == 'psychometrician'){
-                            return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
-                        } else if ($user->role == 'cashier'){
-                            return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
-                        } 
+                        switch ($user->role) {
+                            case 'patient':
+                                return redirect()->route('welcomepatient'); // Redirect to welcome page
+                            case 'admin':
+                                return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
+                            case 'psychometrician':
+                                return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
+                            case 'cashier':
+                                return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
+                            default:
+                                return back()->withErrors(['login' => 'Unknown user role.']);
+                        }
                     } else if (!$user->has_completed_profile) {
                         session(['user' => $user]);
                         return redirect()->route('profile.complete'); // Redirect to profile completion page
