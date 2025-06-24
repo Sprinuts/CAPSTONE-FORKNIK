@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="{{ asset('style/welcomepatient.css') }}">
 
-@if (session('success'))
+@if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
@@ -341,6 +341,16 @@
     }
 </script>
 
-
+<!-- Auto-hide success alerts after 3 seconds -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const successAlert = document.querySelector('.alert-success');
+        if (successAlert) {
+            setTimeout(function() {
+                successAlert.style.display = 'none';
+            }, 3000); // 3 seconds
+        }
+    });
+</script>
 
 

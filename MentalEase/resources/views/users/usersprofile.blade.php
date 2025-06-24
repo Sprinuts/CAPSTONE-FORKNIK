@@ -16,7 +16,7 @@
     <div class="profile-card">
         <div class="name-section">
             <h2 id="userName" class="user-name">
-                {{ str_repeat('*', strlen($user->name)) }}
+                {{ str_repeat('*', strlen($user->username)) }}
             </h2>
             <button onclick="toggleName()" class="visibility-toggle" title="Toggle name visibility">
                 <i id="eyeIcon" class="bi bi-eye"></i>
@@ -36,118 +36,130 @@
 
         <!-- User Details Accordion -->
         <div class="profile-details-accordion" id="userDetailsAccordion">
-            <!-- Personal Information -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="personalInfoHeading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfoCollapse" aria-expanded="false" aria-controls="personalInfoCollapse">
-                        <i class="bi bi-person-lines-fill me-2"></i> Personal Information
-                    </button>
-                </h2>
-                <div id="personalInfoCollapse" class="accordion-collapse collapse" aria-labelledby="personalInfoHeading" data-bs-parent="#userDetailsAccordion">
-                    <div class="accordion-body">
-                        <div class="info-grid">
-                            <!-- Contact Number -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-telephone"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Contact</span>
-                                    <span class="info-value">{{ $user->contactnumber ?? 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Address -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-geo-alt"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Address</span>
-                                    <span class="info-value">{{ $user->address ?? 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Age -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-person"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Age</span>
-                                    <span class="info-value">{{ $user->age ? $user->age . ' years old' : 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Gender -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-gender-ambiguous"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Gender</span>
-                                    <span class="info-value">{{ $user->gender ? ucfirst($user->gender) : 'Not provided' }}</span>
-                                </div>
-                            </div>
+<!-- Personal Information -->
+<div class="accordion-item">
+    <h2 class="accordion-header" id="personalInfoHeading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#personalInfoCollapse" aria-expanded="false" aria-controls="personalInfoCollapse">
+            <i class="bi bi-person-lines-fill me-2"></i> Personal Information
+        </button>
+    </h2>
+    <div id="personalInfoCollapse" class="accordion-collapse collapse" aria-labelledby="personalInfoHeading" data-bs-parent="#userDetailsAccordion">
+        <div class="accordion-body p-0">
+            <div class="info-container">
+                <!-- Full Name -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value">
+                            {{ ($user->name && $user->last_name) ? 
+                               $user->name . ' ' . ($user->middle_name ? $user->middle_name . ' ' : '') . $user->last_name : 
+                               'Not provided' }}
                         </div>
                     </div>
                 </div>
+                
+                <!-- Contact Number -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Contact</div>
+                        <div class="info-value">{{ $user->contactnumber ?? 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Address -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-geo-alt"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Address</div>
+                        <div class="info-value">{{ $user->address ?? 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Age -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-person"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Age</div>
+                        <div class="info-value">{{ $user->age ? $user->age . ' years old' : 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Gender -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-gender-ambiguous"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Gender</div>
+                        <div class="info-value">{{ $user->gender ? ucfirst($user->gender) : 'Not provided' }}</div>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Additional Information -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="additionalInfoHeading">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#additionalInfoCollapse" aria-expanded="false" aria-controls="additionalInfoCollapse">
-                        <i class="bi bi-card-list me-2"></i> Additional Information
-                    </button>
-                </h2>
-                <div id="additionalInfoCollapse" class="accordion-collapse collapse" aria-labelledby="additionalInfoHeading" data-bs-parent="#userDetailsAccordion">
-                    <div class="accordion-body">
-                        <div class="info-grid">
-                            <!-- Civil Status -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-heart"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Civil Status</span>
-                                    <span class="info-value">{{ $user->civil_status ? ucfirst($user->civil_status) : 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Birthdate -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-calendar-date"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Birthdate</span>
-                                    <span class="info-value">{{ $user->birthdate ? \Carbon\Carbon::parse($user->birthdate)->format('F d, Y') : 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Birthplace -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-pin-map"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Birthplace</span>
-                                    <span class="info-value">{{ $user->birthplace ?? 'Not provided' }}</span>
-                                </div>
-                            </div>
-                            
-                            <!-- Religion -->
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="bi bi-book"></i>
-                                </div>
-                                <div class="info-content">
-                                    <span class="info-label">Religion</span>
-                                    <span class="info-value">{{ $user->religion ?? 'Not provided' }}</span>
-                                </div>
-                            </div>
-                        </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Information -->
+<div class="accordion-item">
+    <h2 class="accordion-header" id="additionalInfoHeading">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#additionalInfoCollapse" aria-expanded="false" aria-controls="additionalInfoCollapse">
+            <i class="bi bi-card-list me-2"></i> Additional Information
+        </button>
+    </h2>
+    <div id="additionalInfoCollapse" class="accordion-collapse collapse" aria-labelledby="additionalInfoHeading" data-bs-parent="#userDetailsAccordion">
+        <div class="accordion-body p-0">
+            <div class="info-container">
+                <!-- Civil Status -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-heart"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Civil Status</div>
+                        <div class="info-value">{{ $user->civil_status ? ucfirst($user->civil_status) : 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Birthdate -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-calendar-date"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Birthdate</div>
+                        <div class="info-value">{{ $user->birthdate ? \Carbon\Carbon::parse($user->birthdate)->format('F d, Y') : 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Birthplace -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-pin-map"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Birthplace</div>
+                        <div class="info-value">{{ $user->birthplace ?? 'Not provided' }}</div>
+                    </div>
+                </div>
+                
+                <!-- Religion -->
+                <div class="info-row">
+                    <div class="info-icon-container">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <div class="info-details">
+                        <div class="info-label">Religion</div>
+                        <div class="info-value">{{ $user->religion ?? 'Not provided' }}</div>
                     </div>
                 </div>
             </div>
@@ -157,7 +169,7 @@
 
 <!-- JavaScript to toggle name -->
 <script>
-    const actualName = @json($user->name);
+    const actualName = @json($user->username);
     const hiddenName = '*'.repeat(actualName.length);
 
     function toggleName() {
@@ -188,6 +200,12 @@
         });
     });
 </script>
+
+
+
+
+
+
 
 
 

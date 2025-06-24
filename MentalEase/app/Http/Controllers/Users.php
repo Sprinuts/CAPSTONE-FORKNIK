@@ -242,31 +242,17 @@ class Users extends Controller
         }
 
         if (request()->isMethod('post')) {
-            $data = request()->only([
-                'name',           // firstname
-                'middle_name',
-                'last_name',
-                'contact',
-                'address',
-                'gender',
-                'civil_status',
-                'birthdate',
-                'birthplace',
-                'religion'
-            ]);
-
-            // Validate the data
-            $validatedData = request()->validate([
+            $data = request()->validate([
                 'name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
-                'contactnumber' => ['required', 'regex:/^[0-9]{11}$/'],
+                'contactnumber' => 'required|string|max:20',
                 'address' => 'required|string|max:255',
-                'gender' => 'required|string|max:20',
-                'civil_status' => 'required|string|max:50',
+                'gender' => 'required|string|in:Male,Female,Other',
+                'civil_status' => 'required|string|in:Single,Married,Widowed,Divorced',
                 'birthdate' => 'required|date',
                 'birthplace' => 'required|string|max:255',
-                'religion' => 'required|string|max:100',
+                'religion' => 'required|string|max:255',
             ]);
 
             if (isset($data['birthdate'])) {
@@ -284,13 +270,15 @@ class Users extends Controller
             // Update session data
             session(['user' => $user]);
 
-            return redirect()->route('profile')->with('success', 'Profile updated successfully');
+            // Redirect to welcomepatient instead of profile
+            return redirect()->route('welcomepatient')->with('success', 'Profile completed successfully');
         }
 
         return view('include/header')
-            .view('include/navbar')
             .view('usercredentials/profilecomplete');
     }
 }
+
+
 
 

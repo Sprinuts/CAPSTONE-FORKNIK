@@ -1,4 +1,13 @@
-<link rel="stylesheet" href="{{ asset('style/completeprofile.css') }}">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Complete Your Profile | MentalEase</title>
+    <link rel="stylesheet" href="{{ asset('style/completeprofile.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -11,15 +20,19 @@
 @endif
 
 <div class="login-container">
-    <a href="{{ route('welcome') }}" class="back-icon" style="position: absolute; top: 20px; left: 20px; color: #333; text-decoration: none;">
+    <a href="{{ route('login') }}" class="back-icon">
         <i class="fa-solid fa-arrow-left"></i> Back
     </a>
     <form action="{{ route('profile.complete') }}" method="POST" class="login-form">
         @csrf
-        <h2>Complete Profile</h2>
-        <div style="display: flex; gap: 60px; justify-content: center; align-items: flex-start; margin-bottom: 20px;">
+        <div class="form-header">
+            <h2>Complete Your Profile</h2>
+            <p class="form-subtitle">Please provide your personal information to continue</p>
+        </div>
+        
+        <div class="form-columns">
             <!-- First Column -->
-            <div style="flex: 1; min-width: 250px;">
+            <div>
                 <div class="form-group">
                     <label for="name">First Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your first name" required value="{{ old('firstname') }}">
@@ -34,37 +47,53 @@
                 </div>
                 <div class="form-group">
                     <label for="contactnumber">Contact Number</label>
-                    <input type="text" id="contactnumber" name="contactnumber" placeholder="Enter your contact number" required value="{{ old('contactnumber') }}">
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-phone input-icon"></i>
+                        <input type="text" id="contactnumber" name="contactnumber" placeholder="Enter your contact number" required value="{{ old('contactnumber') }}">
+                    </div>
                 </div>
             </div>
+            
             <!-- Second Column -->
-            <div style="flex: 1; min-width: 250px;">
+            <div>
                 <div class="form-group">
                     <label for="address">Address</label>
-                    <input type="text" id="address" name="address" placeholder="Enter your address" required value="{{ old('address') }}">
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-location-dot input-icon"></i>
+                        <input type="text" id="address" name="address" placeholder="Enter your address" required value="{{ old('address') }}">
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" name="gender" required>
-                        <option value="" disabled {{ old('gender') ? '' : 'selected' }}>Select gender</option>
-                        <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
-                        <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
-                        <option value="Other" {{ old('gender') == 'Other' ? 'selected' : '' }}>Other</option>
+            <div class="form-group">
+                <label for="gender">Gender</label>
+                <div class="select-wrapper">
+                    <select id="gender" name="gender" class="form-control" required aria-required="true">
+                        <option value="" disabled @selected(!old('gender'))>Select gender</option>
+                        <option value="Male" @selected(old('gender') == 'Male')>Male</option>
+                        <option value="Female" @selected(old('gender') == 'Female')>Female</option>
+                        <option value="Other" @selected(old('gender') == 'Other')>Other</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="civil_status">Civil Status</label>
-                    <select id="civil_status" name="civil_status" required>
-                        <option value="" disabled {{ old('civil_status') ? '' : 'selected' }}>Select status</option>
-                        <option value="Single" {{ old('civil_status') == 'Single' ? 'selected' : '' }}>Single</option>
-                        <option value="Married" {{ old('civil_status') == 'Married' ? 'selected' : '' }}>Married</option>
-                        <option value="Widowed" {{ old('civil_status') == 'Widowed' ? 'selected' : '' }}>Widowed</option>
-                        <option value="Divorced" {{ old('civil_status') == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+            </div>
+
+            <div class="form-group">
+                <label for="civil_status">Civil Status</label>
+                <div class="select-wrapper">
+                    <select id="civil_status" name="civil_status" class="form-control" required aria-required="true">
+                        <option value="" disabled @selected(!old('civil_status'))>Select status</option>
+                        <option value="Single" @selected(old('civil_status') == 'Single')>Single</option>
+                        <option value="Married" @selected(old('civil_status') == 'Married')>Married</option>
+                        <option value="Widowed" @selected(old('civil_status') == 'Widowed')>Widowed</option>
+                        <option value="Divorced" @selected(old('civil_status') == 'Divorced')>Divorced</option>
                     </select>
                 </div>
+            </div>
+
                 <div class="form-group">
                     <label for="birthdate">Birthdate</label>
-                    <input type="date" id="birthdate" name="birthdate" required value="{{ old('birthdate') }}">
+                    <div class="input-with-icon">
+                        <i class="fa-solid fa-calendar input-icon"></i>
+                        <input type="date" id="birthdate" name="birthdate" required value="{{ old('birthdate') }}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="birthplace">Birthplace</label>
@@ -76,6 +105,16 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="login-btn">Submit</button>
+        
+        <div class="form-footer">
+            <button type="submit" class="login-btn">
+                <i class="fa-solid fa-check-circle"></i> Complete Profile
+            </button>
+            <p class="privacy-note">Your information is protected by our <a href="#">Privacy Policy</a></p>
+        </div>
     </form>
 </div>
+
+</body>
+</html>
+

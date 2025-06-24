@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 // uncomment when maintenance is done
 
+<<<<<<< Updated upstream
 Route::get('/', function () {
     return view('maintenance');
 });
@@ -26,10 +27,19 @@ Route::get('/', function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+=======
+// Route::get('/', function () {
+//     return view('maintenance');
+// });
+>>>>>>> Stashed changes
 
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// })->name('welcome'); 
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
+
+Route::get('/welcome', function () {
+    return view('welcome');
+})->name('welcome'); 
 
 // login route
 Route::get('/login', [Index::class, 'login'])->name('login');

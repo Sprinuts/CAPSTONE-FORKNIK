@@ -108,20 +108,25 @@ body {
 /* Accordion Styling */
 .profile-details-accordion {    margin-top: 1rem;
 }
-.accordion-item {    border: none;
-    margin-bottom: 1rem;    background-color: transparent;
+.accordion-item {    
+    border: none;
+    margin-bottom: 1rem;   
+     background-color: transparent;
 }
-.accordion-header {    margin: 0;
+.accordion-header {    
+    margin: 0;
 }
-.accordion-button {    background-color: var(--background-light);
+.accordion-button {    
+    background-color: var(--primary-dark);
     color: var(--text-dark);    font-weight: 600;
     padding: 1rem 1.25rem;    border-radius: var(--radius-sm) !important;
     box-shadow: none !important;    transition: all 0.2s ease;
 }
-.accordion-button:not(.collapsed) {    background-color: var(--primary-light);
+.accordion-button:not(.collapsed) {    background-color: var(--primary-color);
     color: white;}
 .accordion-button:hover {
-    background-color: var(--primary-light);    color: white;
+    background-color: var(--primary-);  background-color: var(--primary-light);
+    color: white;
 }
 .accordion-button::after {    background-size: 1rem;
     transition: all 0.2s ease;}
@@ -176,177 +181,104 @@ body {
     animation: fadeIn 0.4s ease-out forwards;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Profile information styling */
+.info-container {
+    width: 100%;
+}
+
+.info-row {
+    display: flex;
+    align-items: flex-start; /* Changed from center to flex-start */
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-icon-container {
+    width: 40px;
+    height: 40px;
+    background-color: #f8f9fa;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    flex-shrink: 0;
+    margin-top: 3px; /* Add a small top margin to align with text */
+}
+
+.info-icon-container i {
+    color: var(--primary-light);
+    font-size: 1.2rem;
+}
+
+.info-details {
+    flex-grow: 1;
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.info-label {
+    color: #6c757d;
+    font-size: 0.85rem;
+    margin-bottom: 3px;
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+.info-value {
+    color: #212529;
+    font-weight: 500;
+    text-align: left; /* Ensure text is left-aligned */
+}
+
+/* Ensure accordion content is left-aligned */
+.accordion-body {
+    text-align: left;
+}
+
+/* Ensure accordion headers are left-aligned (except for the toggle icon) */
+.accordion-button {
+    text-align: left;
+    justify-content: flex-start;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(45, 106, 79, 0.25);
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    margin-left: auto; /* Push the toggle icon to the right */
+}
+
+.accordion-button.collapsed::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .info-row {
+        padding: 12px 15px;
+    }
+    
+    .info-icon-container {
+        width: 35px;
+        height: 35px;
+        margin-right: 12px;
+    }
+    
+    .info-value {
+        font-size: 0.95rem;
+    }
+}

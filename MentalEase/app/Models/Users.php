@@ -11,6 +11,8 @@ class Users extends Model
     protected $fillable = [
         'id', // primary key
         'name', // needed for registration
+        'middle_name', // added for profile completion
+        'last_name', // added for profile completion
         'password', // needed for registration
         'status', // activated or deactivated
         'role', // ITSO, associate or student
@@ -19,7 +21,15 @@ class Users extends Model
         'activationcode',
         'resetcode',
         'contactnumber', // needed for registration
+        'address', // added for profile completion
+        'gender', // added for profile completion
+        'civil_status', // added for profile completion
+        'birthdate', // added for profile completion
+        'birthplace', // added for profile completion
+        'religion', // added for profile completion
+        'age', // calculated from birthdate
         'disable', // to disable the account
+        'has_completed_profile', // flag to track profile completion
     ];
 
     public function schedules()
@@ -39,3 +49,5 @@ class Users extends Model
         return $this->hasMany(Appointment::class, 'psychometrician_id');
     }
 }
+
+
