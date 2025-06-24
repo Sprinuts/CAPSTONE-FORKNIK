@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="{{ asset('style/createandnviewsched.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-<div class="container py-5">
+<div class="container py-3">
     <div class="schedule-header text-center mb-4">
         <h2><i class="fas fa-calendar-check me-2"></i>Psychometrician's Schedules</h2>
         <p>View all appointments and consultations</p>

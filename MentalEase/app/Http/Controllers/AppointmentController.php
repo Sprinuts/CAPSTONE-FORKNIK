@@ -68,34 +68,107 @@ class AppointmentController extends Controller
             .view('appointment.success');
     }
 
-    public function appointmentsview()
+    public function welcomepsychometrician()
     {
         $user = session('user');
         if (!$user || $user->role !== 'psychometrician') {
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
-        $appointments = Appointment::where('psychometrician_id', $user->id)
-            ->where('complete', false)
+        // Get today's date
+        $today = \Carbon\Carbon::now()->format('Y-m-d');
+        
+        // Count today's appointments
+        $todayAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('date', $today)
+            ->count();
+        
+        // Count pending appointments
+        $pendingAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', false)
             ->where('cancelled', false)
+            ->count();
+        
+        // Count upcoming confirmed appointments
+        $upcomingAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', true)
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->where('date', '>=', $today)
+            ->count();
+        
+        // Count total patients (unique users who have had appointments)
+        $totalPatients = Appointment::where('psychometrician_id', $user->id)
+            ->distinct('user_id')
+            ->count('user_id');
+        
+        // Count completed appointments
+        $completedAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('complete', true)
+            ->count();
+
+        return view('include/header')
+            .view('include/navbarpsychometrician')
+            .view('welcome/welcomepsychometrician', [
+                'todayAppointments' => $todayAppointments,
+                'pendingAppointments' => $pendingAppointments,
+                'upcomingAppointments' => $upcomingAppointments,
+                'totalPatients' => $totalPatients,
+                'completedAppointments' => $completedAppointments
+            ]);
+    }
+
+    public function appointmentview()
+    {
+        $user = session('user');
+        if (!$user || $user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        // Get today's date
+        $today = \Carbon\Carbon::now()->format('Y-m-d');
+        
+        // Count pending appointments
+        $pendingAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', false)
+            ->where('cancelled', false)
+            ->count();
+        
+        // Count upcoming confirmed appointments
+        $upcomingAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('confirmed', true)
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->where('date', '>=', $today)
+            ->count();
+        
+        // Get recent appointments (limit to 5)
+        $recentAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('cancelled', false)
+            ->orderBy('date', 'desc')
+            ->orderBy('start_time', 'desc')
+            ->limit(5)
             ->get();
-        foreach ($appointments as $appointment) {
-                if ($appointment->user_id) {
-                    $client = Users::find($appointment->user_id);
-                    $appointment->client = $client;
-                } else {
-                    $appointment->psychometrician = null;
-                }
+        
+        foreach ($recentAppointments as $appointment) {
+            if ($appointment->user_id) {
+                $client = Users::find($appointment->user_id);
+                $appointment->client = $client;
+            } else {
+                $appointment->client = null;
             }
+        }
 
         return view('include/header')
             .view('include/navbarpsychometrician')
             .view('appointment/appointmentview', [
-                'appointments' => $appointments
+                'pendingAppointments' => $pendingAppointments,
+                'upcomingAppointments' => $upcomingAppointments,
+                'recentAppointments' => $recentAppointments
             ]);
     }
 
-    public function appointmentsviewconfirmed()
+    public function appointmentviewconfirmed()
     {
         $user = session('user');
         if (!$user || $user->role !== 'psychometrician') {
@@ -103,18 +176,19 @@ class AppointmentController extends Controller
         }
 
         $appointments = Appointment::where('psychometrician_id', $user->id)
-            ->where('confirmed', true)
             ->where('cancelled', false)
-            ->where('complete', false)
+            ->orderBy('date', 'desc')
+            ->orderBy('start_time', 'desc')
             ->get();
+        
         foreach ($appointments as $appointment) {
-                if ($appointment->user_id) {
-                    $client = Users::find($appointment->user_id);
-                    $appointment->client = $client;
-                } else {
-                    $appointment->psychometrician = null;
-                }
+            if ($appointment->user_id) {
+                $client = Users::find($appointment->user_id);
+                $appointment->client = $client;
+            } else {
+                $appointment->psychometrician = null;
             }
+        }
 
         return view('include/header')
             .view('include/navbarpsychometrician')
@@ -298,3 +372,9 @@ class AppointmentController extends Controller
         return $pdf->download('appointment.pdf');
     }
 }
+
+
+
+
+
+

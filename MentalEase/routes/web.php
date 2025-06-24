@@ -98,15 +98,15 @@ Route::post('/appointments/cancel/{id}', [AppointmentController::class, 'appoint
 Route::get('/get-videosdk-token', [VideoController::class, 'getToken']);
 
 // view appointments for psychometrician
-Route::get('/appointment/view', [AppointmentController::class, 'appointmentsview'])->name('appointment.view');
-Route::get('/appointment/viewconfirmed', [AppointmentController::class, 'appointmentsviewconfirmed'])->name('appointment.viewconfirmed');
+Route::get('/appointment/view', [AppointmentController::class, 'appointmentview'])->name('appointment.view');
+Route::get('/appointment/viewconfirmed', [AppointmentController::class, 'appointmentviewconfirmed'])->name('appointment.viewconfirmed');
 Route::get('/appointment/confirmation', [AppointmentController::class, 'appointmentsconfirmation'])->name('appointment.confirmation');
 Route::get('/appointments/show/{id}', [AppointmentController::class, 'appointmentsshow'])->name('appointments.show');
 Route::get('/appointments/showconfirmation/{id}', [AppointmentController::class, 'appointmentsshowconfirmation'])->name('appointments.showconfirmation');
 Route::get('/appointments/edit/{id}', [AppointmentController::class, 'appointmentsedit'])->name('appointments.edit');
 Route::post('/appointments/complete/{id}', [AppointmentController::class, 'appointmentscomplete'])->name('appointments.complete');
 Route::post('/appointments/confirming/{id}', [AppointmentController::class, 'appointmentconfirming'])->name('appointments.confirming');
-
+Route::post('/appointment/cancel/{id}', [AppointmentController::class, 'cancelAppointment'])->name('appointment.cancel');
 
 // User profile routes
 Route::get('/profile', [Users::class, 'profile'])->name('profile');
@@ -143,8 +143,8 @@ Route::get('/consultation', [Index::class, 'consultation'])->name('consultation'
 Route::get('/consultationpsychometrician', [Index::class, 'consultationpsychometrician'])->name('consultationpsychometrician');
 
 
-// welcome for psychometrician
-Route::get('/welcome/psychometrician', [Index::class, 'welcomepsychometrician'])->name('welcomepsychometrician');
+// Dashboard for psychometrician
+Route::get('/welcomepsychometrician', [AppointmentController::class, 'welcomepsychometrician'])->name('welcomepsychometrician');
 
 // patient record
 Route::get('/myrecords', [Index::class, 'myrecords'])->name('myrecords');
@@ -183,4 +183,9 @@ Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancell
 Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
 
 Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->name('payment.records');
+
+
+
+
+
 

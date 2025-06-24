@@ -1,6 +1,8 @@
 <link rel="stylesheet" href="{{ asset('style/welcomepsy.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
+<div class="main-content">
+
 <div class="parent">
 
     <div class="div1">
@@ -9,37 +11,47 @@
             <div class="date" id="currentDate">Loading date...</div>
         </div>
         
-        <div class="stats-container">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-calendar-check"></i>
+        <div class="appointment-dashboard">
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ $todayAppointments ?? 0 }}</h3>
+                        <p>Today's Appointments</p>
+                    </div>
                 </div>
-                <div class="stat-value">{{ $todayAppointments ?? 0 }}</div>
-                <div class="stat-label">Today's Appointments</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-users"></i>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ $pendingAppointments ?? 0 }}</h3>
+                        <p>Pending Confirmations</p>
+                    </div>
                 </div>
-                <div class="stat-value">{{ $totalPatients ?? 0 }}</div>
-                <div class="stat-label">Total Patients</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-clipboard-list"></i>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ $totalPatients ?? 0 }}</h3>
+                        <p>Total Patients</p>
+                    </div>
                 </div>
-                <div class="stat-value">{{ $pendingAssessments ?? 0 }}</div>
-                <div class="stat-label">Pending Assessments</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-chart-line"></i>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-double"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>{{ $completedAppointments ?? 0 }}</h3>
+                        <p>Completed Sessions</p>
+                    </div>
                 </div>
-                <div class="stat-value">{{ $completedAssessments ?? 0 }}</div>
-                <div class="stat-label">Completed Assessments</div>
             </div>
         </div>
     </div>
@@ -175,6 +187,8 @@
     // Update date every minute
     setInterval(updateDate, 60000);
 </script>    
+
+
 
 
 
