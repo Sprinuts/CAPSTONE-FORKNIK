@@ -43,7 +43,8 @@ Route::post('/register', [Index::class, 'register'])->name('register');
 Route::get('/profile/complete', [Users::class, 'profilecomplete'])->name('profile.complete');
 Route::post('/profile/complete', [Users::class, 'profilecomplete'])->name('profile.complete');
 
-Route::match(['get', 'post'], '/activate/{username}', [Users::class, 'activate'])->name('activate');
+Route::get('/activate/{username}', [Users::class, 'activate'])->name('activate');
+Route::post('/activate/{username}', [Users::class, 'activate'])->name('activate');
 
 Route::get('/email/activationcode', [Users::class, 'email/activationcode'])->name('email.activationcode');
 
