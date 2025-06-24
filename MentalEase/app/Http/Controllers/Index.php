@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Mail\SendActivationCode;
+use App\Mail\Sendactivationcode;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
@@ -99,7 +99,7 @@ class Index extends Controller
             $usersmodel->create($data);
 
             try {
-                Mail::to($data['email'])->send(new SendActivationCode($activationcode));
+                Mail::to($data['email'])->send(new Sendactivationcode($activationcode));
             } catch (\Exception $e) {
                 // Log the error or handle it as needed
                 \Log::error('Mail sending failed: ' . $e->getMessage());
