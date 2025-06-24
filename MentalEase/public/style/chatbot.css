@@ -70,6 +70,7 @@ body {
   margin-right: 12px;
 }
 
+
 .chat-title h2 {
   font-size: 18px;
   font-weight: 600;
@@ -402,6 +403,16 @@ body {
   }
 }
 
+/* Avatar styling */
 
+/* Ensure GIFs play */
+.avatar img[src$=".gif"], .header-avatar[src$=".gif"] {
+  object-fit: cover;
+  background-color: transparent;
+}
 
+/* Ensure bot avatars are consistent */
+.message-row.bot .avatar img {
+  border-color: #e1f5fe;
+}
 

@@ -1,4 +1,6 @@
 
+<div class="main-content">
+
 <div class="container mt-4">
     <h2>Appointment Records</h2>
     <a href="{{ route('appointment.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a>
@@ -26,4 +28,5 @@
             @endforeach
         </tbody>
     </table>
+</div>
 </div>

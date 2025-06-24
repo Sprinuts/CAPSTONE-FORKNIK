@@ -24,7 +24,7 @@
       <div class="chat-header">
         <div class="chat-title">
           <a href="/welcomepatient" class="back-link"><i class="fas fa-arrow-left"></i></a>
-          <img src="{{ asset('style/botpic.jpg') }}" alt="Aira" class="header-avatar">
+          <img src="{{ asset('style/assets/chatbottt.gif') }}" alt="Aira" class="header-avatar">
           <div>
             <h2>Aira - Mental Health Assistant</h2>
             <span class="status"><i class="fas fa-circle status-indicator"></i> Online and ready to help</span>
@@ -56,7 +56,7 @@
           
           <div class="message-row bot">
             <div class="avatar">
-              <img src="{{ asset('style/botpic.jpg') }}" alt="Aira">
+              <img src="{{ asset('style/assets/chatbottt.gif') }}" alt="Aira">
             </div>
             <div class="message-content">
               <div class="message-bubble">
@@ -90,12 +90,16 @@
   <script>
     // Auto-scroll to bottom of chat when page loads
     $(document).ready(function() {
+      // Keep these lines to ensure consistency
+      $(".message-row.bot .avatar img").attr("src", "{{ asset('style/assets/chatbottt.gif') }}");
+      $(".header-avatar").attr("src", "{{ asset('style/assets/chatbottt.gif') }}");
+      
       scrollToBottom();
       $("#message").focus();
       
       // Handle new chat button
       $(".new-chat-btn").click(function() {
-        $(".messages").html('<div class="chat-date">Today</div><div class="message-row bot"><div class="avatar"><img src="{{ asset("style/botpic.jpg") }}" alt="Aira"></div><div class="message-content"><div class="message-bubble"><p>Hello! I\'m Aira, your emotional support assistant. I\'m here to listen and help you navigate your feelings. How are you doing today?</p></div></div></div>');
+        $(".messages").html('<div class="chat-date">Today</div><div class="message-row bot"><div class="avatar"><img src="{{ asset("style/assets/chatbottt.gif") }}" alt="Aira"></div><div class="message-content"><div class="message-bubble"><p>Hello! I\'m Aira, your emotional support assistant. I\'m here to listen and help you navigate your feelings. How are you doing today?</p></div></div></div>');
         scrollToBottom();
       });
     });
@@ -142,7 +146,7 @@
       $(".messages").append(`
         <div class="message-row bot typing">
           <div class="avatar">
-            <img src="{{ asset('style/botpic.jpg') }}" alt="Aira">
+            <img src="{{ asset('style/assets/chatbottt.gif') }}" alt="Aira">
           </div>
           <div class="message-content">
             <div class="typing-indicator">
@@ -175,7 +179,7 @@
         $(".messages").append(`
           <div class="message-row bot">
             <div class="avatar">
-              <img src="{{ asset('style/botpic.jpg') }}" alt="Aira">
+              <img src="{{ asset('style/assets/chatbottt.gif') }}" alt="Aira">
             </div>
             <div class="message-content">
               <div class="message-bubble">
@@ -197,6 +201,17 @@
   </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
