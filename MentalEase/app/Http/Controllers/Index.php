@@ -64,32 +64,6 @@ class Index extends Controller
             } else {
                 return back()->withErrors(['login' => 'Invalid username or password']);
             }
-
-            // if ($user) {
-            //     if ($user->disable) {
-            //         return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
-            //     } else {
-            //         if ($user->status == '1' && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
-            //             session(['user' => $user]);
-            //             if ($user->role == 'patient'){
-            //                 return redirect()->route('welcomepatient'); // Redirect to welcome page
-            //             } else if ($user->role == 'admin'){
-            //                 return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
-            //             } else if ($user->role == 'psychometrician'){
-            //                 return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
-            //             } else if ($user->role == 'cashier'){
-            //                 return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
-            //             } 
-            //         } else if (!$user->has_completed_profile) {
-            //             session(['user' => $user]);
-            //             return redirect()->route('profile.complete'); // Redirect to profile completion page
-            //         } else {
-            //             return redirect()->route('activate', [$data['username']]);
-            //         }
-            //     }
-            // } else {
-            //     return back()->withErrors(['login' => 'Invalid username or password']);
-            // }
         }
         return view('usercredentials/login');
     }
@@ -115,7 +89,7 @@ class Index extends Controller
 
             $usersmodel->create($data);
 
-            Mail::to($data['email'])->send(new SendActivationCode($activationcode));
+            //Mail::to($data['email'])->send(new SendActivationCode($activationcode));
 
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }

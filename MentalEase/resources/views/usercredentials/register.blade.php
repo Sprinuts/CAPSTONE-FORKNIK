@@ -47,3 +47,5 @@
         </div>
     </form>
 </div>
+
+<script src="{{ asset('javascript/register.js') }}"></script>
