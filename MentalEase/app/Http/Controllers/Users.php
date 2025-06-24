@@ -195,9 +195,17 @@ class Users extends Controller
         $user = \App\Models\Users::find(session('user')->id);
         
         if ($user) {
-            // Only update fields that are provided
+            // Update basic information
             if ($request->filled('name')) {
                 $user->name = $request->name;
+            }
+            
+            if ($request->filled('middle_name')) {
+                $user->middle_name = $request->middle_name;
+            }
+            
+            if ($request->filled('last_name')) {
+                $user->last_name = $request->last_name;
             }
             
             if ($request->filled('email')) {
@@ -208,12 +216,49 @@ class Users extends Controller
                 $user->contactnumber = $request->contactnumber;
             }
             
+            if ($request->filled('address')) {
+                $user->address = $request->address;
+            }
+            
+            if ($request->filled('gender')) {
+                $user->gender = $request->gender;
+            }
+            
+            if ($request->filled('birthdate')) {
+                $user->birthdate = $request->birthdate;
+                
+                // Calculate age based on birthdate
+                if ($request->birthdate) {
+                    $birthdate = new \DateTime($request->birthdate);
+                    $today = new \DateTime();
+                    $age = $birthdate->diff($today)->y;
+                    $user->age = $age;
+                }
+            }
+            
+            if ($request->filled('birthplace')) {
+                $user->birthplace = $request->birthplace;
+            }
+            
+            if ($request->filled('civil_status')) {
+                $user->civil_status = $request->civil_status;
+            }
+            
+            if ($request->filled('religion')) {
+                $user->religion = $request->religion;
+            }
+            
             // Handle password change if provided
-            if ($request->filled('password') && $request->filled('password_confirmation')) {
-                if ($request->password === $request->password_confirmation) {
-                    $user->password = $request->password;
+            if ($request->filled('current_password') && $request->filled('password') && $request->filled('password_confirmation')) {
+                // Verify current password
+                if (password_verify($request->current_password, $user->password)) {
+                    if ($request->password === $request->password_confirmation) {
+                        $user->password = password_hash($request->password, PASSWORD_DEFAULT);
+                    } else {
+                        return redirect()->back()->withErrors(['password' => 'New passwords do not match']);
+                    }
                 } else {
-                    return redirect()->back()->withErrors(['password' => 'Passwords do not match']);
+                    return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect']);
                 }
             }
             
@@ -225,7 +270,7 @@ class Users extends Controller
             return redirect()->route('profile')->with('success', 'Profile updated successfully');
         }
         
-        return redirect()->back()->withErrors(['user' => 'User not found']);
+        return redirect()->route('login')->withErrors(['user' => 'User not found']);
     }
 
     public function generatePdf()
@@ -300,8 +345,25 @@ class Users extends Controller
         return view('include/header')
             .view('usercredentials/profilecomplete');
     }
-}
 
+    public function editProfile()
+    {
+        $sessionUser = session('user');
+        if (!$sessionUser) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+
+        $user = \App\Models\Users::find($sessionUser->id);
+
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not found']);
+        }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('users/editprofile', compact('user'));
+    }
+}
 
 
 

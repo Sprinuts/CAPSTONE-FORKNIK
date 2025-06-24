@@ -39,3 +39,36 @@
 </div>
 
 <script src="{{ asset('javascript/login.js') }}"></script>
+
+<script>
+    // Check if user is already logged in
+    document.addEventListener('DOMContentLoaded', function() {
+        // If there's a user session, redirect to appropriate dashboard
+        @if(session('user'))
+            @php
+                $redirectUrl = '';
+                $user = session('user');
+                switch($user->role) {
+                    case 'patient':
+                        $redirectUrl = route('welcomepatient');
+                        break;
+                    case 'admin':
+                        $redirectUrl = route('welcomeadmin');
+                        break;
+                    case 'psychometrician':
+                        $redirectUrl = route('welcomepsychometrician');
+                        break;
+                    case 'cashier':
+                        $redirectUrl = route('welcomecashier');
+                        break;
+                }
+            @endphp
+            
+            // Replace history and redirect
+            window.history.replaceState(null, '', '{{ $redirectUrl }}');
+            window.location.href = '{{ $redirectUrl }}';
+        @endif
+    });
+</script>
+
+

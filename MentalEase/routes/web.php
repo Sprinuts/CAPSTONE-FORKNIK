@@ -108,8 +108,9 @@ Route::post('/appointments/complete/{id}', [AppointmentController::class, 'appoi
 Route::post('/appointments/confirming/{id}', [AppointmentController::class, 'appointmentconfirming'])->name('appointments.confirming');
 
 
-// User profile
+// User profile routes
 Route::get('/profile', [Users::class, 'profile'])->name('profile');
+Route::get('/profile/edit', [Users::class, 'editProfile'])->name('profile.edit');
 Route::post('/profile/update', [Users::class, 'updateProfile'])->name('profile.update');
 
 // user settings
@@ -182,3 +183,4 @@ Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancell
 Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
 
 Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->name('payment.records');
+

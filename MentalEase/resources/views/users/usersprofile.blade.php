@@ -26,12 +26,9 @@
         <p class="user-email">{{ $user->email }}</p>
         
         <div class="profile-actions">
-            <button class="btn btn-primary action-btn" type="button" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+            <a href="{{ route('profile.edit') }}" class="btn btn-primary action-btn">
                 <i class="bi bi-pencil-square"></i> Edit Profile
-            </button>
-            <button class="btn btn-outline-secondary action-btn" type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
-                <i class="bi bi-key"></i> Change Password
-            </button>
+            </a>
         </div>
 
         <!-- User Details Accordion -->
@@ -200,6 +197,8 @@
         });
     });
 </script>
+
+
 
 
 

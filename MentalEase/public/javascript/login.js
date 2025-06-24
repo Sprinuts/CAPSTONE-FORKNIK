@@ -17,7 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Attach togglePassword to window so it can be called from inline onclick
     window.togglePassword = togglePassword;
 
-    // Optional: Prevent multiple submissions
+    // Reset login button state (in case of browser back button)
+    const loginBtn = document.querySelector('.login-btn');
+    if (loginBtn) {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Login';
+    }
+
+    // Handle login form submission
     const form = document.querySelector('.login-form');
     if (form) {
         form.addEventListener('submit', function (e) {
@@ -26,4 +33,19 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.textContent = 'Logging in...';
         });
     }
+    
+    // Handle page show event (triggered when navigating back)
+    window.addEventListener('pageshow', function(event) {
+        // If the page is loaded from the browser cache
+        if (event.persisted) {
+            const loginBtn = document.querySelector('.login-btn');
+            if (loginBtn) {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Login';
+            }
+        }
+    });
 });
+
+
+

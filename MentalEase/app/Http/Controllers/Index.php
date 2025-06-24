@@ -12,7 +12,7 @@ class Index extends Controller
         if (request()->isMethod('post')) {
 
             $data = request()->only(['username', 'password']);
-
+            
             // $messages = [
             //     'username.required' => 'Please enter your username.',
             //     'username.string' => 'Username is wrong.',
@@ -29,6 +29,7 @@ class Index extends Controller
             //     'password' => 'required|string|min:6',
             // ], $messages);
 
+
             $usersmodel = new \App\Models\Users();
             $user = $usersmodel->where('username', $data['username'])->first();
 
@@ -42,18 +43,26 @@ class Index extends Controller
                 } else {
                     if ($user->status == true && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
                         session(['user' => $user]);
+                        
+                        // Determine redirect URL based on user role
+                        $redirectUrl = '';
                         switch ($user->role) {
                             case 'patient':
                                 return redirect()->route('welcomepatient'); // Redirect to welcome page
+                                break;
                             case 'admin':
                                 return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
+                                break;
                             case 'psychometrician':
                                 return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
+                                break;
                             case 'cashier':
                                 return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
+                                break;
                             default:
                                 return back()->withErrors(['login' => 'Unknown user role.']);
                         }
+                        
                     } else if (!$user->has_completed_profile) {
                         session(['user' => $user]);
                         return redirect()->route('profile.complete'); // Redirect to profile completion page
@@ -184,10 +193,15 @@ class Index extends Controller
 
     public function logout()
     {
-
+        // Clear the user session
         session()->forget('user');
         session()->flush();
-        return redirect()->route('login');
+        
+        // Return with cache control headers to prevent back button access
+        return redirect()->route('login')
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', 'Sat, 01 Jan 1990 00:00:00 GMT');
     }
 
     public function about()
@@ -282,4 +296,8 @@ class Index extends Controller
             .view('include/footer');
     }
 }
+
+
+
+
 
