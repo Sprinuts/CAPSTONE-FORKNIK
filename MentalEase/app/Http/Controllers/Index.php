@@ -89,7 +89,7 @@ class Index extends Controller
 
             $usersmodel->create($data);
 
-            //Mail::to($data['email'])->send(new SendActivationCode($activationcode));
+            Mail::to($data['email'])->send(new SendActivationCode($activationcode));
 
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }
