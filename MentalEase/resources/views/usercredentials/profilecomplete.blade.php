@@ -17,9 +17,9 @@
     <form action="{{ route('profile.complete') }}" method="POST" class="login-form">
         @csrf
         <h2>Complete Profile</h2>
-        <div style="display: flex; gap: 30px;">
+        <div style="display: flex; gap: 60px; justify-content: center; align-items: flex-start; margin-bottom: 20px;">
             <!-- First Column -->
-            <div style="flex: 1;">
+            <div style="flex: 1; min-width: 250px;">
                 <div class="form-group">
                     <label for="name">First Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your first name" required value="{{ old('firstname') }}">
@@ -38,7 +38,7 @@
                 </div>
             </div>
             <!-- Second Column -->
-            <div style="flex: 1;">
+            <div style="flex: 1; min-width: 250px;">
                 <div class="form-group">
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" placeholder="Enter your address" required value="{{ old('address') }}">

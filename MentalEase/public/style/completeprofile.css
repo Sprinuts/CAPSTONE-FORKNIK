@@ -12,6 +12,19 @@ html, body {
     overflow: hidden;
 }
 
+.form-columns {
+    display: flex;
+    gap: 60px;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.form-columns > div {
+    flex: 1;
+    min-width: 250px;
+}
+
 .login-container {
     width: 100vw;
     height: 100vh;
@@ -31,7 +44,8 @@ html, body {
     padding: 2.5rem 2rem;
     border-radius: 12px;
     box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    width: 350px;
+    width: 700px;
+    max-width: 95vw;
 }
 
 .login-form h2 {
@@ -40,6 +54,7 @@ html, body {
     color: #333;
     font-weight: 600;
     letter-spacing: 1px;
+    font-size: 2rem;
 }
 
 .form-group {
@@ -149,9 +164,117 @@ html, body {
     }
 }
 
+/* Responsive Styles */
+@media (max-width: 900px) {
+    .login-form {
+        width: 98vw;
+        padding: 2rem 0.5rem;
+        font-size: 0.97rem;
+    }
+    .form-columns {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .login-form h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 700px) {
+    .login-form {
+        width: 99vw;
+        padding: 1.5rem 0.3rem;
+        font-size: 0.95rem;
+    }
+    .form-group label {
+        font-size: 0.97rem;
+    }
+    .form-group input,
+    .form-group select {
+        font-size: 0.97rem;
+        padding: 0.65rem 0.7rem;
+    }
+}
+
 @media (max-width: 500px) {
     .login-form {
-        width: 95vw;
-        padding: 2rem 0.5rem;
+        width: 100vw;
+        padding: 1rem 0.1rem;
+        border-radius: 0;
+        box-shadow: none;
+        font-size: 0.93rem;
+    }
+    .login-form h2 {
+        font-size: 1.1rem;
+    }
+    .form-group label {
+        font-size: 0.93rem;
+    }
+    .form-group input,
+    .form-group select {
+        font-size: 0.93rem;
+        padding: 0.5rem 0.5rem;
+    }
+    .alert {
+        font-size: 12px;
+        padding: 8px 10px;
+        max-width: 98vw;
+    }
+}
+
+@media (max-width: 700px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    .login-container {
+        align-items: flex-start;
+        padding-top: 10vw;
+        height: auto;
+        min-height: 100vh;
+    }
+    .login-form {
+        width: 100vw;
+        max-width: 100vw;
+        min-width: 0;
+        padding: 1.2rem 0.5rem;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .form-columns {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+    }
+    .form-columns > div {
+        min-width: 0;
+        width: 100%;
+    }
+    .form-group input,
+    .form-group select {
+        font-size: 1rem;
+        padding: 0.7rem 0.7rem;
+    }
+    .login-btn {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+    .alert {
+        font-size: 13px;
+        padding: 8px 8px;
+        max-width: 98vw;
+    }
+}
+
+@media (max-width: 400px) {
+    .login-form h2 {
+        font-size: 1rem;
+    }
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.5rem;
     }
 }
