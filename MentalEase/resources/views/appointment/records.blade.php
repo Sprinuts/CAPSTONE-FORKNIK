@@ -1,8 +1,12 @@
+<link rel="stylesheet" href="{{ asset('style/users.css') }} ">
 
 <div class="main-content">
 
 <div class="container mt-4">
-    <h2>Appointment Records</h2>
+    <h3 class="text-center">
+        <i class="fas fa-calendar-check"></i> 
+        <span class="heading-text">Appointment Records</span>
+    </h3>
     <a href="{{ route('appointment.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a>
     <table class="table table-bordered mt-3">
         <thead>

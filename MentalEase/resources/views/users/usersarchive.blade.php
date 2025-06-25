@@ -1,6 +1,10 @@
 <div>
-    <link rel="stylesheet" href="{{ asset('style/users_cs.css') }} ">
-    <h3 class="text-center">Archived Users</h3>
+    <link rel="stylesheet" href="{{ asset('style/users.css') }} ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <h3 class="text-center">
+        <i class="fas fa-user-slash"></i> 
+        <span class="heading-text">Archived Users</span>
+    </h3>
     <div class="adjust">
         @if($users->count() > 0)
             <table class="adjustBtn table table-striped table-hover table-light table-bordered table-responsive">
@@ -28,8 +32,8 @@
                     @endforeach
                 </tbody>
             </table>
-            <div>
-                {{ $users->links() }}
+            <div class="pagination-container">
+                {{ $users->links('pagination::bootstrap-4') }}
             </div>
         @else
             <div class="text-center mt-4">
@@ -38,3 +42,4 @@
         @endif
     </div>
 </div>
+
