@@ -19,7 +19,11 @@ class Users extends Controller
                     $user->status = '1';
                     $user->save();
 
-                    return redirect()->route('login')->with('success', 'Account activated successfully. You can now log in.');
+                    // Store user in session
+                    session(['user' => $user]);
+                    
+                    // Redirect to profile completion page instead of login
+                    return redirect()->route('profile.complete')->with('success', 'Account activated successfully. Please complete your profile.');
                 } else {
                     return back()->withErrors(['activationcode' => 'Invalid activation code']);
                 }
@@ -363,7 +367,39 @@ class Users extends Controller
             .view('include/navbar')
             .view('users/editprofile', compact('user'));
     }
+
+    public function resendActivationCodeForm(Request $request, $username)
+    {
+        $user = \App\Models\Users::where('username', $username)->first();
+        
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['username' => 'User not found']);
+        }
+        
+        // Generate new activation code
+        $newActivationCode = rand(100000, 999999);
+        $user->activationcode = $newActivationCode;
+        $user->save();
+        
+        // Send new activation code via email
+        try {
+            \Illuminate\Support\Facades\Mail::to($user->email)
+                ->send(new \App\Mail\Sendactivationcode($newActivationCode));
+            
+            return redirect()->route('activate', [$username])
+                ->with('success', 'A new activation code has been sent to your email address: ' . substr($user->email, 0, 3) . '***' . substr($user->email, strpos($user->email, '@')));
+        } catch (\Exception $e) {
+            \Log::error('Mail sending failed: ' . $e->getMessage());
+            return redirect()->route('activate', [$username])
+                ->withErrors(['email' => 'Failed to send activation code. Please try again later.']);
+        }
+    }
 }
+
+
+
+
+
 
 
 

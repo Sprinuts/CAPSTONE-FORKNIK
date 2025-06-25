@@ -161,9 +161,8 @@ Route::delete('/journal/{id}', [Journal::class, 'journaldelete'])->name('journal
 
 Route::get('/journal/record', [Index::class, 'journalrecord'])->name('journal.record');
 
-// Routes for resending activation code
+// Route for resending activation code
 Route::get('/activate/{username}/resend', [Users::class, 'resendActivationCodeForm'])->name('resend.activation.code');
-Route::post('/activate/resend', [Users::class, 'resendActivationCode'])->name('resend.activation.code.submit');
 
 // PSS Assessment results route
 Route::get('/assessment/pss/results', [Assessment::class, 'pssResults'])->name('assessment.pss.results');
@@ -183,6 +182,9 @@ Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancell
 Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
 
 Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->name('payment.records');
+
+
+
 
 
 
