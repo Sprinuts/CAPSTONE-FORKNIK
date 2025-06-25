@@ -138,9 +138,9 @@ Route::get('/users/pdf', [Users::class, 'generatePdf'])->name('users.pdf');
 Route::get('/appointments/records', [AppointmentController::class, 'appointmentsrecords'])->name('appointment.records');
 Route::get('/appointments/pdf', [AppointmentController::class, 'generatePdf'])->name('appointment.pdf');
 
-// consultation
+// consultation routes
 Route::get('/consultation', [Index::class, 'consultation'])->name('consultation');
-Route::get('/consultationpsychometrician', [Index::class, 'consultationpsychometrician'])->name('consultationpsychometrician');
+Route::get('/consultation/psychometrician', [Index::class, 'consultationpsychometrician'])->name('consultationpsychometrician');
 
 
 // Dashboard for psychometrician
@@ -185,6 +185,8 @@ Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->na
 
 // Admin dashboard routes
 Route::get('/admin/refresh-stats', [App\Http\Controllers\AdminController::class, 'refreshStats'])->name('admin.refresh-stats');
+
+
 
 
 

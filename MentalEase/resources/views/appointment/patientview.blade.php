@@ -8,7 +8,15 @@
                 <h5 class="card-title">Appointment Details</h5>
                 <p><strong>Date:</strong> {{ \Carbon\Carbon::parse($appointments->date)->format('F d, Y') }}</p>
                 <p><strong>Start Time:</strong> {{ \Carbon\Carbon::parse($appointments->start_time)->format('h:i A') }}</p>
-                <p><strong>Status:</strong> {{ $appointments->complete ? 'Completed' : 'Pending' }}</p>
+                <p><strong>Status:</strong> 
+                    @if($appointments->complete)
+                        Completed
+                    @elseif($appointments->confirmed)
+                        Confirmed
+                    @else
+                        Pending
+                    @endif
+                </p>
                 @if($appointments->psychometrician)
                     <p><strong>Psychometrician:</strong> {{ $appointments->psychometrician->name }}</p>
                     <p><strong>Email:</strong> {{ $appointments->psychometrician->email }}</p>
@@ -32,3 +40,4 @@
         </div>
     @endif
 </div>
+

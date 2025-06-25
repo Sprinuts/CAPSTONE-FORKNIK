@@ -72,7 +72,7 @@
                         
                         <div class="appointment-actions">
                             @if($appointment->confirmed && !$appointment->complete && \Carbon\Carbon::parse($appointment->date)->isToday())
-                                <a href="{{ route('consultation.psychometrician') }}" class="action-btn start">
+                                <a href="{{ route('consultationpsychometrician') }}" class="action-btn start">
                                     <i class="fas fa-video"></i> Start
                                 </a>
                             @endif
@@ -151,6 +151,7 @@
 
 <!-- Bootstrap JS for modals -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 
 
 

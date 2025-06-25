@@ -21,7 +21,7 @@
                 </div>
                 <h3>No Pending Appointments</h3>
                 <p>There are currently no appointments waiting for confirmation.</p>
-                <a href="{{ route('appointment.view') }}" class="btn btn-primary">Back to Appointments</a>
+                <a href="{{ route('appointment.view') }}" class="btn" style="background-color: #2d6a4f; color: white;">Back to Appointments</a>
             </div>
         @else
             <div class="appointment-list">

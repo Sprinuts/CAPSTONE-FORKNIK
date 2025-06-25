@@ -246,7 +246,7 @@ class AppointmentController extends Controller
         $appointment->confirmed = true;
         $appointment->save();
 
-        return redirect()->route('appointments.view', $id)
+        return redirect()->route('appointment.confirmation')
             ->with('success', 'Appointment confirmed successfully.');
     }
 
@@ -287,7 +287,7 @@ class AppointmentController extends Controller
             ->where('start_time', $appointment->start_time)
             ->update(['complete' => true]);
 
-        return redirect()->route('appointments.view', $id)
+        return redirect()->route('appointment.viewconfirmed')
             ->with('success', 'Appointment marked as completed.');
     }
 
@@ -316,25 +316,41 @@ class AppointmentController extends Controller
 
     public function appointmentscancel($id)
     {
+        $user = session('user');
         $appointment = Appointment::findOrFail($id);
+        
+        // Allow both patients and psychometricians to cancel appointments
+        if (!$user || ($user->id != $appointment->user_id && $user->id != $appointment->psychometrician_id && $user->role != 'admin')) {
+            return redirect()->back()->withErrors(['user' => 'Unauthorized access']);
+        }
+        
         $appointment->cancelled = true;
         $appointment->save();
 
+        // Update the schedule to be available again
         Schedule::where('psychometrician_id', $appointment->psychometrician_id)
             ->where('date', $appointment->date)
             ->where('start_time', $appointment->start_time)
             ->update(['scheduled' => false]);
 
-        $user = session('user');
-        $data['email'] = $user->email;
-
-        $referencecode = Invoice::where('appointment_id', $appointment->id)
-            ->value('reference_number');
-
-
-        Mail::to($data['email'])->send(new Sendrefund($referencecode));
-
-        return redirect()->route('welcomepatient')->with('success', 'Appointment cancelled successfully.');
+        // Only send refund email if it's a patient cancelling
+        if ($user->role == 'patient') {
+            $data['email'] = $user->email;
+            $referencecode = Invoice::where('appointment_id', $appointment->id)
+                ->value('reference_number');
+            if ($referencecode) {
+                Mail::to($data['email'])->send(new Sendrefund($referencecode));
+            }
+            return redirect()->route('welcomepatient')->with('success', 'Appointment cancelled successfully.');
+        }
+        
+        // For psychometricians
+        if ($user->role == 'psychometrician') {
+            return redirect()->route('appointment.viewconfirmed')->with('success', 'Appointment cancelled successfully.');
+        }
+        
+        // For admin
+        return redirect()->back()->with('success', 'Appointment cancelled successfully.');
     }
 
     public function appointmentsrecords()
@@ -372,6 +388,9 @@ class AppointmentController extends Controller
         return $pdf->download('appointment.pdf');
     }
 }
+
+
+
 
 
 
