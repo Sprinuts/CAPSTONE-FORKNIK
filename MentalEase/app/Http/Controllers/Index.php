@@ -44,6 +44,14 @@ class Index extends Controller
                     if ($user->status == true && $user->has_completed_profile == true) { // Check if the account is activated and profile is complete
                         session(['user' => $user]);
                         
+                        // Log login activity
+                        \App\Helpers\ActivityLogger::log(
+                            $user->name . ' logged into the system',
+                            'login',
+                            'sign-in-alt',
+                            $user->id
+                        );
+                        
                         // Determine redirect URL based on user role
                         $redirectUrl = '';
                         switch ($user->role) {
@@ -96,7 +104,14 @@ class Index extends Controller
             $data['activationcode'] = $activationcode;
             $data['password'] = Hash::make($data['password']);
 
-            $usersmodel->create($data);
+            $user = $usersmodel->create($data);
+
+            // Log registration activity
+            \App\Helpers\ActivityLogger::log(
+                'New user registered with username ' . $data['username'],
+                'register',
+                'user-plus'
+            );
 
             try {
                 Mail::to($data['email'])->send(new Sendactivationcode($activationcode));
@@ -156,9 +171,79 @@ class Index extends Controller
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
+        // Get current month and previous month dates
+        $currentMonthStart = now()->startOfMonth();
+        $previousMonthStart = now()->subMonth()->startOfMonth();
+        $previousMonthEnd = now()->subMonth()->endOfMonth();
+
+        // Get total users and calculate change
+        $totalUsers = \App\Models\Users::where('status', 1)->count();
+        $lastMonthUsers = \App\Models\Users::where('status', 1)
+            ->where('created_at', '<', $currentMonthStart)
+            ->count();
+        $userChange = $lastMonthUsers > 0 
+            ? round((($totalUsers - $lastMonthUsers) / $lastMonthUsers) * 100) 
+            : 0;
+
+        // Get total appointments and calculate change
+        $totalAppointments = \App\Models\Appointment::where('cancelled', false)->count();
+        $currentMonthAppointments = \App\Models\Appointment::where('cancelled', false)
+            ->where('created_at', '>=', $currentMonthStart)
+            ->count();
+        $previousMonthAppointments = \App\Models\Appointment::where('cancelled', false)
+            ->whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])
+            ->count();
+        $appointmentChange = $previousMonthAppointments > 0 
+            ? round((($currentMonthAppointments - $previousMonthAppointments) / $previousMonthAppointments) * 100) 
+            : ($currentMonthAppointments > 0 ? 100 : 0);
+
+        // Get total psychometricians and calculate change
+        $totalPsychometricians = \App\Models\Users::where('role', 'psychometrician')->where('status', 1)->count();
+        $currentMonthPsychometricians = \App\Models\Users::where('role', 'psychometrician')
+            ->where('status', 1)
+            ->where('created_at', '>=', $currentMonthStart)
+            ->count();
+        $previousMonthPsychometricians = \App\Models\Users::where('role', 'psychometrician')
+            ->where('status', 1)
+            ->whereBetween('created_at', [$previousMonthStart, $previousMonthEnd])
+            ->count();
+        $psychometricianChange = $previousMonthPsychometricians > 0 
+            ? round((($currentMonthPsychometricians - $previousMonthPsychometricians) / $previousMonthPsychometricians) * 100) 
+            : ($currentMonthPsychometricians > 0 ? 100 : 0);
+
+        // Create mock data for activities
+        $recentActivities = collect([
+            (object)[
+                'description' => 'System generated monthly report',
+                'type' => 'system',
+                'icon' => 'chart-bar',
+                'created_at' => now()->subHours(2)
+            ],
+            (object)[
+                'description' => 'New user registered',
+                'type' => 'register',
+                'icon' => 'user-plus',
+                'created_at' => now()->subHours(5)
+            ],
+            (object)[
+                'description' => 'Appointment scheduled',
+                'type' => 'appointment',
+                'icon' => 'calendar-check',
+                'created_at' => now()->subHours(8)
+            ]
+        ]);
+
         return view('include/headeradmin')
             .view('include/navbaradmin')
-            .view('welcome/welcomeadmin');
+            .view('welcome/welcomeadmin', [
+                'totalUsers' => $totalUsers,
+                'userChange' => $userChange,
+                'totalAppointments' => $totalAppointments,
+                'appointmentChange' => $appointmentChange,
+                'totalPsychometricians' => $totalPsychometricians,
+                'psychometricianChange' => $psychometricianChange,
+                'recentActivities' => $recentActivities
+            ]);
     }
 
     public function welcomepsychometrician()
@@ -193,6 +278,18 @@ class Index extends Controller
 
     public function logout()
     {
+        $user = session('user');
+        
+        if ($user) {
+            // Log logout activity
+            \App\Helpers\ActivityLogger::log(
+                $user->name . ' logged out of the system',
+                'logout',
+                'sign-out-alt',
+                $user->id
+            );
+        }
+        
         // Clear the user session
         session()->forget('user');
         session()->flush();
@@ -296,6 +393,13 @@ class Index extends Controller
             .view('include/footer');
     }
 }
+
+
+
+
+
+
+
 
 
 
