@@ -295,15 +295,32 @@ class Users extends Controller
         return $pdf->download('users.pdf');
     }
 
-    public function profilecomplete()
+    public function profilecomplete(Request $request)
     {
         $user = session('user');
         if (!$user) {
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
 
-        if (request()->isMethod('post')) {
-            $data = request()->validate([
+        // If the user already completed their profile, redirect to appropriate page
+        if ($user->has_completed_profile) {
+            switch ($user->role) {
+                case 'patient':
+                    return redirect()->route('welcomepatient');
+                case 'admin':
+                    return redirect()->route('welcomeadmin');
+                case 'psychometrician':
+                    return redirect()->route('welcomepsychometrician');
+                case 'cashier':
+                    return redirect()->route('welcomecashier');
+                default:
+                    return redirect()->route('login');
+            }
+        }
+
+        if ($request->isMethod('post')) {
+            // Validate the form data
+            $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'middle_name' => 'nullable|string|max:255',
                 'last_name' => 'required|string|max:255',
@@ -316,12 +333,12 @@ class Users extends Controller
                 'religion' => 'required|string|max:255',
             ]);
 
-            if (isset($data['birthdate'])) {
-                $birthdate = new \DateTime($data['birthdate']);
-                $today = new \DateTime();
-                $age = $today->diff($birthdate)->y;
-                $data['age'] = $age;
-            }
+            // Update user data
+            $data = $request->only([
+                'name', 'middle_name', 'last_name', 'contactnumber', 
+                'address', 'gender', 'civil_status', 'birthdate', 
+                'birthplace', 'religion'
+            ]);
 
             $user->update($data);
 
@@ -395,6 +412,7 @@ class Users extends Controller
         }
     }
 }
+
 
 
 

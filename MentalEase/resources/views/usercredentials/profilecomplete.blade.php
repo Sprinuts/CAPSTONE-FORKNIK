@@ -20,7 +20,7 @@
 @endif
 
 <div class="login-container">
-    <a href="{{ route('login') }}" class="back-icon">
+    <a href="{{ route('logout') }}" class="back-icon">
         <i class="fa-solid fa-arrow-left"></i> Back
     </a>
     <form action="{{ route('profile.complete') }}" method="POST" class="login-form">
@@ -117,4 +117,5 @@
 
 </body>
 </html>
+
 
