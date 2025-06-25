@@ -233,6 +233,7 @@ class Index extends Controller
             ]
         ]);
 
+
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('welcome/welcomeadmin', [
@@ -242,8 +243,9 @@ class Index extends Controller
                 'appointmentChange' => $appointmentChange,
                 'totalPsychometricians' => $totalPsychometricians,
                 'psychometricianChange' => $psychometricianChange,
-                'recentActivities' => $recentActivities
+                'recentActivities' => $recentActivities,
             ]);
+            // .view('include/footeradmin');
     }
 
     public function welcomepsychometrician()
@@ -259,6 +261,8 @@ class Index extends Controller
         return view('include/headerpsychometrician')
             .view('include/navbarpsychometrician')
             .view('welcome/welcomepsychometrician');
+            // .view('include/footeradmin');
+
     }
 
     public function welcomecashier()
@@ -274,6 +278,8 @@ class Index extends Controller
         return view('include/headercashier')
             .view('include/navbarcashier')
             .view('welcome/welcomecashier');
+            // .view('include/footeradmin');
+
     }
 
     public function logout()
@@ -393,6 +399,7 @@ class Index extends Controller
             .view('include/footer');
     }
 }
+
 
 
 

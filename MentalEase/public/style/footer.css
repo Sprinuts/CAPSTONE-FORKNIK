@@ -3,30 +3,34 @@
 .footer {
     background-color: #66948a;
     color: white;
-    padding: 60px 0 30px;
+    padding: 70px 0 40px;
+    margin-top: 60px;
 }
 
 .footer-logo {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .footer-logo img {
-    width: 40px;
-    margin-right: 10px;
+    width: 45px;
+    margin-right: 12px;
+    filter: brightness(1.1);
 }
 
 .footer-logo span {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
 .footer h4 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
+    font-size: 1.3rem;
+    margin-bottom: 25px;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 12px;
+    font-weight: 600;
 }
 
 .footer h4::after {
@@ -34,82 +38,94 @@
     position: absolute;
     left: 0;
     bottom: 0;
-    width: 50px;
-    height: 2px;
+    width: 60px;
+    height: 3px;
     background-color: #F4F4F2;
 }
 
 .footer p {
-    margin-bottom: 10px;
-    opacity: 0.8;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    line-height: 1.7;
+}
+
+.footer .col-lg-4 {
+    padding: 0 25px;
 }
 
 .social-links {
     display: flex;
-    gap: 15px;
+    gap: 18px;
+    margin-top: 20px;
 }
 
 .social-links a {
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.1);
+    width: 45px;
+    height: 45px;
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .social-links a:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
 }
 
 .social-links a i {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     color: white;
 }
 
 .copyright {
-    margin-top: 40px;
+    margin-top: 50px;
     text-align: center;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.95rem;
+}
+
+/* Team member icons */
+.footer i.fa-solid {
+    width: 20px;
+    margin-right: 10px;
+    text-align: center;
 }
 
 /* Responsive Styles */
 @media (max-width: 991.98px) {
-    .hero {
-        padding: 60px 0;
+    .footer {
+        padding: 50px 0 30px;
         text-align: center;
     }
     
-    .hero-image {
-        margin-top: 40px;
-    }
-    
-    .hero-buttons {
+    .footer-logo {
         justify-content: center;
     }
     
-    section {
-        padding: 60px 0;
+    .footer h4::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .footer .col-lg-4 {
+        margin-bottom: 40px;
+    }
+    
+    .social-links {
+        justify-content: center;
     }
 }
 
 @media (max-width: 767.98px) {
-    .hero h1 {
-        font-size: 2.5rem;
+    .footer {
+        padding: 40px 0 20px;
     }
     
-    .section-header h2 {
-        font-size: 2rem;
-    }
-
-    .section-contact h2 {
-    font-size: 2rem;
-    }
-    
-    .service-card {
-        margin-bottom: 30px;
+    .footer h4 {
+        font-size: 1.2rem;
     }
 }
