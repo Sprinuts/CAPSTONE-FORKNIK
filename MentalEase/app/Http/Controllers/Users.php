@@ -411,6 +411,31 @@ class Users extends Controller
                 ->withErrors(['email' => 'Failed to send activation code. Please try again later.']);
         }
     }
+
+    public function patientappointmenthistory()
+    {
+        $sessionUser = session('user');
+        if (!$sessionUser) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+
+        $appointments = \App\Models\Appointment::where('user_id', $sessionUser->id)
+            ->where('complete', true)
+            ->get();
+
+        // Get psychometrician info for each appointment
+        foreach ($appointments as $appointment) {
+            if ($appointment->psychometrician_id) {
+            $appointment->psychometrician = \App\Models\Users::find($appointment->psychometrician_id);
+            } else {
+            $appointment->psychometrician = null;
+            }
+        }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment/patientappointmenthistory', compact('appointments'));
+    }
 }
 
 
