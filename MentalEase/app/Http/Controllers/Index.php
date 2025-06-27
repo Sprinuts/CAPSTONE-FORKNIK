@@ -454,7 +454,38 @@ class Index extends Controller
 
         return view('welcome');
     }
+
+    /**
+     * Automatically log out users with incomplete profiles when they close the browser
+     */
+    public function autoLogout()
+    {
+        $user = session('user');
+        
+        if ($user && !$user->has_completed_profile) {
+            // Log auto-logout activity
+            \App\Helpers\ActivityLogger::log(
+                $user->name . ' was automatically logged out (incomplete profile)',
+                'auto-logout',
+                'sign-out-alt',
+                $user->id
+            );
+            
+            // Clear the user session
+            session()->forget('user');
+            session()->flush();
+        }
+        
+        // Return a 204 No Content response
+        return response()->noContent();
+    }
 }
+
+
+
+
+
+
 
 
 

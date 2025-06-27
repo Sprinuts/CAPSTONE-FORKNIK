@@ -45,6 +45,44 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    
+    // Check if user has completed profile - enhanced version
+    function checkProfileCompletion() {
+        // Get user data from a data attribute or session storage
+        const userDataElement = document.getElementById('userData');
+        if (userDataElement) {
+            try {
+                const userData = JSON.parse(userDataElement.dataset.user || '{}');
+                if (userData.id && userData.has_completed_profile === false) {
+                    // Check if we're already on the profile completion page
+                    if (!window.location.pathname.includes('/profile/complete')) {
+                        // Redirect to profile completion page
+                        window.location.replace('/profile/complete');
+                        return true;
+                    }
+                }
+            } catch (e) {
+                console.error('Error parsing user data:', e);
+            }
+        }
+        return false;
+    }
+
+    // Run profile check when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        checkProfileCompletion();
+    });
+
+    // Run profile check when navigating back
+    window.addEventListener('pageshow', function(event) {
+        // If the page is loaded from the browser cache (back/forward navigation)
+        if (event.persisted) {
+            checkProfileCompletion();
+        }
+    });
+
+    // Run profile check periodically
+    setInterval(checkProfileCompletion, 2000);
 });
 
 
