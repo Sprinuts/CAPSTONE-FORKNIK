@@ -496,7 +496,7 @@ class Index extends Controller
             }
         }
 
-        return view('welcome');
+        return view('maintenance');
     }
 
     /**

@@ -30,4 +30,4 @@ use Illuminate\Support\Facades\Schedule;
 // }
 
 
-Schedule::command('backup:daily')->everyFiveMinutes();
+Schedule::command('backup:daily')->daily();
