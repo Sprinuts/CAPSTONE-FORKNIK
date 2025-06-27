@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Invoice;
+use App\Models\Payment;
 use Illuminate\Support\Str;
 use App\Models\Schedule;
 use App\Models\Appointment;
 use App\Models\Users;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PaymentController extends Controller
 {
@@ -147,4 +149,48 @@ class PaymentController extends Controller
             .view('include/navbarcashier')
             .view('appointment/paymentrecords', compact('invoices'));
     }
+
+    /**
+     * Display the payment reports page with financial data
+     */
+    public function paymentReports()
+    {
+        // Get today's date and date ranges
+        $today = now()->format('Y-m-d');
+        $startOfWeek = now()->startOfWeek()->format('Y-m-d');
+        $endOfWeek = now()->endOfWeek()->format('Y-m-d');
+        $startOfMonth = now()->startOfMonth()->format('Y-m-d');
+        $endOfMonth = now()->endOfMonth()->format('Y-m-d');
+        
+        // Calculate revenue metrics
+        $todayRevenue = Invoice::whereDate('created_at', $today)->sum('amount');
+        $weeklyRevenue = Invoice::whereBetween('created_at', [$startOfWeek, $endOfWeek])->sum('amount');
+        $monthlyRevenue = Invoice::whereBetween('created_at', [$startOfMonth, $endOfMonth])->sum('amount');
+        
+        // Get payment methods breakdown
+        $paymentMethods = Invoice::selectRaw('payment_method, COUNT(*) as count, SUM(amount) as total')
+            ->where('payment_status', 'paid')
+            ->groupBy('payment_method')
+            ->get();
+        
+        // Get service types breakdown
+        $serviceTypes = Invoice::selectRaw('service_type, COUNT(*) as count, SUM(amount) as total')
+            ->where('payment_status', 'paid')
+            ->groupBy('service_type')
+            ->get();
+        
+        return view('include/headercashier')
+            .view('include/navbarcashier')
+            .view('payment.reports', compact(
+                'todayRevenue',
+                'weeklyRevenue',
+                'monthlyRevenue',
+                'paymentMethods',
+                'serviceTypes'
+            ));
+    }
 }
+
+
+
+

@@ -309,11 +309,55 @@ class Index extends Controller
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
+        // Get today's date
+        $today = now()->format('Y-m-d');
+        $startOfWeek = now()->startOfWeek()->format('Y-m-d');
+        $endOfWeek = now()->endOfWeek()->format('Y-m-d');
+        
+        // Calculate today's revenue
+        $todayRevenue = \App\Models\Invoice::whereDate('created_at', $today)
+            ->sum('amount');
+        
+        // Count today's transactions
+        $todayTransactions = \App\Models\Invoice::whereDate('created_at', $today)
+            ->count();
+        
+        // Calculate weekly revenue
+        $weeklyRevenue = \App\Models\Invoice::whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->sum('amount');
+        
+        // Count pending payments and calculate pending amount
+        $pendingPayments = \App\Models\Invoice::where('payment_status', 'pending')
+            ->count();
+        $pendingAmount = \App\Models\Invoice::where('payment_status', 'pending')
+            ->sum('amount');
+        
+        // Get recent transactions
+        $recentTransactions = \App\Models\Invoice::with('client')
+            ->orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get()
+            ->map(function($invoice) {
+                return (object) [
+                    'id' => $invoice->id,
+                    'patient_name' => $invoice->client ? $invoice->client->name : 'Unknown Patient',
+                    'service_type' => $invoice->service_type ?? 'Consultation',
+                    'amount' => $invoice->amount,
+                    'payment_method' => $invoice->payment_method ?? 'Online',
+                    'created_at' => $invoice->created_at
+                ];
+            });
+        
         return view('include/headercashier')
             .view('include/navbarcashier')
-            .view('welcome/welcomecashier');
-            // .view('include/footeradmin');
-
+            .view('welcome/welcomecashier', compact(
+                'todayRevenue',
+                'todayTransactions',
+                'weeklyRevenue',
+                'pendingPayments',
+                'pendingAmount',
+                'recentTransactions'
+            ));
     }
 
     public function logout()
@@ -480,6 +524,8 @@ class Index extends Controller
         return response()->noContent();
     }
 }
+
+
 
 
 

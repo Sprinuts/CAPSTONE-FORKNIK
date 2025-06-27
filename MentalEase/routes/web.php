@@ -11,6 +11,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\VideoSDKController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\CashierController;
 
 use App\Http\Controllers\Journal;
 
@@ -188,6 +189,19 @@ Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->na
 
 // Admin dashboard routes
 Route::get('/admin/refresh-stats', [App\Http\Controllers\AdminController::class, 'refreshStats'])->name('admin.refresh-stats');
+
+// Cashier routes
+Route::get('/welcomecashier', [Index::class, 'welcomeCashier'])->name('welcomecashier');Route::get('/payment/create', [PaymentController::class, 'createPaymentForm'])->name('payment.create');
+Route::post('/payment/store', [PaymentController::class, 'storePayment'])->name('payment.store');
+Route::get('/payment/records', [PaymentController::class, 'paymentRecords'])->name('payment.records');
+Route::get('/payment/reports', [PaymentController::class, 'paymentReports'])->name('payment.reports');
+Route::get('/payment/receipt/{id}', [PaymentController::class, 'generateReceipt'])->name('payment.receipt');
+
+
+
+
+
+
 
 
 

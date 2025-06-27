@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('style/navbaradminpsyc.css') }}">
 
 <!-- Sidebar -->
-<nav class="sidebar">
+<nav class="sidebar" id="sidebar">
     <!-- Logo -->
     <div class="logo-wrapper">
         <div class="logo-img-wrapper">
@@ -9,22 +9,34 @@
         </div>
         <div class="logo-text">
             <span>MentalEase</span>
-            <small class="d-block">Admin Panel</small>
+            <small class="d-block">Cashier Panel</small>
         </div>
     </div>
 
     <!-- Navigation Links -->
     <ul class="navbar-nav flex-column">
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('welcomeadmin') ? 'active' : '' }}" href="{{ route('welcomeadmin') }}">
+            <a class="nav-link {{ request()->routeIs('welcomecashier') ? 'active' : '' }}" href="{{ route('welcomecashier') }}">
                 <i class="fa-solid fa-gauge-high me-2"></i>
                 Dashboard
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('payment.create') ? 'active' : '' }}" href="{{ route('payment.create') }}">
+                <i class="fa-solid fa-plus-circle me-2"></i>
+                New Payment
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('payment.records') ? 'active' : '' }}" href="{{ route('payment.records') }}">
-                <i class="fa-solid fa-gauge-high me-2"></i>
+                <i class="fa-solid fa-file-invoice-dollar me-2"></i>
                 Payment Records
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('payment.reports') ? 'active' : '' }}" href="{{ route('payment.reports') }}">
+                <i class="fa-solid fa-chart-pie me-2"></i>
+                Financial Reports
             </a>
         </li>
     </ul>
@@ -32,11 +44,11 @@
     <!-- User Profile Section -->
     <div class="user-profile">
         <div class="user-avatar">
-            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Admin Avatar">
+            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Cashier Avatar">
         </div>
         <div class="user-info">
-            <h5>{{ session('user')->name ?? 'Admin User' }}</h5>
-            <p>Administrator</p>
+            <h5>{{ session('user')->name ?? 'Cashier User' }}</h5>
+            <p>Cashier</p>
             <a href="#" class="profile-link">View Profile</a>
         </div>
     </div>
@@ -78,10 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
             sidebarOverlay.classList.remove('active');
         });
     }
-    
-    // Handle dropdown toggles within sidebar
-   
-        });
-
+});
 </script>
+
 
