@@ -335,10 +335,24 @@
             }
         });
     });
+
+    // Prevent going back to previous page if profile is not complete
+    (function() {
+        // Push a new state to replace the current one
+        window.history.pushState(null, '', window.location.href);
+        
+        // When the user navigates back, push another state to prevent it
+        window.addEventListener('popstate', function() {
+            window.history.pushState(null, '', window.location.href);
+            alert('Please complete your profile before navigating away from this page.');
+        });
+    })();
 </script>
 
 </body>
 </html>
+
+
 
 
 
