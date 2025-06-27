@@ -17,7 +17,7 @@ class CheckProfileComplete
     {
         $user = session('user');
         
-        // If user is logged in but hasn't completed their profile
+        // Only redirect if user is logged in and hasn't completed their profile
         if ($user && !$user->has_completed_profile) {
             // Allow access to logout and profile completion routes
             if ($request->routeIs('logout') || $request->routeIs('profile.complete')) {
@@ -65,4 +65,5 @@ class CheckProfileComplete
         return $response;
     }
 }
+
 

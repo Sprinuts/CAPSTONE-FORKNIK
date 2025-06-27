@@ -53,6 +53,9 @@ route::get('/welcomepatient', [Index::class, 'welcomepatient'])->name('welcomepa
 // logout
 Route::get('/logout', [Index::class, 'logout'])->name('logout');
 
+// Auto logout (for incomplete profiles when closing browser)
+Route::get('/logout/auto', [Index::class, 'autoLogout'])->name('logout.auto');
+
 // chatbot
 Route::get('/chatbot', [Chat::class, 'chatbot'])->name('chatbot');
 Route::post('/chatbot', 'App\Http\Controllers\Chat');
@@ -185,6 +188,7 @@ Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->na
 
 // Admin dashboard routes
 Route::get('/admin/refresh-stats', [App\Http\Controllers\AdminController::class, 'refreshStats'])->name('admin.refresh-stats');
+
 
 
 

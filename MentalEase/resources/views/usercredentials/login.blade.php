@@ -71,4 +71,16 @@
     });
 </script>
 
+<script>
+    // Check if user came from profile completion page
+    document.addEventListener('DOMContentLoaded', function() {
+        // If there's no user session and the referrer was the profile completion page,
+        // redirect to the landing page
+        const referrer = document.referrer;
+        if (referrer && referrer.includes('/profile/complete') && !@json(session('user'))) {
+            window.location.href = '{{ route("welcome") }}';
+        }
+    });
+</script>
+
 

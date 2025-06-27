@@ -34,4 +34,22 @@
     
     // Run check periodically
     setInterval(checkProfileCompletion, 2000);
+    
+    // Handle tab/window close for users with incomplete profiles
+    window.addEventListener('beforeunload', function(event) {
+        const userDataElement = document.getElementById('userData');
+        if (userDataElement) {
+            try {
+                const userData = JSON.parse(userDataElement.dataset.user || '{}');
+                if (userData.id && userData.has_completed_profile === false) {
+                    // Send a beacon to logout the user
+                    navigator.sendBeacon('/logout/auto');
+                }
+            } catch (e) {
+                console.error('Error parsing user data:', e);
+            }
+        }
+    });
 })();
+
+

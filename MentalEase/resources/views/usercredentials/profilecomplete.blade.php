@@ -28,6 +28,10 @@
         <div class="form-header">
             <h2>Complete Your Profile</h2>
             <p class="form-subtitle">Please provide your personal information to continue</p>
+            <div class="alert alert-warning">
+                <i class="fa-solid fa-exclamation-triangle"></i> 
+                Note: If you close this page without completing your profile, you will be automatically logged out.
+            </div>
         </div>
         
         <div class="form-columns">
@@ -347,10 +351,18 @@
             alert('Please complete your profile before navigating away from this page.');
         });
     })();
+
+    // Auto-logout when closing the profile completion page
+    window.addEventListener('beforeunload', function() {
+        // Send a beacon to logout the user
+        navigator.sendBeacon('/logout/auto');
+    });
 </script>
 
 </body>
 </html>
+
+
 
 
 
