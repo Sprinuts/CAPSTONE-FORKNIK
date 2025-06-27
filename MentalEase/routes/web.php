@@ -92,7 +92,8 @@ Route::post('/appointment/confirm', [AppointmentController::class, 'confirm'])->
 Route::get('/appointment/success', [AppointmentController::class, 'success'])->name('appointment.success');
 Route::get('/appointment/patientview', [AppointmentController::class, 'appointmentspatientview'])->name('appointment.patientview');
 Route::post('/appointments/cancel/{id}', [AppointmentController::class, 'appointmentscancel'])->name('appointments.cancel');
-Route::get('patient/appointment/history', [Users::class, 'patientappointmenthistory'])->name('patient.appointmenthistory');
+Route::get('/patient/appointment/history', [Users::class, 'patientappointmenthistory'])->name('patient.appointment.history');
+Route::get('/appointment/details/{id}', [AppointmentController::class, 'details'])->name('appointment.details');
 
 // get videosdk token
 Route::get('/get-videosdk-token', [VideoController::class, 'getToken']);
@@ -185,6 +186,9 @@ Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->na
 
 // Admin dashboard routes
 Route::get('/admin/refresh-stats', [App\Http\Controllers\AdminController::class, 'refreshStats'])->name('admin.refresh-stats');
+
+
+
 
 
 

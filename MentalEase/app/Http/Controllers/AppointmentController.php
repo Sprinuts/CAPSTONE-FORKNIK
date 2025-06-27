@@ -387,7 +387,36 @@ class AppointmentController extends Controller
 
         return $pdf->download('appointment.pdf');
     }
+
+    public function details($id)
+    {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        
+        $appointment = Appointment::findOrFail($id);
+        
+        // Security check - only allow viewing own appointments
+        if ($user->role == 'patient' && $appointment->user_id != $user->id) {
+            return redirect()->back()->withErrors(['error' => 'Unauthorized access']);
+        }
+        
+        // Get psychometrician info
+        if ($appointment->psychometrician_id) {
+            $psychometrician = Users::find($appointment->psychometrician_id);
+            $appointment->psychometrician = $psychometrician;
+        } else {
+            $appointment->psychometrician = null;
+        }
+        
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment.details', compact('appointment'));
+    }
 }
+
+
 
 
 

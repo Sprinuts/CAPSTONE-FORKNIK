@@ -98,8 +98,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="recordsDropdown">
                         <li>
-                            <a class="dropdown-item {{ request()->routeIs('patient.appointmenthistory') ? 'active' : '' }}" 
-                               href="{{ route('patient.appointmenthistory') }}">Appointment History</a>
+                            <a class="dropdown-item {{ request()->routeIs('patient.appointment.history') ? 'active' : '' }}" 
+                               href="{{ route('patient.appointment.history') }}">Appointment History</a>
                         </li>
                     </ul>
                 </li>
@@ -152,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
 </script>
+
 
 
 
