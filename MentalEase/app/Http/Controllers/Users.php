@@ -331,6 +331,9 @@ class Users extends Controller
                 'birthdate' => 'required|date',
                 'birthplace' => 'required|string|max:255',
                 'religion' => 'required|string|max:255',
+                'terms_agree' => 'required',
+            ], [
+                'terms_agree.required' => 'You must agree to the Terms and Conditions to continue.'
             ]);
 
             // Update user data
@@ -437,6 +440,7 @@ class Users extends Controller
             .view('appointment/patientappointmenthistory', compact('appointments'));
     }
 }
+
 
 
 
