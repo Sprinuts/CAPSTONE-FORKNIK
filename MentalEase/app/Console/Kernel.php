@@ -2,28 +2,32 @@
 
 namespace App\Console;
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+// use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Support\Facades\Schedule;
+// use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 
-class Kernel extends ConsoleKernel
-{
-    /**
-     * Register the commands for your application.
-     */
-    protected function commands()
-    {
-        $this->load(__DIR__.'/Commands');
+// class Kernel extends ConsoleKernel
+// {
+//     /**
+//      * Register the commands for your application.
+//      */
+//     protected function commands()
+//     {
+//         $this->load(__DIR__.'/Commands');
 
-        require base_path('routes/console.php');
-    }
+//         require base_path('routes/console.php');
+//     }
 
-    /**
-     * Define the application's command schedule.
-     */
-    protected function schedule(Schedule $schedule)
-    {
-        // Schedule daily backup here
-        $schedule->command('backup:daily')->everyFiveMinutes();
-    }
-}
+//     /**
+//      * Define the application's command schedule.
+//      */
+//     protected function schedule(Schedule $schedule)
+//     {
+//         // Schedule daily backup here
+//         $schedule->command('backup:daily')->everyFiveMinutes();
+//     }
+// }
+
+
+Schedule::command('backup:daily')->everyFiveMinutes();
