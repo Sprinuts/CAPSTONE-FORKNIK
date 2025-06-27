@@ -13,7 +13,7 @@
 @endif
 
 <div class="login-container">
-    <a href="{{ route('welcome') }}" class="back-icon" style="position: absolute; top: 20px; left: 20px; color: #333; text-decoration: none;">
+    <a href="{{ route('login') }}" class="back-icon" style="position: absolute; top: 20px; left: 20px; color: #333; text-decoration: none;">
         <i class="fa-solid fa-arrow-left"></i> Back
     </a>
     <form action="{{ route('register') }}" method="POST" class="login-form">

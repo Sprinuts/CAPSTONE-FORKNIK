@@ -9,6 +9,23 @@ class Index extends Controller
 {
     public function login()
     {
+        $user = session('user');
+        if ($user) {
+            switch ($user->role) {
+                case 'patient':
+                    return redirect()->route('welcomepatient');
+                case 'psychometrician':
+                    return redirect()->route('welcomepsychometrician');
+                case 'admin':
+                    return redirect()->route('welcomeadmin');
+                case 'cashier':
+                    return redirect()->route('welcomecashier');
+                default:
+                    // Optionally handle unknown roles
+                    break;
+            }
+        }
+
         if (request()->isMethod('post')) {
 
             $data = request()->only(['username', 'password']);
@@ -87,6 +104,23 @@ class Index extends Controller
 
     public function register()
     {
+        $user = session('user');
+        if ($user) {
+            switch ($user->role) {
+                case 'patient':
+                    return redirect()->route('welcomepatient');
+                case 'psychometrician':
+                    return redirect()->route('welcomepsychometrician');
+                case 'admin':
+                    return redirect()->route('welcomeadmin');
+                case 'cashier':
+                    return redirect()->route('welcomecashier');
+                default:
+                    // Optionally handle unknown roles
+                    break;
+            }
+        }
+
         if (request()->isMethod('post')) {
             $activationcode = rand(100000, 999999);
 
@@ -397,6 +431,28 @@ class Index extends Controller
             .view('include/navbar')
             .view('journal/journal', ['journals' => $journals])
             .view('include/footer');
+    }
+
+    public function welcome()
+    {
+        $user = session('user');
+        if ($user) {
+            switch ($user->role) {
+                case 'patient':
+                    return redirect()->route('welcomepatient');
+                case 'psychometrician':
+                    return redirect()->route('welcomepsychometrician');
+                case 'admin':
+                    return redirect()->route('welcomeadmin');
+                case 'cashier':
+                    return redirect()->route('welcomecashier');
+                default:
+                    // Optionally handle unknown roles
+                    break;
+            }
+        }
+
+        return view('welcome');
     }
 }
 

@@ -25,11 +25,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+});
 
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome'); 
+Route::get('/', [Index::class, 'welcome'])->name('welcome');
+
 
 // login route
 Route::get('/login', [Index::class, 'login'])->name('login');
