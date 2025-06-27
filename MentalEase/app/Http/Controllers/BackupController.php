@@ -10,15 +10,15 @@ class BackupController extends Controller
 {
     public function viewbackups()
     {
-        $backupDir = storage_path('app/backups');
+        // $backupDir = storage_path('app/backups');
 
-        // Ensure the backup directory exists
-        if (!File::exists($backupDir)) {
-            File::makeDirectory($backupDir, 0755, true);
-        }
+        // // Ensure the backup directory exists
+        // if (!File::exists($backupDir)) {
+        //     File::makeDirectory($backupDir, 0755, true);
+        // }
 
         // Get all .zip files in the backup directory
-        $files = File::files($backupDir);
+        $files = Storage::files('app/backups');
 
         // Filter and map to just the filename
         $zipFiles = collect($files)
