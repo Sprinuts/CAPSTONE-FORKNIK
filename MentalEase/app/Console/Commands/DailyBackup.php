@@ -55,7 +55,7 @@ class DailyBackup extends Command
                     $zip->addFile("$backupDir/$file", $file);
                 }
             }
-            $zip->close();
+            $zip->close();  
         } else {
             $this->error("Failed to create ZIP file.");
             return 1;

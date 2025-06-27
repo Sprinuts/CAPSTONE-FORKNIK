@@ -49,6 +49,12 @@
                 Appointment Records
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('backup.viewbackups') ? 'active' : '' }}" href="{{ route('backup.viewbackups') }}">
+                <i class="fa-solid fa-gauge-high me-2"></i>
+                View Backups
+            </a>
+        </li>
     </ul>
 
     <!-- User Profile Section -->

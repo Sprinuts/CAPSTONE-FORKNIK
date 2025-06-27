@@ -12,6 +12,7 @@ use App\Http\Controllers\VideoSDKController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CashierController;
+use App\Http\Controllers\BackupController;
 
 use App\Http\Controllers\Journal;
 
@@ -198,8 +199,9 @@ Route::get('/payment/reports', [PaymentController::class, 'paymentReports'])->na
 Route::get('/payment/receipt/{id}', [PaymentController::class, 'generateReceipt'])->name('payment.receipt');
 
 
-
-
+// Backup routes
+Route::get('/backup/viewbackups', [BackupController::class, 'viewbackups'])->name('backup.viewbackups');
+Route::get('/backups/download/{filename}', [BackupController::class, 'download'])->name('backups.download');
 
 
 
