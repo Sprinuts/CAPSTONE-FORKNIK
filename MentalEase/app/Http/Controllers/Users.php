@@ -337,12 +337,10 @@ class Users extends Controller
             ]);
 
             // Update user data
-            $data = $request->only([
-                'name', 'middle_name', 'last_name', 'contactnumber', 
-                'address', 'gender', 'civil_status', 'birthdate', 
-                'birthplace', 'religion'
-            ]);
-
+            $data = $validatedData;
+            unset($data['terms_agree']); // Remove terms_agree as it's not a user field
+            
+            // Update the user with the validated data
             $user->update($data);
 
             $user->has_completed_profile = true; // Mark profile as complete
@@ -440,6 +438,8 @@ class Users extends Controller
             .view('appointment/patientappointmenthistory', compact('appointments'));
     }
 }
+
+
 
 
 

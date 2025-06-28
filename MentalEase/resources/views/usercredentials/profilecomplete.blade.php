@@ -23,7 +23,7 @@
     <a href="{{ route('logout') }}" class="back-icon">
         <i class="fa-solid fa-arrow-left"></i> Back
     </a>
-    <form action="{{ route('login') }}" method="POST" class="login-form">
+    <form action="{{ route('profile.complete') }}" method="POST" class="login-form">
         @csrf
         <div class="form-header">
             <h2>Complete Your Profile</h2>
@@ -361,6 +361,7 @@
 
 </body>
 </html>
+
 
 
 
