@@ -190,7 +190,6 @@
                     <p>For feedback or concerns about these Terms:</p>
                     <p>📧 theforknik@gmail.com</p>
                 </div>
-                <button class="accept-terms-btn">I Accept</button>
             </div>
         </div>
 
@@ -252,7 +251,6 @@
                     <p>For privacy-related concerns or data requests, contact:</p>
                     <p>📧 theforknik@gmail.com</p>
                 </div>
-                <button class="accept-terms-btn">I Accept</button>
             </div>
         </div>
 

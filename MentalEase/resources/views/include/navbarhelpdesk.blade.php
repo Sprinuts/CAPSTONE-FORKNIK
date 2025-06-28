@@ -32,7 +32,7 @@
     <!-- User Profile Section -->
     <div class="user-profile">
         <div class="user-avatar">
-            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Cashier Avatar">
+            <img src="{{ asset('style/assets/profile2.jpg') }}" alt="Help Desk Avatar">
         </div>
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Help Desk User' }}</h5>

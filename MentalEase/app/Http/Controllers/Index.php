@@ -22,6 +22,8 @@ class Index extends Controller
                     return redirect()->route('welcomeadmin');
                 case 'cashier':
                     return redirect()->route('welcomecashier');
+                case 'helpdesk':
+                    return redirect()->route('welcomehelpdesk');
                 default:
                     // Optionally handle unknown roles
                     break;

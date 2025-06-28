@@ -2,6 +2,7 @@
 
 
 
+use App\Http\Controllers\ConcernsController;
 use App\Http\Controllers\Index;
 use App\Http\Controllers\Chat;
 use App\Http\Controllers\Assessment;
@@ -13,7 +14,6 @@ use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\BackupController;
-
 use App\Http\Controllers\Journal;
 
 use Illuminate\Support\Facades\Route;
@@ -212,7 +212,7 @@ Route::get('/patient/receipt/{id}', [PaymentController::class, 'patientReceipt']
 
 //help desk
 Route::get('/welcome/helpdesk', [Index::class, 'welcomehelpdesk'])->name('welcomehelpdesk');
-
+Route::get('/patient/concerns', [ConcernsController::class, 'patientconcerns'])->name('patient.concerns');
 
 
 
