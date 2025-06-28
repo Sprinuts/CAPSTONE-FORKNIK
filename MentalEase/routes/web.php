@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', function () {
-    return view('maintenance');
+    return view('welcome');
 });
 
 Route::get('/', [Index::class, 'welcome'])->name('welcome');
