@@ -202,7 +202,7 @@ Route::get('/payment/receipt/{id}', [PaymentController::class, 'generateReceipt'
 // Backup routes
 Route::get('/backup/viewbackups', [BackupController::class, 'viewbackups'])->name('backup.viewbackups');
 Route::get('/backups/download/{filename}', [BackupController::class, 'download'])->name('backups.download');
-
+Route::get('/backup/create', [BackupController::class, 'createbackup'])->name('backups.create');
 
 
 

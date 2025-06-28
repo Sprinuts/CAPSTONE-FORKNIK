@@ -14,8 +14,19 @@
     @endif
 </div> --}}
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="container">
-    <h2 class="mb-4">Backup Files</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="mb-0">Backup Files</h2>
+        <a href="{{ route('backups.create') }}" class="btn btn-primary">
+            Backup Now
+        </a>
+    </div>
 
     @if ($backups->isEmpty())
         <p>No backups found.</p>
