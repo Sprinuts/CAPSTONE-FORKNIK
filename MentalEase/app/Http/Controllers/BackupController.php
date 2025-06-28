@@ -18,16 +18,25 @@ class BackupController extends Controller
         // }
 
         // Get all .zip files in the backup directory
-        $files = Storage::files('app/backups');
+        $files = Storage::files('backups');
 
+        $backups = collect($files)->filter(function ($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'zip';
+        })->map(function ($file) {
+            return [
+                'name' => basename($file),
+                'size' => Storage::size($file),
+                'last_modified' => Storage::lastModified($file),
+            ];
+        });
         // Filter and map to just the filename
-        $zipFiles = collect($files)
-            ->filter(fn($file) => $file->getExtension() === 'zip')
-            ->map(fn($file) => $file->getFilename());
+        // $zipFiles = collect($files)
+        //     ->filter(fn($file) => $file->getExtension() === 'zip')
+        //     ->map(fn($file) => $file->getFilename());
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
-            .view('backup/viewbackups', ['files' => $zipFiles]);
+            .view('backup/viewbackups', compact('backups'));
     }
 
     public function download($filename)

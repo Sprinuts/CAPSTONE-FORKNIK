@@ -16,7 +16,7 @@ class DailyBackup extends Command
     {
         $tables = DB::select("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
         $timestamp = now()->format('Y_m_d_His');
-        $backupDir = storage_path("app/backups/temp_$timestamp");
+        $backupDir = Storage::path("backups/temp_$timestamp");
 
         // Create temporary folder
         if (!file_exists($backupDir)) {
@@ -45,7 +45,7 @@ class DailyBackup extends Command
         }
 
         // Create ZIP file
-        $zipPath = storage_path("app/backups/backup_$timestamp.zip");
+        $zipPath = Storage::path("backups/backup_$timestamp.zip");
         $zip = new ZipArchive;
 
         if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
