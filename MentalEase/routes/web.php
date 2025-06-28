@@ -210,6 +210,8 @@ Route::get('/backup/create', [BackupController::class, 'createbackup'])->name('b
 Route::get('/patient/receipt/{id}', [PaymentController::class, 'patientReceipt'])->name('patient.receipt');
 
 
+//help desk
+Route::get('/welcome/helpdesk', [Index::class, 'welcomehelpdesk'])->name('welcomehelpdesk');
 
 
 

@@ -523,6 +523,21 @@ class Index extends Controller
         // Return a 204 No Content response
         return response()->noContent();
     }
+
+    public function welcomehelpdesk()
+    {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'helpdesk') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        return view('include/headerhelpdesk')
+            .view('include/navbarhelpdesk')
+            .view('welcome/welcomehelpdesk');
+    }
 }
 
 

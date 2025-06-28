@@ -43,7 +43,7 @@ class BackupController extends Controller
 
     public function download($filename)
     {
-        $path = storage_path("app/backups/{$filename}");
+        $path = Storage::files("backups/{$filename}");
 
         if (!file_exists($path)) {
             abort(404, 'Backup not found.');
@@ -87,9 +87,9 @@ class BackupController extends Controller
 
         // Create ZIP file
         $zipPath = Storage::path("backups/backup_$timestamp.zip");
-        $zip = new \ZipArchive;
+        $zip = new ZipArchive;
 
-        if ($zip->open($zipPath, \ZipArchive::CREATE) === TRUE) {
+        if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
             $files = scandir($backupDir);
             foreach ($files as $file) {
                 if ($file !== '.' && $file !== '..') {
