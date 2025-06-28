@@ -219,7 +219,50 @@ class PaymentController extends Controller
         return view('payment.receipt-print', compact('invoice'));
     }
 
+    public function patientReceipt($id)
+    {
+        // First try to find by invoice ID
+        $invoice = Invoice::with(['appointment.psychometrician'])->find($id);
+        
+        // If not found, try to find by appointment ID
+        if (!$invoice) {
+            $appointment = Appointment::find($id);
+            if ($appointment) {
+                $invoice = Invoice::with(['appointment.psychometrician'])
+                    ->where('appointment_id', $appointment->id)
+                    ->first();
+                
+                // If still no invoice, create a placeholder for display
+                if (!$invoice) {
+                    $invoice = new Invoice();
+                    $invoice->appointment = $appointment;
+                    $invoice->amount = $appointment->fee ?? 500;
+                    $invoice->reference_number = 'N/A';
+                    $invoice->payment_method = 'online';
+                    $invoice->created_at = now();
+                }
+            }
+        }
+        
+        if (!$invoice) {
+            return redirect()->back()->with('error', 'Receipt not found.');
+        }
+        
+        // Check if the current user owns this appointment/invoice
+        if (session('user')->id != ($invoice->user_id ?? $invoice->appointment->user_id ?? null)) {
+            return redirect()->back()->with('error', 'You do not have permission to view this receipt.');
+        }
+        
+        return view('include/header')
+            .view('include/navbar')
+            .view('appointment.patientreceipt', compact('invoice'));
+    }
+
 }
+
+
+
+
 
 
 

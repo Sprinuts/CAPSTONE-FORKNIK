@@ -199,12 +199,18 @@ Route::get('/payment/receipt/{id}', [PaymentController::class, 'generateReceipt'
 Route::get('/payment/receipt/{id}/pdf', [PaymentController::class, 'generateReceiptPdf'])->name('payment.receipt.pdf');
 Route::get('/payment/reports', [PaymentController::class, 'paymentReports'])->name('payment.reports');
 Route::get('/payment/receipts', [PaymentController::class, 'paymentReceiptsList'])->name('payment.receipts');
-
+Route::get('/payment/patient/receipt/{id}', [PaymentController::class, 'patientReceipt'])->name('payment.patient.receipt');
 
 // Backup routes
 Route::get('/backup/viewbackups', [BackupController::class, 'viewbackups'])->name('backup.viewbackups');
 Route::get('/backups/download/{filename}', [BackupController::class, 'download'])->name('backups.download');
 Route::get('/backup/create', [BackupController::class, 'createbackup'])->name('backups.create');
+
+// Patient receipt view - accessible to patients
+Route::get('/patient/receipt/{id}', [PaymentController::class, 'patientReceipt'])->name('patient.receipt');
+
+
+
 
 
 

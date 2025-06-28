@@ -86,6 +86,9 @@
                             <a href="{{ route('appointment.details', $appointment->id) }}" class="action-btn" title="View Details">
                                 <i class="fas fa-eye"></i>
                             </a>
+                            <a href="{{ route('patient.receipt', $appointment->id) }}" class="action-btn" title="View Receipt">
+                                <i class="fas fa-receipt"></i>
+                            </a>
                             @if(!$appointment->complete && !$appointment->cancelled)
                                 <form action="{{ route('appointments.cancel', $appointment->id) }}" method="POST" style="display:inline">
                                     @csrf
@@ -107,6 +110,13 @@
         </div>
     @endif
 </div>
+
+
+
+
+
+
+
 
 
 
