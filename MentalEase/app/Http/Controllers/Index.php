@@ -5,6 +5,8 @@ use App\Mail\Sendactivationcode;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Hash;
 
+
+
 class Index extends Controller
 {
     public function login()
@@ -54,7 +56,7 @@ class Index extends Controller
                 return back()->withErrors(['login' => 'Invalid username or password']);
             }
 
-            if (Hash::check($data['password'], $user->password)) {
+            if ($user->verifyPassword($data['password'])) {
                 if ($user->disable) {
                     return back()->withErrors(['login' => 'Your account has been disabled. Please contact support.']);
                 } else {

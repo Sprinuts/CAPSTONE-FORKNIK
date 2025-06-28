@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class Users extends Model
 {
@@ -47,6 +48,21 @@ class Users extends Model
     public function psychometricianAppointments()
     {
         return $this->hasMany(Appointment::class, 'psychometrician_id');
+    }
+
+    public function verifyPassword($password)
+    {
+        // Try Laravel's Hash::check first
+        if (Hash::check($password, $this->password)) {
+            return true;
+        }
+        
+        // Handle React Native old format
+        if (password_verify($password, $this->password)) {
+            return true;
+        }
+        
+        return false;
     }
 }
 
