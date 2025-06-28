@@ -186,23 +186,29 @@ Route::get('/payment/cancelled/{id}', [PaymentController::class, 'paymentCancell
 // welcome cashier
 Route::get('/welcome/cashier', [Index::class, 'welcomecashier'])->name('welcomecashier');
 
-Route::get('/payment/records', [PaymentController::class, 'paymentrecords'])->name('payment.records');
 
 // Admin dashboard routes
 Route::get('/admin/refresh-stats', [App\Http\Controllers\AdminController::class, 'refreshStats'])->name('admin.refresh-stats');
 
 // Cashier routes
-Route::get('/welcomecashier', [Index::class, 'welcomeCashier'])->name('welcomecashier');Route::get('/payment/create', [PaymentController::class, 'createPaymentForm'])->name('payment.create');
+Route::get('/welcomecashier', [Index::class, 'welcomeCashier'])->name('welcomecashier');
+Route::get('/payment/create', [PaymentController::class, 'createPaymentForm'])->name('payment.create');
 Route::post('/payment/store', [PaymentController::class, 'storePayment'])->name('payment.store');
 Route::get('/payment/records', [PaymentController::class, 'paymentRecords'])->name('payment.records');
-Route::get('/payment/reports', [PaymentController::class, 'paymentReports'])->name('payment.reports');
 Route::get('/payment/receipt/{id}', [PaymentController::class, 'generateReceipt'])->name('payment.receipt');
+Route::get('/payment/receipt/{id}/pdf', [PaymentController::class, 'generateReceiptPdf'])->name('payment.receipt.pdf');
+Route::get('/payment/reports', [PaymentController::class, 'paymentReports'])->name('payment.reports');
+Route::get('/payment/receipts', [PaymentController::class, 'paymentReceiptsList'])->name('payment.receipts');
 
 
 // Backup routes
 Route::get('/backup/viewbackups', [BackupController::class, 'viewbackups'])->name('backup.viewbackups');
 Route::get('/backups/download/{filename}', [BackupController::class, 'download'])->name('backups.download');
 Route::get('/backup/create', [BackupController::class, 'createbackup'])->name('backups.create');
+
+
+
+
 
 
 

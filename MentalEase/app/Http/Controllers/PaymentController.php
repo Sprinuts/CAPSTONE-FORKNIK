@@ -11,6 +11,8 @@ use App\Models\Schedule;
 use App\Models\Appointment;
 use App\Models\Users;
 use Barryvdh\DomPDF\Facade\Pdf;
+// If the above doesn't work, try the following alternative:
+// use PDF; // If you're using the facade alias defined in config/app.php
 
 class PaymentController extends Controller
 {
@@ -189,7 +191,38 @@ class PaymentController extends Controller
                 'serviceTypes'
             ));
     }
+
+
+    public function generateReceipt($id)
+    {
+        $invoice = Invoice::with('client')->findOrFail($id);
+        
+        return view('include/headercashier')
+            .view('include/navbarcashier')
+            .view('payment.receipt', compact('invoice'));
+    }
+
+    public function paymentReceiptsList()
+    {
+        $invoices = Invoice::with('client')->where('payment_status', 'paid')->get();
+        
+        return view('include/headercashier')
+            .view('include/navbarcashier')
+            .view('payment.receipts', compact('invoices'));
+    }
+
+    public function generateReceiptPdf($id)
+    {
+        $invoice = Invoice::with('client')->findOrFail($id);
+        
+        // Return a print-specific view
+        return view('payment.receipt-print', compact('invoice'));
+    }
+
 }
+
+
+
 
 
 

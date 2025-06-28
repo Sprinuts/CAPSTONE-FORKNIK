@@ -22,21 +22,15 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('payment.create') ? 'active' : '' }}" href="{{ route('payment.create') }}">
-                <i class="fa-solid fa-plus-circle me-2"></i>
-                New Payment
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('payment.records') ? 'active' : '' }}" href="{{ route('payment.records') }}">
                 <i class="fa-solid fa-file-invoice-dollar me-2"></i>
                 Payment Records
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('payment.reports') ? 'active' : '' }}" href="{{ route('payment.reports') }}">
-                <i class="fa-solid fa-chart-pie me-2"></i>
-                Financial Reports
+            <a class="nav-link {{ request()->routeIs('payment.receipt') ? 'active' : '' }}" href="{{ route('payment.receipts') }}">
+                <i class="fa-solid fa-receipt me-2"></i>
+                Payment Receipts
             </a>
         </li>
     </ul>
@@ -92,5 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+
+
 
 

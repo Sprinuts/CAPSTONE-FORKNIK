@@ -18,42 +18,36 @@
             <h2>All Payments</h2>
             <div class="header-actions">
                 <a href="{{ route('payment.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus-circle"></i> New Payment
+                    <i class="fas fa-plus"></i> New Payment
                 </a>
             </div>
         </div>
         <div class="card-body">
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <div class="filters mb-4">
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="filter-date">Date Range</label>
-                            <select id="filter-date" class="form-control">
-                                <option value="all">All Time</option>
-                                <option value="today">Today</option>
-                                <option value="week">This Week</option>
-                                <option value="month">This Month</option>
-                                <option value="custom">Custom Range</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="filter-status">Status</label>
-                            <select id="filter-status" class="form-control">
-                                <option value="all">All Statuses</option>
+                            <label for="status-filter">Status</label>
+                            <select id="status-filter" class="form-control">
+                                <option value="">All Statuses</option>
                                 <option value="completed">Completed</option>
                                 <option value="pending">Pending</option>
-                                <option value="failed">Failed</option>
                                 <option value="refunded">Refunded</option>
+                                <option value="failed">Failed</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label for="filter-method">Payment Method</label>
-                            <select id="filter-method" class="form-control">
-                                <option value="all">All Methods</option>
+                            <label for="method-filter">Payment Method</label>
+                            <select id="method-filter" class="form-control">
+                                <option value="">All Methods</option>
                                 <option value="cash">Cash</option>
                                 <option value="credit_card">Credit Card</option>
                                 <option value="debit_card">Debit Card</option>
@@ -62,11 +56,22 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
-                            <label for="search">Search</label>
-                            <input type="text" id="search" class="form-control" placeholder="Search by name or reference...">
+                            <label for="date-range">Date Range</label>
+                            <div class="input-group">
+                                <input type="date" id="date-from" class="form-control">
+                                <div class="input-group-prepend input-group-append">
+                                    <span class="input-group-text">to</span>
+                                </div>
+                                <input type="date" id="date-to" class="form-control">
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button id="apply-filters" class="btn btn-secondary btn-block">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
                     </div>
                 </div>
             </div>
@@ -86,7 +91,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if(count($payments) > 0)
+                        @if(isset($payments) && count($payments) > 0)
                             @foreach($payments as $payment)
                                 <tr>
                                     <td>{{ $payment->reference_number }}</td>
@@ -121,13 +126,10 @@
                                                 <i class="fas fa-receipt"></i>
                                             </a>
                                             @if($payment->status == 'completed')
-                                                <button type="button" class="btn btn-sm btn-warning" title="Issue Refund" onclick="confirmRefund('{{ $payment->id }}')">
+                                                <button class="btn btn-sm btn-warning" onclick="confirmRefund({{ $payment->id }})" title="Issue Refund">
                                                     <i class="fas fa-undo"></i>
                                                 </button>
                                             @endif
-                                            <button type="button" class="btn btn-sm btn-primary" title="Print Receipt" onclick="printReceipt('{{ $payment->id }}')">
-                                                <i class="fas fa-print"></i>
-                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -141,9 +143,11 @@
                 </table>
             </div>
 
-            <div class="pagination-container">
-                {{ $payments->links() }}
-            </div>
+            @if(isset($payments) && $payments->hasPages())
+                <div class="pagination-container">
+                    {{ $payments->links() }}
+                </div>
+            @endif
         </div>
     </div>
 </div>
@@ -154,10 +158,6 @@
             // Submit refund request
             alert('Refund functionality will be implemented here.');
         }
-    }
-    
-    function printReceipt(paymentId) {
-        window.open('{{ url("payment/receipt") }}/' + paymentId + '?print=true', '_blank');
     }
     
     document.addEventListener('DOMContentLoaded', function() {
