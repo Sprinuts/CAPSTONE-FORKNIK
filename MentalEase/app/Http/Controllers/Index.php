@@ -73,21 +73,17 @@ class Index extends Controller
                             $user->id
                         );
                         
-                        // Determine redirect URL based on user role
-                        $redirectUrl = '';
                         switch ($user->role) {
                             case 'patient':
                                 return redirect()->route('welcomepatient'); // Redirect to welcome page
-                                break;
                             case 'admin':
                                 return redirect()->route('welcomeadmin'); // Redirect to admin dashboard
-                                break;
                             case 'psychometrician':
                                 return redirect()->route('welcomepsychometrician'); // Redirect to psychometrician dashboard
-                                break;
                             case 'cashier':
                                 return redirect()->route('welcomecashier'); // Redirect to cashier dashboard
-                                break;
+                            case 'helpdesk':
+                                return redirect()->route('welcomehelpdesk'); // Redirect to helpdesk dashboard
                             default:
                                 return back()->withErrors(['login' => 'Unknown user role.']);
                         }
