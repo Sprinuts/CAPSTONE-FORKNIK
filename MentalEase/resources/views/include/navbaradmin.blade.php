@@ -60,7 +60,7 @@
     <!-- User Profile Section -->
     <div class="user-profile">
         <div class="user-avatar">
-            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Admin Avatar">
+            <img src="{{ asset('style/assets/profile2.jpg') }}" alt="Help Desk Avatar">
         </div>
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Admin User' }}</h5>

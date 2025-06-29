@@ -12,40 +12,30 @@
                 <a href="{{ route('users.pdf') }}" class="btn btn-lg btn-primary adjustBtn" target="_blank">Generate PDF</a>
             </div>
             <div class="filter-container">
-                <div class="search-filter">
+                <form action="{{ route('users.search.results') }}" method="GET" class="search-filter">
                     <div class="search-box">
                         <i class="fas fa-search search-icon"></i>
-                        <input type="text" id="userSearch" placeholder="Search users..." class="search-input">
+                        <input type="text" name="term" placeholder="Search users..." class="search-input">
                     </div>
                     <div class="filter-dropdown">
-                        <button class="filter-btn">
-                            <i class="fas fa-filter"></i>
-                            <span>Filter Role</span>
-                        </button>
-                        <div class="filter-menu">
-                            <div class="filter-option">
-                                <input type="radio" id="all" name="roleFilter" value="all" checked>
-                                <label for="all">All Roles</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" id="admin" name="roleFilter" value="admin">
-                                <label for="admin">Admin</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" id="psychometrician" name="roleFilter" value="psychometrician">
-                                <label for="psychometrician">Psychometrician</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" id="cashier" name="roleFilter" value="cashier">
-                                <label for="cashier">Cashier</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="radio" id="patient" name="roleFilter" value="patient">
-                                <label for="patient">Patient</label>
-                            </div>
-                        </div>
+                        <select name="role" class="form-select">
+                            <option value="all">All Roles</option>
+                            <option value="admin">Admin</option>
+                            <option value="psychometrician">Psychometrician</option>
+                            <option value="cashier">Cashier</option>
+                            <option value="patient">Patient</option>
+                        </select>
                     </div>
-                </div>
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+        <div id="searchResults" class="mb-3" style="display: none;">
+            <div class="alert alert-info">
+                <span id="resultCount"></span>
+                <button type="button" class="btn btn-sm btn-outline-secondary float-end" id="clearSearch">
+                    <i class="fas fa-times"></i> Clear Search
+                </button>
             </div>
         </div>
         <table class="adjustBtn table table-striped table-hover table-light table-bordered table-responsive">
@@ -74,7 +64,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="pagination-container">
+        <div class="pagination-container" id="paginationContainer">
             {{ $users->links('pagination::bootstrap-4') }}
         </div>
     </div>
@@ -101,34 +91,122 @@
     // Search and filter functionality
     const searchInput = document.getElementById('userSearch');
     const roleFilters = document.querySelectorAll('input[name="roleFilter"]');
-    const userRows = document.querySelectorAll('#userTableBody tr');
+    const searchResults = document.getElementById('searchResults');
+    const resultCount = document.getElementById('resultCount');
+    const clearSearchBtn = document.getElementById('clearSearch');
+    const paginationContainer = document.getElementById('paginationContainer');
     
-    // Function to filter table rows
-    function filterTable() {
-        const searchTerm = searchInput.value.toLowerCase();
+    // Debounce function to limit how often a function can be called
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                func.apply(context, args);
+            }, wait);
+        };
+    }
+    
+    // Function to search users via AJAX
+    const searchUsers = debounce(function() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
         const selectedRole = document.querySelector('input[name="roleFilter"]:checked').value;
         
-        userRows.forEach(row => {
-            const content = row.textContent.toLowerCase();
-            const roleMatch = selectedRole === 'all' || row.dataset.role === selectedRole;
-            const searchMatch = content.includes(searchTerm);
+        // If search term is empty and role is "all", show regular pagination
+        if (searchTerm === '' && selectedRole === 'all') {
+            searchResults.style.display = 'none';
+            paginationContainer.style.display = '';
             
-            if (roleMatch && searchMatch) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
+            // Reload the page to reset to original state
+            window.location.reload();
+            return;
+        }
+        
+        // Show loading indicator
+        const tableBody = document.getElementById('userTableBody');
+        tableBody.innerHTML = '<tr><td colspan="5" class="text-center"><i class="fas fa-spinner fa-spin"></i> Searching...</td></tr>';
+        
+        // Make AJAX request to search users
+        fetch(`/users/search?term=${encodeURIComponent(searchTerm)}&role=${encodeURIComponent(selectedRole)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Clear the table body
+                tableBody.innerHTML = '';
+                
+                // Hide pagination when searching
+                paginationContainer.style.display = 'none';
+                
+                // Show search results info
+                searchResults.style.display = 'block';
+                resultCount.textContent = `Found ${data.length} user(s) matching your search.`;
+                
+                // Add the search results to the table
+                if (data.length > 0) {
+                    data.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.dataset.role = user.role.toLowerCase();
+                        
+                        row.innerHTML = `
+                            <td>${user.username}</td>
+                            <td>${user.email}</td>
+                            <td>${user.status == 1 ? 'Activated' : 'Deactivated'}</td>
+                            <td>${user.role.toLowerCase() === 'itso' ? user.role.toUpperCase() : user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
+                            <td>
+                                <a href="/users/idview/${user.id}" class="btn btn-sm btn-secondary">View</a>
+                                <a href="/users/edit/${user.id}" class="btn btn-sm btn-secondary">Edit</a>
+                                <a href="/users/disable/${user.id}" class="btn btn-sm btn-danger">Disable</a>
+                            </td>
+                        `;
+                        
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    // No results found
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="5" class="text-center">No users found matching your search criteria.</td>';
+                    tableBody.appendChild(row);
+                }
+            })
+            .catch(error => {
+                console.error('Error searching users:', error);
+                tableBody.innerHTML = '<tr><td colspan="5" class="text-center text-danger">Error searching users. Please try again.</td></tr>';
+            });
+    }, 300); // 300ms debounce
     
     // Add event listeners
     if (searchInput) {
-        searchInput.addEventListener('input', filterTable);
+        searchInput.addEventListener('input', searchUsers);
     }
     
     roleFilters.forEach(filter => {
-        filter.addEventListener('change', filterTable);
+        filter.addEventListener('change', searchUsers);
     });
+    
+    // Clear search button
+    if (clearSearchBtn) {
+        clearSearchBtn.addEventListener('click', function() {
+            searchInput.value = '';
+            document.querySelector('input[name="roleFilter"][value="all"]').checked = true;
+            
+            // Reload the page to reset to original state
+            window.location.reload();
+        });
+    }
 </script>
+
+
+
+
+
+
+
+
 
 

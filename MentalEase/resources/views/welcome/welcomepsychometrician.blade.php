@@ -130,13 +130,9 @@
                         <i class="fas fa-calendar-alt"></i>
                         View Schedules
                     </a>
-                    <a href="#" class="action-button">
+                    <a href="{{ route('appointment.confirmation') }}" class="action-button">
                         <i class="fas fa-clipboard-check"></i>
-                        Assessments
-                    </a>
-                    <a href="#" class="action-button">
-                        <i class="fas fa-user-friends"></i>
-                        Patients
+                        Pending Appointments
                     </a>
                 </div>
                 
