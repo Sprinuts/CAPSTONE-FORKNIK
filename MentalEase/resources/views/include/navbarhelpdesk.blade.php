@@ -23,8 +23,8 @@
         </li>
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('patient.concerns') ? 'active' : '' }}" href="{{ route('patient.concerns') }}">
-                <i class="fa-solid fa-file-invoice-dollar me-2"></i>
-                Patient Concerns
+                <i class="fa-solid fa-comments me-2"></i>
+                Concerns
             </a>
         </li>
     </ul>
@@ -36,7 +36,7 @@
         </div>
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Help Desk User' }}</h5>
-            <p>Cashier</p>
+            <p>Help Desk</p>
             <a href="#" class="profile-link">View Profile</a>
         </div>
     </div>

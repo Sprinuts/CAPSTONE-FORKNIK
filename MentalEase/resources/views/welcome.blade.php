@@ -15,6 +15,15 @@
 
 @include('include.landingnavbar')
 
+@if(session('success'))
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+@endif
+
 <!-- Hero Section (Home) -->
 <section id="home" class="hero parallax-section" style="background-image: url('{{ asset('style/assets/parallax-bg1.jpg') }}'); background-color: #F4F4F2;">
     <div class="container text-center">
@@ -212,18 +221,19 @@
             <div class="col-md-6">
                 <div class="contact-form-card">
                     <h3>Send us a Message</h3>
-                    <form>
+                    <form method="POST" action="{{ route('concern.send') }}">
+                        @csrf
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Your Name" required>
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                         </div>
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Your Email" required>
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
                         </div>
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Subject">
+                            <input type="text" name="subject" class="form-control" placeholder="Subject">
                         </div>
                         <div class="mb-3">
-                            <textarea class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                            <textarea name="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Send Message</button>
                     </form>
