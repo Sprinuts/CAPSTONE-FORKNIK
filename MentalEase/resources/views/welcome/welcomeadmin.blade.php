@@ -76,65 +76,38 @@
         </div>
         <div class="card-body">
             <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon login">
-                        <i class="fas fa-sign-in-alt"></i>
+                @foreach($recentActivities as $activity)
+                    @php
+                        // Map type to icon and class
+                        $iconMap = [
+                            'login' => ['icon' => 'sign-in-alt', 'class' => 'login'],
+                            'appointment' => ['icon' => 'calendar-plus', 'class' => 'appointment'],
+                            'assessment' => ['icon' => 'tasks', 'class' => 'assessment'],
+                            'user' => ['icon' => 'user-plus', 'class' => 'user'],
+                            'settings' => ['icon' => 'cog', 'class' => 'settings'],
+                            'report' => ['icon' => 'chart-pie', 'class' => 'report'],
+                        ];
+                        $type = $activity->type;
+                        $icon = $iconMap[$type]['icon'] ?? 'info-circle';
+                        $iconClass = $iconMap[$type]['class'] ?? 'default';
+                    @endphp
+                    <div class="activity-item">
+                        <div class="activity-icon {{ $iconClass }}">
+                            <i class="fas fa-{{ $icon }}"></i>
+                        </div>
+                        <div class="activity-details">
+                            <p class="activity-text"><strong>{{ $activity->name }}</strong> {{ $activity->log }}</p>
+                            <p class="activity-time">{{ $activity->created_at->diffForHumans() }}</p>
+                        </div>
                     </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>John Doe</strong> logged into the system</p>
-                        <p class="activity-time">5 minutes ago</p>
+                @endforeach
+                @if($recentActivities->isEmpty())
+                    <div class="activity-item">
+                        <div class="activity-details">
+                            <p class="activity-text">No recent activity.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="activity-item">
-                    <div class="activity-icon appointment">
-                        <i class="fas fa-calendar-plus"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>Maria Garcia</strong> scheduled an appointment</p>
-                        <p class="activity-time">15 minutes ago</p>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <div class="activity-icon assessment">
-                        <i class="fas fa-tasks"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>Robert Smith</strong> completed DASS assessment</p>
-                        <p class="activity-time">32 minutes ago</p>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <div class="activity-icon user">
-                        <i class="fas fa-user-plus"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>Admin</strong> added new psychometrician</p>
-                        <p class="activity-time">1 hour ago</p>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <div class="activity-icon settings">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>System</strong> backup completed</p>
-                        <p class="activity-time">2 hours ago</p>
-                    </div>
-                </div>
-                
-                <div class="activity-item">
-                    <div class="activity-icon report">
-                        <i class="fas fa-chart-pie"></i>
-                    </div>
-                    <div class="activity-details">
-                        <p class="activity-text"><strong>System</strong> generated monthly report</p>
-                        <p class="activity-time">Yesterday</p>
-                    </div>
-                </div>
+                @endif
             </div>
             
             <div class="view-all-container">

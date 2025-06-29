@@ -66,12 +66,11 @@ class Index extends Controller
                         session(['user' => $user]);
                         
                         // Log login activity
-                        \App\Helpers\ActivityLogger::log(
-                            $user->name . ' logged into the system',
-                            'login',
-                            'sign-in-alt',
-                            $user->id
-                        );
+                        \App\Models\Logs::create([
+                            'name' => $user->username,
+                            'log' => ' logged in to the system',
+                            'type' => 'login'
+                        ]);
                         
                         switch ($user->role) {
                             case 'patient':
@@ -115,6 +114,8 @@ class Index extends Controller
                     return redirect()->route('welcomeadmin');
                 case 'cashier':
                     return redirect()->route('welcomecashier');
+                case 'helpdesk':
+                    return redirect()->route('welcomehelpdesk');
                 default:
                     // Optionally handle unknown roles
                     break;
@@ -245,27 +246,10 @@ class Index extends Controller
             ? round((($currentMonthPsychometricians - $previousMonthPsychometricians) / $previousMonthPsychometricians) * 100) 
             : ($currentMonthPsychometricians > 0 ? 100 : 0);
 
-        // Create mock data for activities
-        $recentActivities = collect([
-            (object)[
-                'description' => 'System generated monthly report',
-                'type' => 'system',
-                'icon' => 'chart-bar',
-                'created_at' => now()->subHours(2)
-            ],
-            (object)[
-                'description' => 'New user registered',
-                'type' => 'register',
-                'icon' => 'user-plus',
-                'created_at' => now()->subHours(5)
-            ],
-            (object)[
-                'description' => 'Appointment scheduled',
-                'type' => 'appointment',
-                'icon' => 'calendar-check',
-                'created_at' => now()->subHours(8)
-            ]
-        ]);
+        // Get the 10 most recent logs
+        $recentActivities = \App\Models\Logs::orderBy('created_at', 'desc')
+            ->limit(10)
+            ->get();
 
 
         return view('include/headeradmin')

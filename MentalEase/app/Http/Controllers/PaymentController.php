@@ -107,6 +107,14 @@ class PaymentController extends Controller
             $schedule->save();
         }
 
+        $user = Users::find($data['user_id']);
+        // Log the appointment creation
+        \App\Models\Logs::create([
+            'name' => $user->username,
+            'log' => ' scheduled an appointment',
+            'type' => 'appointment'
+        ]);
+
         return view('include/header')
             .view('include/navbar')
             .view('appointment/paymentsuccess', compact('invoice'));
