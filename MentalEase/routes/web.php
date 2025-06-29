@@ -214,16 +214,9 @@ Route::get('/patient/receipt/{id}', [PaymentController::class, 'patientReceipt']
 Route::get('/welcome/helpdesk', [Index::class, 'welcomehelpdesk'])->name('welcomehelpdesk');
 Route::get('/patient/concerns', [ConcernsController::class, 'patientconcerns'])->name('patient.concerns');
 
+// User search route
+Route::get('/users/search', [Users::class, 'search'])->name('users.search');
 
-
-
-
-
-
-
-
-
-
-
-
+// User search results route
+Route::get('/users/search-results', [Users::class, 'searchResults'])->name('users.search.results');
 

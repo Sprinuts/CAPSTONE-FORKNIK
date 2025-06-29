@@ -437,15 +437,37 @@ class Users extends Controller
             .view('include/navbar')
             .view('appointment/patientappointmenthistory', compact('appointments'));
     }
+
+    public function searchResults(Request $request)
+    {
+        $term = $request->input('term', '');
+        $role = $request->input('role', 'all');
+        
+        // Query all users without pagination
+        $query = \App\Models\Users::where('disable', 0);
+        
+        // Apply search term if provided
+        if (!empty($term)) {
+            $query->where(function($q) use ($term) {
+                $q->where('username', 'like', "%{$term}%")
+                  ->orWhere('email', 'like', "%{$term}%")
+                  ->orWhere('name', 'like', "%{$term}%");
+            });
+        }
+        
+        // Apply role filter if not "all"
+        if ($role !== 'all') {
+            $query->where('role', $role);
+        }
+        
+        // Get all matching users (no pagination)
+        $users = $query->get();
+        
+        return view('include/headeradmin')
+            .view('include/navbaradmin')
+            .view('users/userssearch', compact('users', 'term', 'role'));
+    }
 }
-
-
-
-
-
-
-
-
 
 
 
