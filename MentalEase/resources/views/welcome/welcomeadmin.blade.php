@@ -160,17 +160,13 @@
                     <i class="fas fa-users"></i>
                     <span>Manage Users</span>
                 </a>
-                <a href="#" class="action-btn">
+                <a href="{{ route('appointment.records') }}" class="action-btn">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Appointments</span>
                 </a>
-                <a href="#" class="action-btn">
+                <a href="{{ route('backup.viewbackups') }}" class="action-btn">
                     <i class="fas fa-chart-line"></i>
-                    <span>Reports</span>
-                </a>
-                <a href="#" class="action-btn">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
+                    <span>Backup</span>
                 </a>
             </div>
         </div>
@@ -250,6 +246,7 @@
         });
     });
 </script>
+
 
 
 
