@@ -216,6 +216,8 @@ Route::get('/patient/concerns', [ConcernsController::class, 'patientconcerns'])-
 Route::get('/concerns/{id}', [ConcernsController::class, 'show'])->name('concerns.show');
 Route::get('/concerns/{id}/reply', [ConcernsController::class, 'reply'])->name('concerns.reply');
 Route::post('/concerns/send', [ConcernsController::class, 'send'])->name('concern.send');
+Route::get('/concerns', [Index::class, 'concerns'])->name('concerns');
+
 
 // User search route
 Route::get('/users/search', [Users::class, 'search'])->name('users.search');

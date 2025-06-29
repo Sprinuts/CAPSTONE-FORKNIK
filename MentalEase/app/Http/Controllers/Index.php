@@ -522,6 +522,21 @@ class Index extends Controller
             .view('include/navbarhelpdesk')
             .view('welcome/welcomehelpdesk');
     }
+
+    public function concerns()
+    {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
+        return view('include/header')
+            .view('include/navbar')
+            .view('concerns/concern');
+    }
 }
 
 

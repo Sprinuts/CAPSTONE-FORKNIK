@@ -104,6 +104,15 @@
                     </ul>
                 </li>
             </ul>
+
+            <!-- Help Icon -->
+            <ul class="navbar-nav me-3">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('concerns') }}" title="Help">
+                        <i class="fa-solid fa-circle-question fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
             
             <!-- User dropdown -->
             <ul class="navbar-nav">
