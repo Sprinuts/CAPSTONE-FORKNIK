@@ -203,31 +203,31 @@ class Users extends Controller
             if ($request->filled('name')) {
                 $user->name = $request->name;
             }
-            
+
             if ($request->filled('middle_name')) {
                 $user->middle_name = $request->middle_name;
             }
-            
+
             if ($request->filled('last_name')) {
                 $user->last_name = $request->last_name;
             }
-            
+
             if ($request->filled('email')) {
                 $user->email = $request->email;
             }
-            
+
             if ($request->filled('contactnumber')) {
                 $user->contactnumber = $request->contactnumber;
             }
-            
+
             if ($request->filled('address')) {
                 $user->address = $request->address;
             }
-            
+
             if ($request->filled('gender')) {
                 $user->gender = $request->gender;
             }
-            
+
             if ($request->filled('birthdate')) {
                 $user->birthdate = $request->birthdate;
                 
@@ -239,7 +239,7 @@ class Users extends Controller
                     $user->age = $age;
                 }
             }
-            
+
             if ($request->filled('birthplace')) {
                 $user->birthplace = $request->birthplace;
             }
@@ -265,9 +265,9 @@ class Users extends Controller
                     return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect']);
                 }
             }
-            
+
             $user->save();
-            
+
             // Update session data
             session(['user' => $user]);
             

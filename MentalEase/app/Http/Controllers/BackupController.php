@@ -43,7 +43,7 @@ class BackupController extends Controller
 
     public function download($filename)
     {
-        $path = Storage::files("backups/{$filename}");
+        $path = Storage::path("backups/{$filename}");
 
         if (!file_exists($path)) {
             abort(404, 'Backup not found.');
