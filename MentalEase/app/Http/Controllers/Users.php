@@ -330,7 +330,7 @@ class Users extends Controller
                 'civil_status' => 'required|string|in:Single,Married,Widowed,Divorced',
                 'birthdate' => 'required|date',
                 'birthplace' => 'required|string|max:255',
-                'religion' => 'required|string|max:255',
+                'religion' => 'nullable|string|max:255',
                 'terms_agree' => 'required',
             ], [
                 'terms_agree.required' => 'You must agree to the Terms and Conditions to continue.'
