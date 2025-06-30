@@ -9,7 +9,7 @@ class Users extends Controller
 {
     public function activate(Request $request, $username)
     {
-        $user = session('user');
+        $user = session('user');    
         if (!$user) {
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
