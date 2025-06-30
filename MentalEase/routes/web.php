@@ -235,3 +235,5 @@ Route::post('/updateapk', [ContentController::class, 'updateapk'])->name('update
 
 // privacy policy 
 Route::get('/privacypolicy', [Index::class, 'privacypolicy'])->name('privacy.policy');
+
+// password reset

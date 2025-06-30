@@ -195,6 +195,8 @@ class Index extends Controller
                 // Optionally, you can show a user-friendly message or continue without failing
             }
 
+            session(['user' => $user]);
+
             return redirect()->route('activate', [$data['username']]); // redirect to activation page
         }
         return view('usercredentials/register');

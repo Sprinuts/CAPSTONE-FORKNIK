@@ -26,8 +26,11 @@
         <div class="form-group">
             <label for="password">Password</label>
             <div class="input-wrapper">
-                <input type="password" name="password" id="password" placeholder="Enter your password" required>
-                <i id="eyePassword" class="fa-solid fa-eye-slash toggle-icon" onclick="togglePassword('password', 'eyePassword')"></i>
+            <input type="password" name="password" id="password" placeholder="Enter your password" required>
+            <i id="eyePassword" class="fa-solid fa-eye-slash toggle-icon" onclick="togglePassword('password', 'eyePassword')"></i>
+            </div>
+            <div style="margin-top: 8px; text-align: right;">
+            <a href="{{ route('password.request') }}" style="font-size: 0.95em;">Forgot Password?</a>
             </div>
         </div>
         <button type="submit" class="login-btn">Login</button>
