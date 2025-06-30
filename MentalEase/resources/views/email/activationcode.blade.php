@@ -7,4 +7,3 @@
 </div>
 
 <p>Enter this code in the MentalEase app to verify your email address.</p>
-<p style="color: #666; font-size: 14px;">This code will expire in 10 minutes for security reasons.</p>

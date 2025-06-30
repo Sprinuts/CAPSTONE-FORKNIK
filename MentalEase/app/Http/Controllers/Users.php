@@ -596,6 +596,117 @@ class Users extends Controller
             'upcomingAppointments' => $upcomingAppointments
         ];
     }
+
+    public function passwordrequest()
+    {
+        // Show the password reset request form
+        return view('usercredentials/passwordforgot');
+    }
+
+    public function passwordemail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:users,email',
+        ]);
+
+        $user = \App\Models\Users::where('email', $request->email)->first();
+
+        if ($user) {
+            // Generate a token
+            $resetcode = rand(100000, 999999);
+
+            // Store token in user's resetcode field
+            $user->resetcode = $resetcode;
+            $user->save();
+
+            try {
+                \Illuminate\Support\Facades\Mail::to($user->email)
+                    ->send(new \App\Mail\ResetPasswordMail($resetcode));
+
+                return redirect()->route('password.resetcode', ['username' => $user->username])
+                    ->with('status', 'Password reset link sent to your email.');
+            } catch (\Exception $e) {
+                \Log::error('Password reset email failed: ' . $e->getMessage());
+                return back()->withErrors(['email' => 'Failed to send reset link. Please try again later.']);
+            }
+        } else {
+            return back()->withErrors(['email' => 'Email address not found.']);
+        }
+    }
+
+    public function passwordresetcode(Request $request)
+    {
+        $email = $request->query('email');
+
+        $user = \App\Models\Users::where('email', $email)->first();
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['email' => 'User not found.']);
+        }
+
+        $username = $user->username;
+
+        return view('usercredentials/passwordresetcode', compact('email', 'username'));
+    }
+
+    public function resetcode(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string|exists:users,username',
+            'resetcode' => 'required|digits:6',
+        ]);
+
+        $user = \App\Models\Users::where('username', $request->username)->first();
+
+        if (!$user) {
+            return back()->withErrors(['username' => 'User not found.']);
+        }
+
+        // Compare the resetcode from the user and the request
+        if ($user->resetcode != $request->resetcode) {
+            return back()->withErrors(['resetcode' => 'Invalid reset code.']);
+        }
+
+        // Reset code is valid, redirect to password reset form
+        return redirect()->route('resetpassword', ['username' => $user->username]);
+    }
+
+    public function resetpassword()
+    {
+        $username = request()->input('username');
+
+        if (request()->isMethod('post')) {
+            $request = request();
+
+            $request->validate([
+                'password' => [
+                    'required',
+                    'string',
+                    'min:6',
+                    'confirmed',
+                    'regex:/^[^<>\'"]+$/'
+                ],
+            ]);
+
+            // Get username from session or query string
+            $username = $request->input('username') ?? session('reset_username');
+            if (!$username) {
+                return redirect()->route('login')->withErrors(['username' => 'Session expired. Please try again.']);
+            }
+
+            $user = \App\Models\Users::where('username', $username)->first();
+            if (!$user) {
+                return redirect()->route('login')->withErrors(['username' => 'User not found.']);
+            }
+
+            $user->password = bcrypt($request->password);
+            $user->resetcode = null; // Clear reset code after successful reset
+            $user->save();
+
+            return redirect()->route('login')->with('success', 'Password reset successfully. You can now log in.');
+        }
+
+        return view('usercredentials/resetpassword', compact('username'));
+    }
 }
 
 
