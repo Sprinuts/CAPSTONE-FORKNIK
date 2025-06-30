@@ -1,3 +1,7 @@
+
+<h1>Options:</h1>
 <div>
-    <!-- Act only according to that maxim whereby you can, at the same time, will that it should become a universal law. - Immanuel Kant -->
+    <a href="{{ route('content.welcome.apk') }}" class="btn btn-primary">
+        Update APK
+    </a>
 </div>
