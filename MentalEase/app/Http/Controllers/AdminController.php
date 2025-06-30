@@ -62,8 +62,6 @@ class AdminController extends Controller
             'userChange' => $userChange,
             'totalAppointments' => $totalAppointments,
             'appointmentChange' => $appointmentChange,
-            'totalAssessments' => $totalAssessments,
-            'assessmentChange' => $assessmentChange,
             'totalPsychometricians' => $totalPsychometricians,
             'psychometricianChange' => $psychometricianChange,
         ]);
