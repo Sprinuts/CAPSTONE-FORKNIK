@@ -79,7 +79,7 @@ body {
 }
 
 .card-header {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
     color: white;
     padding: 1.8rem 2rem;
     border-bottom: none;

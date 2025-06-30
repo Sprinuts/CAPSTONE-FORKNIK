@@ -21,7 +21,7 @@
                                     </div>
                                     <div class="contact-details">
                                         <h6>Phone Support</h6>
-                                        <p class="mb-0">(8) 742 - 4080</p>
+                                        <p class="mb-0">(+63) 939 929 1293</p>
                                         <span class="availability">Available 24/7</span>
                                     </div>
                                 </div>
@@ -32,7 +32,7 @@
                                     </div>
                                     <div class="contact-details">
                                         <h6>Email Support</h6>
-                                        <p class="mb-0">support@mentalease.com</p>
+                                        <p class="mb-0">sandadxcenter@yahoo.com</p>
                                         <span class="availability">Response within 24 hours</span>
                                     </div>
                                 </div>
@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="contact-details">
                                         <h6>Office Location</h6>
-                                        <p class="mb-0">123 Wellness Street, Health District</p>
+                                        <p class="mb-0">Sanda BLDG, 1418 Lacson Ave, Sampaloc, Manila</p>
                                         <span class="availability">Mon-Fri: 9AM-5PM</span>
                                     </div>
                                 </div>
@@ -104,5 +104,6 @@
         </div>
     </div>
 </div>
+
 
 

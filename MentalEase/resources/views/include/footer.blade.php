@@ -14,16 +14,19 @@
             <div class="col-lg-4">
                 <h4>Contact Us</h4>
                 <p><i class="fa-solid fa-location-dot"></i> 1418 Larson Ave, Sampaloc, Manila</p>
-                <p><i class="fa-solid fa-phone"></i> (+63) 939 939 1293</p>
-                <p><i class="fa-solid fa-envelope"></i> info@mentalease.com</p>
+                <p><i class="fa-solid fa-phone"></i> (+63) 939 929 1293</p>
+                <p><i class="fa-solid fa-envelope"></i> sandadxcenter@yahoo.com</p>
             </div>
             <div class="col-lg-4">
-                <h4>Follow Us</h4>
+                <h4>Reach Us</h4>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.facebook.com/sanda.diagnostic/" target="_blank">
+                    <i class="fa-brands fa-facebook"></i>
+                    <a href="https://www.waze.com/live-map/directions/ph/ncr/manila/sanda-diagnostic-center?to=place.ChIJjdoHuAC2lzMRawrlWjcrOoY" target="_blank">
+                    <i class="fa-brands fa-waze"></i>
+                    </a>
+
+                    </a>
                 </div>
             </div>
         </div>
