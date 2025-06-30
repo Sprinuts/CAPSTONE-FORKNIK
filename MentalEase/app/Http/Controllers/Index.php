@@ -535,18 +535,10 @@ class Index extends Controller
 
         return view('include/header')
             .view('include/navbar')
-            .view('concerns/concern');
+            .view('concerns/concern')
+            .view('include/footer');
     }
 }
-
-
-
-
-
-
-
-
-
 
 
 
