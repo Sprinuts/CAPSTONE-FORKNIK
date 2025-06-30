@@ -9,7 +9,7 @@
         </div>
         <div class="logo-text">
             <span>MentalEase</span>
-            <small class="d-block">Cashier Panel</small>
+            <small class="d-block">Help Desk Dashboard</small>
         </div>
     </div>
 
