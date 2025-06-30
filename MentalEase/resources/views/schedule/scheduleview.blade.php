@@ -9,21 +9,21 @@
     </div>
     
     @php
-        $today = \Carbon\Carbon::now()->startOfDay();
+        $now = \Carbon\Carbon::now();
         
         // Filter upcoming schedules and sort by date and time
-        $upcomingSchedules = $schedules->filter(function($schedule) use ($today) {
-            $scheduleDate = \Carbon\Carbon::parse($schedule->date)->startOfDay();
-            return $scheduleDate->greaterThanOrEqualTo($today);
+        $upcomingSchedules = $schedules->filter(function($schedule) use ($now) {
+            $scheduleDateTime = \Carbon\Carbon::parse($schedule->date . ' ' . $schedule->start_time);
+            return $scheduleDateTime->greaterThan($now);
         })->sortBy(function($schedule) {
             // Sort by date first, then by time
             return $schedule->date . ' ' . $schedule->start_time;
         });
         
         // Filter past schedules and sort by date and time (most recent first)
-        $pastSchedules = $schedules->filter(function($schedule) use ($today) {
-            $scheduleDate = \Carbon\Carbon::parse($schedule->date)->startOfDay();
-            return $scheduleDate->lessThan($today);
+        $pastSchedules = $schedules->filter(function($schedule) use ($now) {
+            $scheduleDateTime = \Carbon\Carbon::parse($schedule->date . ' ' . $schedule->start_time);
+            return $scheduleDateTime->lessThanOrEqualTo($now);
         })->sortByDesc(function($schedule) {
             // Sort by date first, then by time
             return $schedule->date . ' ' . $schedule->start_time;
@@ -120,6 +120,9 @@
                                         <h4 class="schedule-time">
                                             <i class="fas fa-clock me-2"></i>
                                             {{ \Carbon\Carbon::parse($schedule->start_time)->format('g:i A') }}
+                                            @if(\Carbon\Carbon::parse($schedule->date)->isToday())
+                                                <span class="badge bg-secondary ms-2">Today</span>
+                                            @endif
                                         </h4>
                                         <div class="schedule-client">
                                             <i class="fas fa-user me-2"></i>
@@ -160,6 +163,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const toggle = document.querySelector('.past-toggle');
     
     if (pastSection && toggle) {
+        // Initially hide past appointments
+        pastSection.style.display = 'none';
+        toggle.classList.add('collapsed');
+        
         toggle.addEventListener('click', function() {
             if (pastSection.style.display === 'none') {
                 pastSection.style.display = 'flex';
@@ -172,6 +179,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+
+
 
 
 

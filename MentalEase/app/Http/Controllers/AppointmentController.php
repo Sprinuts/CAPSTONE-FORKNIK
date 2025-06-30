@@ -75,26 +75,40 @@ class AppointmentController extends Controller
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
-        // Get today's date
-        $today = \Carbon\Carbon::now()->format('Y-m-d');
+        // Check for expired appointments first
+        $this->checkExpiredAppointments();
         
-        // Count today's appointments
-        $todayAppointments = Appointment::where('psychometrician_id', $user->id)
+        // Get today's date and current time
+        $today = \Carbon\Carbon::now()->format('Y-m-d');
+        $currentTime = \Carbon\Carbon::now();
+        
+        // Get today's appointments that are upcoming (not past)
+        $todayUpcomingAppointments = Appointment::where('psychometrician_id', $user->id)
             ->where('date', $today)
-            ->count();
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->get()
+            ->filter(function($appointment) use ($currentTime) {
+                $appointmentDateTime = \Carbon\Carbon::parse($appointment->date . ' ' . $appointment->start_time);
+                return $appointmentDateTime->greaterThan($currentTime);
+            })
+            ->values(); // Reset array keys
+        
+        // Get today's past appointments
+        $todayPastAppointments = Appointment::where('psychometrician_id', $user->id)
+            ->where('date', $today)
+            ->where('cancelled', false)
+            ->get()
+            ->filter(function($appointment) use ($currentTime) {
+                $appointmentDateTime = \Carbon\Carbon::parse($appointment->date . ' ' . $appointment->start_time);
+                return $appointmentDateTime->lessThanOrEqualTo($currentTime);
+            })
+            ->values(); // Reset array keys
         
         // Count pending appointments
         $pendingAppointments = Appointment::where('psychometrician_id', $user->id)
             ->where('confirmed', false)
             ->where('cancelled', false)
-            ->count();
-        
-        // Count upcoming confirmed appointments
-        $upcomingAppointments = Appointment::where('psychometrician_id', $user->id)
-            ->where('confirmed', true)
-            ->where('cancelled', false)
-            ->where('complete', false)
-            ->where('date', '>=', $today)
             ->count();
         
         // Count total patients (unique users who have had appointments)
@@ -110,9 +124,10 @@ class AppointmentController extends Controller
         return view('include/header')
             .view('include/navbarpsychometrician')
             .view('welcome/welcomepsychometrician', [
-                'todayAppointments' => $todayAppointments,
+                'todayUpcomingAppointments' => $todayUpcomingAppointments,
+                'todayPastAppointments' => $todayPastAppointments,
+                'todayAppointmentsCount' => $todayUpcomingAppointments->count(), // Only count upcoming appointments
                 'pendingAppointments' => $pendingAppointments,
-                'upcomingAppointments' => $upcomingAppointments,
                 'totalPatients' => $totalPatients,
                 'completedAppointments' => $completedAppointments
             ]);
@@ -450,6 +465,13 @@ class AppointmentController extends Controller
             .view('appointment.details', compact('appointment'));
     }
 }
+
+
+
+
+
+
+
 
 
 

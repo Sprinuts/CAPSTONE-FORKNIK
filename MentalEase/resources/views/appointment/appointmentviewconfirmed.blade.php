@@ -14,7 +14,7 @@
             </div>
         @endif
 
-        @if($appointments->isEmpty())
+        @if(!isset($appointments) || !is_countable($appointments) || count($appointments) === 0)
             <div class="empty-state">
                 <div class="empty-icon">
                     <i class="fas fa-calendar-xmark"></i>
@@ -95,6 +95,8 @@
         @endif
     </div>
 </div>
+
+
 
 
 

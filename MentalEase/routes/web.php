@@ -228,3 +228,4 @@ Route::get('/users/search-results', [Users::class, 'searchResults'])->name('user
 
 Route::get('/content/management', [ContentController::class, 'contentmanagement'])->name('content.management');
 Route::get('/content/welcome', [ContentController::class, 'contentwelcome'])->name('content.welcome');
+
