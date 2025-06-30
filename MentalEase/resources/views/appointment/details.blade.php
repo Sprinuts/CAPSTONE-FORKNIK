@@ -14,6 +14,12 @@
             <i class="fas {{ $appointment->complete ? 'fa-check-circle' : ($appointment->cancelled ? 'fa-times-circle' : 'fa-clock') }}"></i>
             {{ $appointment->complete ? 'Completed' : ($appointment->cancelled ? 'Cancelled' : 'Pending') }}
         </div>
+
+        @if($appointment->cancelled && $appointment->cancellation_reason)
+        <div class="cancellation-reason">
+            <p><strong>Cancellation Reason:</strong> {{ $appointment->cancellation_reason }}</p>
+        </div>
+        @endif
         
         <div class="appointment-info">
             <div class="info-group">
@@ -59,5 +65,6 @@
         @endif
     </div>
 </div>
+
 
 

@@ -420,16 +420,22 @@ class Users extends Controller
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
 
+        // Check for expired appointments first
+        app('App\Http\Controllers\AppointmentController')->checkExpiredAppointments();
+
         $appointments = \App\Models\Appointment::where('user_id', $sessionUser->id)
-            ->where('complete', true)
+            ->where(function($query) {
+                $query->where('complete', true)
+                    ->orWhere('cancelled', true);
+            })
             ->get();
 
         // Get psychometrician info for each appointment
         foreach ($appointments as $appointment) {
             if ($appointment->psychometrician_id) {
-            $appointment->psychometrician = \App\Models\Users::find($appointment->psychometrician_id);
+                $appointment->psychometrician = \App\Models\Users::find($appointment->psychometrician_id);
             } else {
-            $appointment->psychometrician = null;
+                $appointment->psychometrician = null;
             }
         }
 
@@ -467,7 +473,59 @@ class Users extends Controller
             .view('include/navbaradmin')
             .view('users/userssearch', compact('users', 'term', 'role'));
     }
+
+    public function getTherapyHours($userId)
+    {
+        // Only count completed appointments that weren't cancelled
+        $completedAppointments = \App\Models\Appointment::where('user_id', $userId)
+            ->where('complete', true)
+            ->where('cancelled', false)
+            ->get();
+        
+        $totalHours = 0;
+        
+        foreach ($completedAppointments as $appointment) {
+            // Calculate duration in hours (assuming each appointment is 1 hour)
+            // If you have actual start and end times, you can calculate the difference
+            $totalHours += 1; // Default to 1 hour per appointment
+        }
+        
+        return $totalHours;
+    }
+
+    public function patientDashboardStats($userId)
+    {
+        // Check for expired appointments first
+        app('App\Http\Controllers\AppointmentController')->checkExpiredAppointments();
+        
+        // Get total completed appointments (not cancelled)
+        $completedSessions = \App\Models\Appointment::where('user_id', $userId)
+            ->where('complete', true)
+            ->where('cancelled', false)
+            ->count();
+        
+        // Calculate therapy hours (only from completed, not cancelled appointments)
+        $therapyHours = $this->getTherapyHours($userId);
+        
+        // Get upcoming appointments
+        $upcomingAppointments = \App\Models\Appointment::where('user_id', $userId)
+            ->where('complete', false)
+            ->where('cancelled', false)
+            ->where('date', '>=', \Carbon\Carbon::now()->toDateString())
+            ->count();
+        
+        return [
+            'completedSessions' => $completedSessions,
+            'therapyHours' => $therapyHours,
+            'upcomingAppointments' => $upcomingAppointments
+        ];
+    }
 }
+
+
+
+
+
 
 
 

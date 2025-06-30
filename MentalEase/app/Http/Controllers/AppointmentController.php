@@ -291,10 +291,45 @@ class AppointmentController extends Controller
             ->with('success', 'Appointment marked as completed.');
     }
 
+    public function checkExpiredAppointments()
+    {
+        $now = \Carbon\Carbon::now();
+        
+        // Find pending appointments that are past their scheduled time
+        $expiredAppointments = Appointment::where('confirmed', false)
+            ->where('cancelled', false)
+            ->where('complete', false)
+            ->where(function($query) use ($now) {
+                $query->where('date', '<', $now->toDateString())
+                    ->orWhere(function($q) use ($now) {
+                        $q->where('date', '=', $now->toDateString())
+                            ->where('start_time', '<', $now->format('H:i:s'));
+                    });
+            })
+            ->get();
+        
+        // Mark expired appointments as cancelled
+        foreach ($expiredAppointments as $appointment) {
+            $appointment->cancelled = true;
+            $appointment->save();
+            
+            // Update the schedule to be available again
+            Schedule::where('psychometrician_id', $appointment->psychometrician_id)
+                ->where('date', $appointment->date)
+                ->where('start_time', $appointment->start_time)
+                ->update(['scheduled' => false]);
+        }
+        
+        return $expiredAppointments->count();
+    }
+
     public function appointmentspatientview()
     {
         $user = session('user');
-
+        
+        // Check for expired appointments first
+        $this->checkExpiredAppointments();
+        
         $appointments = Appointment::where('user_id', $user->id)
             ->where('complete', false)
             ->where('cancelled', false)
@@ -302,12 +337,12 @@ class AppointmentController extends Controller
             ->orderByDesc('start_time')
             ->first();
 
-        if ($appointments->psychometrician_id) {
-                $psychometrician = Users::find($appointments->psychometrician_id);
-                $appointments->psychometrician = $psychometrician;
-            } else {
-                $appointments->psychometrician = null;
-            }
+        if ($appointments && $appointments->psychometrician_id) {
+            $psychometrician = Users::find($appointments->psychometrician_id);
+            $appointments->psychometrician = $psychometrician;
+        } else if ($appointments) {
+            $appointments->psychometrician = null;
+        }
 
         return view('include/header')
             .view('include/navbar')
@@ -415,6 +450,10 @@ class AppointmentController extends Controller
             .view('appointment.details', compact('appointment'));
     }
 }
+
+
+
+
 
 
 

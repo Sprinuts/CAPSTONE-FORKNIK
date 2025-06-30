@@ -207,7 +207,7 @@
                     <h3>Get in Touch</h3>
                     <div class="contact-item">
                         <i class="fa-solid fa-location-dot"></i>
-                        <p>1418 Larson Ave, Sampaloc, Manila</p>
+                        <p>1418 Lacson Ave, Sampaloc, Manila</p>
                     </div>
                     <div class="contact-item">
                         <i class="fa-solid fa-phone"></i>

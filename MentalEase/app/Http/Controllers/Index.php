@@ -541,17 +541,36 @@ class Index extends Controller
 
     public function welcomehelpdesk()
     {
-        $user = session('user');
-        if (!$user) {
-            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
-        }
-        if ($user->role !== 'helpdesk') {
-            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
-        }
-
+        // Get total concerns count (as "open concerns" since there's no status column)
+        $openConcerns = \App\Models\Concerns::count();
+        
+        // Since there's no status column, we can't filter by pending status
+        $pendingReplies = 0;
+        
+        // Since there's no status column, we can't filter by resolved status
+        // Instead, count concerns created today
+        $today = \Carbon\Carbon::today();
+        $resolvedConcerns = \App\Models\Concerns::whereDate('created_at', $today)
+            ->count();
+        
+        // Count unique emails from concerns table as "total patients"
+        $totalPatients = \App\Models\Concerns::distinct('email')
+            ->count('email');
+        
+        // Get recent concerns
+        $recentConcerns = \App\Models\Concerns::orderBy('created_at', 'desc')
+            ->limit(5)
+            ->get();
+        
         return view('include/headerhelpdesk')
             .view('include/navbarhelpdesk')
-            .view('welcome/welcomehelpdesk');
+            .view('welcome/welcomehelpdesk', [
+                'openConcerns' => $openConcerns,
+                'pendingReplies' => $pendingReplies,
+                'resolvedConcerns' => $resolvedConcerns,
+                'totalPatients' => $totalPatients,
+                'recentConcerns' => $recentConcerns
+            ]);
     }
 
     public function concerns()
@@ -570,6 +589,10 @@ class Index extends Controller
             .view('include/footer');
     }
 }
+
+
+
+
 
 
 
