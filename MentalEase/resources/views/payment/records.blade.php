@@ -2,6 +2,7 @@
 
 <link rel="stylesheet" href="{{ asset('style/payment.css') }}">
 
+
 <div class="container">
     <div class="page-header">
         <h1><i class="fas fa-file-invoice-dollar"></i> Payment Records</h1>
@@ -164,3 +165,4 @@
         // Filter functionality would be implemented here
     });
 </script>
+
