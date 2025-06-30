@@ -4,244 +4,463 @@
     --primary-dark: #1B4332;
     --secondary-color: #95D5B2;
     --accent-color: #D8F3DC;
-    --text-color: #333333;
-    --text-light: #6C757D;
     --background-color: #F8F9FA;
     --card-background: #FFFFFF;
+    --text-color: #333333;
+    --text-light: #6C757D;
     --border-color: #E9ECEF;
     --success-color: #28A745;
-    --info-color: #17A2B8;
     --warning-color: #FFC107;
     --danger-color: #DC3545;
     --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.15);
 }
 
 body {
-    background-color: var(--background-color);
     font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
     color: var(--text-color);
+    line-height: 1.6;
 }
 
-.appointment-container {
-    max-width: 800px;
+.container {
+    max-width: 900px;
     margin: 0 auto;
-    padding: 1rem 1.5rem;
+
 }
 
-/* Header styling */
-.appointment-header {
-    margin-bottom: 1rem;
+.page-header {
+    margin-bottom: 2.5rem;
+    position: relative;
+    text-align: center;
 }
 
-.appointment-header h1 {
+.page-header h2 {
     color: var(--primary-dark);
-    font-size: 1.75rem;
     font-weight: 700;
-    margin-bottom: 0.25rem;
+    font-size: 2.2rem;
+    margin-bottom: 0.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.page-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+}
+
+.page-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+}
+
+.appointment-card {
+    background-color: var(--card-background);
+    border-radius: 20px;
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.appointment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    padding: 1.8rem 2rem;
+    border-bottom: none;
+    position: relative;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.appointment-header h1 i {
-    margin-right: 0.75rem;
-    color: var(--primary-color);
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.appointment-header p {
-    color: var(--text-light);
-    font-size: 1rem;
-    margin-top: 0;
-    margin-bottom: 0.5rem;
-}
-
-/* Appointment card styling */
-.appointment-card {
-    background-color: var(--card-background);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.appointment-status-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.4rem 1.25rem;
-    color: white;
+.card-header h5 {
     font-weight: 600;
-    font-size: 0.85rem;
-    border-bottom-left-radius: var(--radius-md);
+    font-size: 1.4rem;
+    margin-bottom: 0;
 }
 
-.status-pending {
-    background-color: var(--warning-color);
+.card-header .appointment-date {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    min-width: 80px;
 }
 
-.status-confirmed {
-    background-color: var(--info-color);
+.card-header .appointment-date .day {
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: block;
+    line-height: 1.2;
 }
 
-.status-completed {
-    background-color: var(--success-color);
+.card-header .appointment-date .month {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
-.appointment-details {
-    margin-top: 1rem;
+.card-body {
+    padding: 2.5rem;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem 1.5rem;
 }
 
 .detail-row {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .detail-icon {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: var(--accent-color);
-    border-radius: 50%;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1rem;
-}
-
-.detail-icon i {
-    font-size: 1.1rem;
+    margin-right: 1.2rem;
     color: var(--primary-color);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(45, 106, 79, 0.15);
 }
 
 .detail-content {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 50px;
 }
 
 .detail-label {
-    display: block;
+    font-size: 0.9rem;
     color: var(--text-light);
-    font-size: 0.8rem;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
 }
 
 .detail-value {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.1rem;
+    font-weight: 500;
     color: var(--text-color);
+    word-break: break-word;
 }
 
-/* Action buttons */
-.appointment-actions {
-    margin-top: 1.25rem;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-}
-
-.btn-cancel, .btn-history, .btn-book {
-    padding: 0.6rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+.status-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
     font-size: 0.9rem;
-    display: inline-flex;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-completed {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.status-confirmed {
+    background-color: var(--primary-light);
+    color: white;
+}
+
+.status-pending {
+    background-color: var(--warning-color);
+    color: #856404;
+}
+
+.appointment-notes {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.appointment-notes h6 {
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.appointment-notes p {
+    background-color: #f8f9fa;
+    padding: 1.2rem;
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.card-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid var(--border-color);
+    padding: 1.8rem 2.5rem;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all var(--transition-fast);
-    cursor: pointer;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .btn-cancel {
     background-color: var(--danger-color);
     color: white;
     border: none;
+    padding: 0.7rem 1.8rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .btn-cancel:hover {
     background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
-.btn-history {
-    background-color: var(--info-color);
-    color: white;
+.btn-cancel:active {
+    transform: translateY(0);
 }
 
-.btn-history:hover {
-    background-color: #138496;
-}
-
-.btn-book {
-    background-color: var(--primary-color);
-    color: white;
-}
-
-.btn-book:hover {
-    background-color: var(--primary-dark);
-}
-
-.btn-cancel i, .btn-history i, .btn-book i {
-    margin-right: 0.5rem;
-}
-
-/* Empty state styling */
-.empty-state {
-    background-color: var(--card-background);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    padding: 2rem 1.5rem;
-    text-align: center;
-}
-
-.empty-icon {
-    font-size: 3rem;
+.pending-note {
     color: var(--text-light);
-    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    background-color: rgba(255, 193, 7, 0.1);
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--warning-color);
+}
+
+.follow-up-card {
+    background-color: var(--card-background);
+    border-radius: 16px;
+    box-shadow: var(--shadow-md);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    border-left: 5px solid var(--success-color);
+}
+
+.follow-up-icon {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(40, 167, 69, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--success-color);
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.follow-up-content {
+    flex: 1;
+}
+
+.follow-up-content h4 {
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.follow-up-content p {
+    color: var(--text-light);
+    margin-bottom: 1.2rem;
+}
+
+.btn-follow-up {
+    background-color: var(--success-color);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.btn-follow-up:hover {
+    background-color: #218838;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+}
+
+.empty-state i {
+    font-size: 5rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    opacity: 0.5;
 }
 
 .empty-state h3 {
-    font-size: 1.3rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
     color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
 }
 
 .empty-state p {
     color: var(--text-light);
-    margin-bottom: 1.5rem;
-    font-size: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Responsive adjustments */
+.btn-schedule {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.btn-schedule:hover {
+    background-color: var(--primary-dark);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(45, 106, 79, 0.3);
+}
+
 @media (max-width: 768px) {
-    .appointment-header h1 {
-        font-size: 1.5rem;
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     
-    .appointment-card {
-        padding: 1.25rem;
+    .page-header h2 {
+        font-size: 1.8rem;
     }
     
-    .appointment-status-badge {
-        position: relative;
-        display: inline-block;
-        margin-bottom: 0.75rem;
-        border-radius: var(--radius-sm);
-    }
-    
-    .appointment-actions {
+    .card-header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.5rem;
     }
     
-    .btn-cancel, .btn-history, .btn-book {
+    .header-content {
         width: 100%;
+        justify-content: space-between;
+    }
+    
+    .card-header .appointment-date {
+        align-self: flex-end;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .details-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .card-footer {
+        padding: 1.5rem;
+    }
+    
+    .footer-actions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .follow-up-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .follow-up-icon {
+        margin-bottom: 1rem;
     }
 }
+
+@media (max-width: 576px) {
+    .page-header h2 {
+        font-size: 1.6rem;
+    }
+    
+    .page-header p {
+        font-size: 1rem;
+    }
+    
+    .card-header h5 {
+        font-size: 1.2rem;
+    }
+    
+    .detail-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .detail-value {
+        font-size: 1rem;
+    }
+    
+    .empty-state {
+        padding: 3rem 1.5rem;
+    }
+    
+    .empty-state h3 {
+        font-size: 1.5rem;
+    }
+}
+
 
 
