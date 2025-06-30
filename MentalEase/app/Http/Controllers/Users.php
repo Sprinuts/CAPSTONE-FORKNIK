@@ -61,33 +61,31 @@ class Users extends Controller
             .view('users/usersview', compact('users'));
     }
 
-    public function usersadd()
+    public function usersadd(Request $request)
     {
-        $user = session('user');
-        if (!$user) {
+        $sessionUser = session('user');
+        if (!$sessionUser) {
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
-        if ($user->role !== 'admin') {
+        if ($sessionUser->role !== 'admin') {
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
-        if (request()->isMethod('post')) {
-            $data = request()->only(['username', 'email', 'role']);
-            $data['password'] = bcrypt('123456'); // Default hashed password, should be changed later
-            $data['status'] = '1'; // Default status, activated
-
-            // Validate the data here if needed
-            $validateData = request()->validate([
+        if ($request->isMethod('post')) {
+            $validated = $request->validate([
                 'username' => 'required|string|max:255|unique:users,username',
                 'email' => 'required|email|max:255|unique:users,email',
                 'role' => 'required|string|max:50',
             ]);
 
-            $usersmodel = new \App\Models\Users();
-            $usersmodel->create($data);
+            $validated['password'] = bcrypt($validated['username'] . '123456'); // Default password is username123456
+            $validated['status'] = '1'; // Activated
+
+            \App\Models\Users::create($validated);
 
             return redirect()->route('users.view')->with('success', 'User added successfully.');
         }
+
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('users/usersadd');
