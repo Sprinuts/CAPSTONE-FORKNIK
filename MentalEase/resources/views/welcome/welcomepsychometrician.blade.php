@@ -18,7 +18,7 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>{{ $todayAppointments ?? 0 }}</h3>
+                        <h3>{{ $todayUpcomingAppointments->count() }}</h3>
                         <p>Today's Appointments</p>
                     </div>
                 </div>
@@ -64,18 +64,8 @@
             </div>
             <div class="card-body">
                 <div class="appointment-list">
-                    @php
-                        $today = \Carbon\Carbon::now()->format('Y-m-d');
-                        
-                        // Get the appointments for today and sort by time
-                        $todayAppointments = \App\Models\Appointment::where('psychometrician_id', session('user')->id)
-                            ->where('date', $today)
-                            ->get()
-                            ->sortBy('start_time'); // Sort by start_time
-                    @endphp
-                    
-                    @if(count($todayAppointments) > 0)
-                        @foreach($todayAppointments as $appointment)
+                    @if($todayUpcomingAppointments->count() > 0)
+                            @foreach($todayUpcomingAppointments as $appointment)
                             <div class="appointment-item">
                                 <div class="appointment-date">
                                     <span class="day">{{ \Carbon\Carbon::parse($appointment->date)->format('d') }}</span>
@@ -90,14 +80,16 @@
                                     <p><i class="fas fa-phone"></i> {{ $patient->phone ?? 'N/A' }}</p>
                                 </div>
                                 <div class="appointment-status">
-                                    <span class="status-badge status-confirmed">Today</span>
+                                    <span class="status-badge {{ $appointment->confirmed ? 'status-confirmed' : 'status-pending' }}">
+                                        {{ $appointment->confirmed ? 'Confirmed' : 'Pending' }}
+                                    </span>
                                 </div>
                             </div>
                         @endforeach
                     @else
                         <div class="text-center py-4">
                             <i class="fas fa-calendar-day fa-3x text-muted mb-3"></i>
-                            <p class="text-muted">No appointments today</p>
+                            <p class="text-muted">No upcoming appointments today</p>
                             <a href="{{ route('schedule.create') }}" class="btn btn-sm btn-primary mt-2">
                                 <i class="fas fa-plus me-1"></i> Create Schedule
                             </a>
@@ -105,6 +97,41 @@
                     @endif
                 </div>
                 
+                @if($todayPastAppointments->count() > 0)
+                    <div class="past-appointments mt-4">
+                        <h5 class="section-title">Past (Today)</h5>
+                        @foreach($todayPastAppointments as $appointment)
+                            <div class="appointment-item past-item">
+                                <div class="appointment-date">
+                                    <span class="day">{{ \Carbon\Carbon::parse($appointment->date)->format('d') }}</span>
+                                    <span class="month">{{ \Carbon\Carbon::parse($appointment->date)->format('M') }}</span>
+                                </div>
+                                <div class="appointment-details">
+                                    @php
+                                        $patient = \App\Models\Users::find($appointment->user_id);
+                                    @endphp
+                                    <h4>{{ $patient->name ?? 'Patient' }}</h4>
+                                    <p><i class="fas fa-clock"></i> {{ \Carbon\Carbon::parse($appointment->start_time)->format('g:i A') }}</p>
+                                    <p><i class="fas fa-phone"></i> {{ $patient->phone ?? 'N/A' }}</p>
+                                </div>
+                                <div class="appointment-status">
+                                    @if($appointment->complete)
+                                        <span class="status-badge status-completed">Completed</span>
+                                    @else
+                                        <span class="status-badge status-past">Past</span>
+                                        <form action="{{ route('appointments.complete', $appointment->id) }}" method="POST" class="mt-2">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-success">
+                                                Mark Complete
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="text-center mt-3">
                     <a href="{{ route('schedule.view') }}" class="btn btn-outline-primary btn-sm">
                         View All Schedules
@@ -183,6 +210,15 @@
     // Update date every minute
     setInterval(updateDate, 60000);
 </script>    
+
+
+
+
+
+
+
+
+
 
 
 

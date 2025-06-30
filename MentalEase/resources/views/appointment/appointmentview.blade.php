@@ -38,13 +38,9 @@
     </div>
 
     <div class="recent-appointments">
-        <div class="section-header">
-            <h2><i class="fas fa-history"></i> Recent Appointments</h2>
-            <a href="{{ route('appointment.viewconfirmed') }}" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
-        </div>
-        
-        <div class="appointments-list">
-            @if(isset($recentAppointments) && count($recentAppointments) > 0)
+        <h3>Recent Appointments</h3>
+        <div class="appointment-cards">
+            @if(isset($recentAppointments) && is_countable($recentAppointments) && count($recentAppointments) > 0)
                 @foreach($recentAppointments as $appointment)
                     <div class="appointment-item">
                         <div class="appointment-date">
@@ -78,7 +74,7 @@
                             @endif
                             
                             @if(!$appointment->confirmed)
-                                <form action="{{ route('appointment.confirm', $appointment->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('appointments.confirming', $appointment->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="action-btn confirm">
                                         <i class="fas fa-check"></i> Confirm
@@ -127,7 +123,7 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     @if(!$appointment->confirmed)
-                                        <form action="{{ route('appointment.confirm', $appointment->id) }}" method="POST" class="d-inline">
+                                        <form action="{{ route('appointments.confirming', $appointment->id) }}" method="POST" class="d-inline">
                                             @csrf
                                             <button type="submit" class="btn btn-primary">Confirm Appointment</button>
                                         </form>
@@ -151,6 +147,11 @@
 
 <!-- Bootstrap JS for modals -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+
 
 
 
