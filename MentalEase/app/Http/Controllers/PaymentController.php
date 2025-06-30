@@ -68,6 +68,14 @@ class PaymentController extends Controller
 
     public function paymentSuccess(Request $request, $id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoice = Invoice::findOrFail($id);
         $invoice->payment_status = 'paid';
         $invoice->save();
@@ -122,6 +130,14 @@ class PaymentController extends Controller
 
     public function paymentFailed($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoice = Invoice::findOrFail($id);
         $invoice->payment_status = 'failed';
         $invoice->save();
@@ -133,6 +149,14 @@ class PaymentController extends Controller
 
     public function paymentCancelled($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoice = Invoice::findOrFail($id);
         $invoice->payment_status = 'cancelled';
         $invoice->save();
@@ -144,6 +168,14 @@ class PaymentController extends Controller
 
     public function paymentrecords()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'patient') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoices = Invoice::all();
 
         foreach ($invoices as $invoice) {
@@ -165,6 +197,14 @@ class PaymentController extends Controller
      */
     public function paymentReports()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'cashier') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         // Get today's date and date ranges
         $today = now()->format('Y-m-d');
         $startOfWeek = now()->startOfWeek()->format('Y-m-d');
@@ -203,6 +243,14 @@ class PaymentController extends Controller
 
     public function generateReceipt($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'cashier') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoice = Invoice::with('client')->findOrFail($id);
         
         return view('include/headercashier')
@@ -212,6 +260,14 @@ class PaymentController extends Controller
 
     public function paymentReceiptsList()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'cashier') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $invoices = Invoice::with('client')->where('payment_status', 'paid')->get();
         
         return view('include/headercashier')

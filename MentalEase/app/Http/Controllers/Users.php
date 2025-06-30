@@ -9,6 +9,11 @@ class Users extends Controller
 {
     public function activate(Request $request, $username)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+
         if ($request->isMethod('post')) {
             $data = $request->only(['activationcode']);
 
@@ -38,7 +43,13 @@ class Users extends Controller
 //test test test
     public function usersview()
     {
-        
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
         
         $usersmodel = new \App\Models\Users();
 
@@ -52,6 +63,14 @@ class Users extends Controller
 
     public function usersadd()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         if (request()->isMethod('post')) {
             $data = request()->only(['username', 'email', 'role']);
             $data['password'] = bcrypt('123456'); // Default hashed password, should be changed later
@@ -76,6 +95,14 @@ class Users extends Controller
 
     public function usersedit($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
@@ -94,6 +121,14 @@ class Users extends Controller
 
     public function usersupdate($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
@@ -106,6 +141,14 @@ class Users extends Controller
 
     public function usersdisable($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
@@ -121,6 +164,14 @@ class Users extends Controller
 
     public function usersenable($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
@@ -136,6 +187,14 @@ class Users extends Controller
 
     public function usersarchive()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $users = $usersmodel->where('disable', '1')->paginate(10);
 
@@ -146,6 +205,14 @@ class Users extends Controller
 
     public function usersidview($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 
@@ -160,6 +227,15 @@ class Users extends Controller
 
     public function usersidviewdisabled($id)
     {
+
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $usersmodel = new \App\Models\Users();
         $user = $usersmodel->find($id);
 

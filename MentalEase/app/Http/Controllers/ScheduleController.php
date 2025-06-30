@@ -10,6 +10,14 @@ class ScheduleController extends Controller
 {
     public function create()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $psychometrician = session('user');
         $schedules = Schedule::where('psychometrician_id', $psychometrician->id)->get();
 
@@ -20,6 +28,14 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         // Check if we're creating multiple appointments
         if ($request->has('appointments')) {
             foreach ($request->appointments as $appointment) {
@@ -47,6 +63,14 @@ class ScheduleController extends Controller
 
     public function view()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $psychometrician = session('user');
         $schedules = Schedule::where('psychometrician_id', $psychometrician->id)
             ->where('scheduled', false)
@@ -104,6 +128,14 @@ class ScheduleController extends Controller
 
     public function destroy($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $schedule = Schedule::findOrFail($id);
         $psychometrician = session('user');
         
@@ -125,6 +157,14 @@ class ScheduleController extends Controller
 
     public function edit($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $schedule = Schedule::findOrFail($id);
         $psychometrician = session('user');
         
@@ -145,6 +185,14 @@ class ScheduleController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'psychometrician') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $schedule = Schedule::findOrFail($id);
         $psychometrician = session('user');
         
