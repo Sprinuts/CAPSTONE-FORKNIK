@@ -26,7 +26,7 @@ class PaymentController extends Controller
             'end_time' => \Carbon\Carbon::parse($request->start_time)->addHour(),
         ];
 
-        $amount = 1.00; // or get dynamically
+        $amount = 500.00; // or get dynamically
         $referenceNumber = Str::uuid();
 
         // Save invoice as pending
