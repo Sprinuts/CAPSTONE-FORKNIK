@@ -105,7 +105,7 @@
                 </div>
                 <div class="form-group">
                     <label for="religion">Religion</label>
-                    <input type="text" id="religion" name="religion" placeholder="Enter your religion" required value="{{ old('religion') }}">
+                    <input type="text" id="religion" name="religion" placeholder="Enter your religion" value="{{ old('religion') }}">
                 </div>
             </div>
         </div>
