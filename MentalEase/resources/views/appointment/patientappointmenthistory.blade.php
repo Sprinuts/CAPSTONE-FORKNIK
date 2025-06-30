@@ -42,7 +42,7 @@
                     <i class="fas fa-clock"></i>
                 </div>
                 <div class="summary-info">
-                    <span class="summary-value">{{ $appointments->count() }}</span>
+                    <span class="summary-value">{{ $appointments->where('complete', true)->where('cancelled', false)->count() }}</span>
                     <span class="summary-label">Hours of Therapy</span>
                 </div>
             </div>
@@ -78,9 +78,13 @@
                             {{ $appointment->psychometrician->name ?? 'N/A' }}
                         </td>
                         <td>
-                            <span class="appointment-status {{ $appointment->complete ? 'status-completed' : 'status-pending' }}">
-                                {{ $appointment->complete ? 'Completed' : 'Pending' }}
-                            </span>
+                            @if($appointment->cancelled)
+                                <span class="appointment-status status-cancelled">Cancelled</span>
+                            @elseif($appointment->complete)
+                                <span class="appointment-status status-completed">Completed</span>
+                            @else
+                                <span class="appointment-status status-pending">Pending</span>
+                            @endif
                         </td>
                         <td class="appointment-actions">
                             <a href="{{ route('appointment.details', $appointment->id) }}" class="action-btn" title="View Details">
@@ -110,6 +114,10 @@
         </div>
     @endif
 </div>
+
+
+
+
 
 
 
