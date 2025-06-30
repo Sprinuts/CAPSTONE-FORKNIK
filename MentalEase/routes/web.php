@@ -226,6 +226,9 @@ Route::get('/users/search', [Users::class, 'search'])->name('users.search');
 // User search results route
 Route::get('/users/search-results', [Users::class, 'searchResults'])->name('users.search.results');
 
+
+// Content management routes
 Route::get('/content/management', [ContentController::class, 'contentmanagement'])->name('content.management');
 Route::get('/content/welcome', [ContentController::class, 'contentwelcome'])->name('content.welcome');
-
+Route::get('/content/welcome/apk', [ContentController::class, 'contentwelcomeapk'])->name('content.welcome.apk');
+Route::post('/updateapk', [ContentController::class, 'updateapk'])->name('updateapk');
