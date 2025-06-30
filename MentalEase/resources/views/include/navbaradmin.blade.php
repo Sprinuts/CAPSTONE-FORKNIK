@@ -55,6 +55,12 @@
                 View Backups
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('content.management') ? 'active' : '' }}" href="{{ route('content.management') }}">
+                <i class="fa-solid fa-gauge-high me-2"></i>
+                Content Management
+            </a>
+        </li>
     </ul>
 
     <!-- User Profile Section -->

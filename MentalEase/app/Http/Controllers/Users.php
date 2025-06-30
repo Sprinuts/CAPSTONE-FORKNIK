@@ -54,7 +54,7 @@ class Users extends Controller
     {
         if (request()->isMethod('post')) {
             $data = request()->only(['username', 'email', 'role']);
-            $data['password'] = bcrypt('123'); // Default hashed password, should be changed later
+            $data['password'] = bcrypt('123456'); // Default hashed password, should be changed later
             $data['status'] = '1'; // Default status, activated
 
             // Validate the data here if needed

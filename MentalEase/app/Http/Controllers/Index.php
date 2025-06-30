@@ -34,25 +34,36 @@ class Index extends Controller
 
             $data = request()->only(['username', 'password']);
             
-            // $messages = [
-            //     'username.required' => 'Please enter your username.',
-            //     'username.string' => 'Username is wrong.',
-            //     'username.alpha_num' => 'Username is wrong.',
-            //     'username.min' => 'Username is wrong.',
-            //     'username.max' => 'Username is wrong.',
-            //     'password.required' => 'Please enter your password.',
-            //     'password.string' => 'Password is wrong.',
-            //     'password.min' => 'Password is wrong.',
-            // ];
+            $messages = [
+                'username.required' => 'Please enter your username.',
+                'username.string' => 'Username is wrong.',
+                'username.alpha_num' => 'Username is wrong.',
+                'username.min' => 'Username is wrong.',
+                'username.max' => 'Username is wrong.',
+                'password.required' => 'Please enter your password.',
+                'password.string' => 'Password is wrong.',
+                'password.min' => 'Password is wrong.',
+            ];
 
-            // $validatedData = $request->validate([
-            //     'username' => 'required|string|alpha_num|min:3|max:50',
-            //     'password' => 'required|string|min:6',
-            // ], $messages);
-
+            $validatedData = request()->validate([
+                'username' => [
+                    'required',
+                    'string',
+                    'alpha_num',
+                    'min:3',
+                    'max:50',
+                    'regex:/^[A-Za-z0-9_]+$/'
+                ],
+                'password' => [
+                    'required',
+                    'string',
+                    'min:6',
+                    'regex:/^[^<>\'"]+$/'
+                ],
+            ], $messages);
 
             $usersmodel = new \App\Models\Users();
-            $user = $usersmodel->where('username', $data['username'])->first();
+            $user = $usersmodel->where('username', $validatedData['username'])->first();
 
             if (!$user) {
                 return back()->withErrors(['login' => 'Invalid username or password']);
@@ -129,9 +140,29 @@ class Index extends Controller
 
             // Validate the data
             $validatedData = request()->validate([
-                'email' => 'required|email|unique:users,email|max:255',
-                'username' => 'required|string|min:3|max:50|unique:users,username|alpha_num',
-                'password' => 'required|string|min:6|confirmed',
+                'email' => [
+                    'required',
+                    'email',
+                    'unique:users,email',
+                    'max:255',
+                    'regex:/^[^<>\'"]+$/'
+                ],
+                'username' => [
+                    'required',
+                    'string',
+                    'min:3',
+                    'max:50',
+                    'unique:users,username',
+                    'alpha_num',
+                    'regex:/^[A-Za-z0-9_]+$/'
+                ],
+                'password' => [
+                    'required',
+                    'string',
+                    'min:6',
+                    'confirmed',
+                    'regex:/^[^<>\'"]+$/'
+                ],
             ]);
 
             $data = $validatedData;

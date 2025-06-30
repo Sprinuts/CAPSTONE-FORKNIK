@@ -46,6 +46,11 @@
                 </a>
             </div>
         </div>
+        <div class="hero-buttons justify-content-center mt-4">
+            <a href="{{ route('login') }}" class="btn btn-primary">
+            <i class="fa-solid fa-mobile-screen-button me-2"></i>Download Mobile
+            </a>
+        </div>
     </div>
 </section>
 

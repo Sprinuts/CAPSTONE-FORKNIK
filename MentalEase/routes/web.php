@@ -15,6 +15,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\BackupController;
 use App\Http\Controllers\Journal;
+use App\Http\Controllers\ContentController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -225,3 +226,5 @@ Route::get('/users/search', [Users::class, 'search'])->name('users.search');
 // User search results route
 Route::get('/users/search-results', [Users::class, 'searchResults'])->name('users.search.results');
 
+Route::get('/content/management', [ContentController::class, 'contentmanagement'])->name('content.management');
+Route::get('/content/welcome', [ContentController::class, 'contentwelcome'])->name('content.welcome');
