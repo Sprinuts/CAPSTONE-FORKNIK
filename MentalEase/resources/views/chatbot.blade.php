@@ -38,7 +38,7 @@
       <!-- User Profile Bar -->
       <div class="user-profile-bar">
         <div class="user-profile-info">
-          <img src="{{ asset('style/assets/default-avatar.png') }}" alt="User" class="user-profile-avatar">
+          <img src="{{ asset('style/assets/defaultprofile.jpg') }}" alt="User" class="user-profile-avatar">
           <div class="user-profile-details">
             <h4>{{ session('user')->name ?? 'User' }}</h4>
             <span>Patient</span>

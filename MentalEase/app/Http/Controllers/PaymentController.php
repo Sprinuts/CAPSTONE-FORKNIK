@@ -166,13 +166,13 @@ class PaymentController extends Controller
             .view('appointment/paymentcancelled');
     }
 
-    public function paymentrecords()
+    public function paymentRecords()
     {
         $user = session('user');
         if (!$user) {
             return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
         }
-        if ($user->role !== 'patient') {
+        if ($user->role !== 'cashier') {
             return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
         }
 
@@ -323,6 +323,8 @@ class PaymentController extends Controller
     }
 
 }
+
+
 
 
 
