@@ -71,7 +71,7 @@
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Admin User' }}</h5>
             <p>Administrator</p>
-            <a href="#" class="profile-link">View Profile</a>
+            {{-- <a href="#" class="profile-link">View Profile</a> --}}
         </div>
     </div>
 

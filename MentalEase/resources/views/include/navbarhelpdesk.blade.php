@@ -37,7 +37,7 @@
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Help Desk User' }}</h5>
             <p>Help Desk</p>
-            <a href="#" class="profile-link">View Profile</a>
+            {{-- <a href="#" class="profile-link">View Profile</a> --}}
         </div>
     </div>
 

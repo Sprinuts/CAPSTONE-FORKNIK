@@ -55,7 +55,7 @@
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Psychometrician' }}</h5>
             <p>Psychometrician</p>
-            <a href="#" class="profile-link">View Profile</a>
+            {{-- <a href="#" class="profile-link">View Profile</a> --}}
         </div>
     </div>
 

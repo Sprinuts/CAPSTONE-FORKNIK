@@ -623,8 +623,10 @@ class Users extends Controller
                 \Illuminate\Support\Facades\Mail::to($user->email)
                     ->send(new \App\Mail\ResetPasswordMail($resetcode));
 
-                return redirect()->route('password.resetcode', ['username' => $user->username])
-                    ->with('status', 'Password reset link sent to your email.');
+                return redirect()->route('password.resetcode', [
+                    'username' => $user->username,
+                    'email' => $user->email
+                ])->with('status', 'Password reset link sent to your email.');
             } catch (\Exception $e) {
                 \Log::error('Password reset email failed: ' . $e->getMessage());
                 return back()->withErrors(['email' => 'Failed to send reset link. Please try again later.']);
