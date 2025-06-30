@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.addEventListener('submit', function (e) {
             const btn = form.querySelector('.login-btn');
             btn.disabled = true;
-            btn.textContent = 'Logging in...';
+            btn.textContent = 'Registering...';
         });
     }
 });

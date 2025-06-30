@@ -9,6 +9,13 @@ class ContentController extends Controller
 {
     public function contentmanagement()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
 
         return view('include/headeradmin')
             .view('include/navbaradmin')
@@ -18,6 +25,14 @@ class ContentController extends Controller
 
     public function contentwelcomeapk()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $latestApk = Apklocation::orderBy('created_at', 'desc')->first();
         $apkPath = $latestApk ? $latestApk->apk_path : null;
 
@@ -28,6 +43,14 @@ class ContentController extends Controller
 
     public function updateapk()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         // Ensure PHP upload limits are sufficient for large files
         ini_set('upload_max_filesize', '100M');
         ini_set('post_max_size', '100M');
@@ -104,6 +127,14 @@ class ContentController extends Controller
 
     public function  contentwelcome()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'admin') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         return view('include/headeradmin')
             .view('include/navbaradmin')
             .view('content/contentwelcome');

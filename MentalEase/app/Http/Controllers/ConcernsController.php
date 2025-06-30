@@ -9,6 +9,14 @@ class ConcernsController extends Controller
 {
     public function patientconcerns()
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'helpdesk') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $concerns = Concerns::all();
 
         return view('include/headerhelpdesk')
@@ -18,6 +26,14 @@ class ConcernsController extends Controller
 
     public function show($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'helpdesk') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $concern = Concerns::findOrFail($id);
 
         return view('include/headerhelpdesk')
@@ -27,6 +43,14 @@ class ConcernsController extends Controller
 
     public function reply($id)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'helpdesk') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $concern = Concerns::findOrFail($id);
 
         return view('include/headerhelpdesk')
@@ -36,6 +60,14 @@ class ConcernsController extends Controller
 
     public function send(Request $request)
     {
+        $user = session('user');
+        if (!$user) {
+            return redirect()->route('login')->withErrors(['user' => 'User not logged in']);
+        }
+        if ($user->role !== 'helpdesk') {
+            return redirect()->route('login')->withErrors(['user' => 'Unauthorized access']);
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
