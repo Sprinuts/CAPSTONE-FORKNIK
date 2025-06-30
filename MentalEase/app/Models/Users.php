@@ -31,6 +31,7 @@ class Users extends Model
         'age', // calculated from birthdate
         'disable', // to disable the account
         'has_completed_profile', // flag to track profile completion
+        'control_number', // added for profile completion
     ];
 
     public function schedules()

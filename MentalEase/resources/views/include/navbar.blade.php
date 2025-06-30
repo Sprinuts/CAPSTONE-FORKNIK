@@ -119,7 +119,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="{{ asset('style/assets/defaultprofile.jpg') }}" alt="User Avatar" class="user-avatar-small">
-                        <span class="d-none d-md-inline-block ms-2">{{ session('user')->username ?? 'User' }}</span>
+                        <span class="d-none d-md-inline-block ms-2">{{ session('user')->control_number ?? 'User' }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                         <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="fa-solid fa-user-gear me-2"></i> Profile</a></li>

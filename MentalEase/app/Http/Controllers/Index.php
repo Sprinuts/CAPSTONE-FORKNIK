@@ -170,6 +170,14 @@ class Index extends Controller
             $data['activationcode'] = $activationcode;
             $data['password'] = Hash::make($data['password']);
 
+            $lastUser = $usersmodel->orderBy('id', 'desc')->first();
+            $currentYear = date('Y');
+            $lastControlNumber = $lastUser && preg_match('/^(\d{4})-(\d{4})$/', $lastUser->control_number, $matches) && $matches[1] == $currentYear
+                ? intval($matches[2])
+                : 0;
+            $newControlNumber = sprintf('%s-%04d', $currentYear, $lastControlNumber + 1);
+            $data['control_number'] = $newControlNumber;
+
             $user = $usersmodel->create($data);
 
             // Log registration activity
