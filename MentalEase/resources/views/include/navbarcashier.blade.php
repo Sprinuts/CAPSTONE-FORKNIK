@@ -22,7 +22,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('payment.records') ? 'active' : '' }}" href="{{ route('payment.records') }}">
+            <a class="nav-link {{ request()->is('payment/records') ? 'active' : '' }}" href="{{ route('payment.records') }}">
                 <i class="fa-solid fa-file-invoice-dollar me-2"></i>
                 Payment Records
             </a>
@@ -38,7 +38,7 @@
     <!-- User Profile Section -->
     <div class="user-profile">
         <div class="user-avatar">
-            <img src="{{ asset('style/assets/default-avatar.png') }}" alt="Cashier Avatar">
+            <img src="{{ asset('style/assets/profile2.jpg') }}" alt="Help Desk Avatar">
         </div>
         <div class="user-info">
             <h5>{{ session('user')->name ?? 'Cashier User' }}</h5>
@@ -86,6 +86,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
+
+
 
 
 

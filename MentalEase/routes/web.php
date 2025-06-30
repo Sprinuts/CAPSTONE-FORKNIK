@@ -238,3 +238,4 @@ Route::get('/privacypolicy', [Index::class, 'privacypolicy'])->name('privacy.pol
 
 // password reset
 Route::get('/password/request', [Index::class, 'passwordrequest'])->name('password.request');
+
