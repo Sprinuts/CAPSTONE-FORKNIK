@@ -28,6 +28,12 @@ class ContentController extends Controller
 
     public function updateapk()
     {
+        // Ensure PHP upload limits are sufficient for large files
+        ini_set('upload_max_filesize', '100M');
+        ini_set('post_max_size', '100M');
+        ini_set('max_execution_time', '300');
+        ini_set('max_input_time', '300');
+
         $request = request();
 
         if ($request->hasFile('file')) {
