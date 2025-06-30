@@ -232,3 +232,6 @@ Route::get('/content/management', [ContentController::class, 'contentmanagement'
 Route::get('/content/welcome', [ContentController::class, 'contentwelcome'])->name('content.welcome');
 Route::get('/content/welcome/apk', [ContentController::class, 'contentwelcomeapk'])->name('content.welcome.apk');
 Route::post('/updateapk', [ContentController::class, 'updateapk'])->name('updateapk');
+
+// privacy policy 
+Route::get('/privacypolicy', [Index::class, 'privacypolicy'])->name('privacy.policy');

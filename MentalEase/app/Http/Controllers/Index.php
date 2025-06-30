@@ -588,6 +588,11 @@ class Index extends Controller
             .view('concerns/concern')
             .view('include/footer');
     }
+
+    public function privacypolicy()
+    {
+        return view('privacypolicy');
+    }
 }
 
 
