@@ -39,7 +39,7 @@
                         </div>
                         <div class="contact-text">
                             <span class="label">LOCATION</span>
-                            <span class="value">1418 Larson Ave, Sampaloc, Manila</span>
+                            <span class="value">1418 Lacson Ave, Sampaloc, Manila</span>
                         </div>
                     </div>
                 </div>
