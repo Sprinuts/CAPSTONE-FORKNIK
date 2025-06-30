@@ -243,3 +243,6 @@ Route::get('/password/resetcode', [Users::class, 'passwordresetcode'])->name('pa
 Route::post('/resetcode', [Users::class, 'resetcode'])->name('resetcode');
 Route::get('/resetpassword', [Users::class, 'resetpassword'])->name('resetpassword');
 Route::post('/resetpassword', [Users::class, 'resetpassword'])->name('resetpassword');
+
+// download apk
+Route::get('/downloadapk', [Index::class, 'downloadapk'])->name('downloadapk');

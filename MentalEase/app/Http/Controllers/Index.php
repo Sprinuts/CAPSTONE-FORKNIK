@@ -603,6 +603,18 @@ class Index extends Controller
     {
         return view('privacypolicy');
     }
+
+    public function downloadapk()
+    {
+        $apkPath = public_path('apk/MentalEase.apk');
+        if (file_exists($apkPath)) {
+            return response()->download($apkPath, 'MentalEase.apk', [
+                'Content-Type' => 'application/vnd.android.package-archive'
+            ]);
+        } else {
+            abort(404, 'APK file not found.');
+        }
+    }
 }
 
 

@@ -12,6 +12,12 @@
     </div>
 @endif
 
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="login-container">
     <a href="{{ route('welcome') }}" class="back-icon" style="position: absolute; top: 20px; left: 20px; color: #333; text-decoration: none;">
         <i class="fa-solid fa-arrow-left"></i> Back
